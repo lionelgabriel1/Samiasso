@@ -29,7 +29,7 @@ import { AdminPreInscricoes } from './pages/admin/AdminPreInscricoes.tsx';
 import { AdminAlunos } from './pages/admin/AdminAlunos.tsx';
 import { AdminNoticias } from './pages/admin/AdminNoticias.tsx';
 import { AdminGaleria } from './pages/admin/AdminGaleria.tsx';
-import { AdminDocentes, AdminTurmas, AdminConfiguracoes } from './pages/admin/AdminAuxiliary.tsx';
+import { AdminDocentes, AdminTurmas, AdminConfiguracoes, AdminResultados, AdminAssiduidade } from './pages/admin/AdminAuxiliary.tsx';
 
 // Student Pages
 import { StudentLayout } from './pages/student/StudentLayout.tsx';
@@ -54,8 +54,8 @@ const AppContent: React.FC = () => {
           {adminRoute === 'cursos' && <AdminCursos />}
           {adminRoute === 'matriculas' && <AdminPreInscricoes />}
           {adminRoute === 'alunos' && <AdminAlunos />}
-          {adminRoute === 'resultados' && <AdminAlunos />}
-          {adminRoute === 'assiduidade' && <AdminAlunos />}
+          {adminRoute === 'resultados' && <AdminResultados />}
+          {adminRoute === 'assiduidade' && <AdminAssiduidade />}
           {adminRoute === 'noticias' && <AdminNoticias />}
           {adminRoute === 'galeria' && <AdminGaleria />}
           {adminRoute === 'docentes' && <AdminDocentes />}
