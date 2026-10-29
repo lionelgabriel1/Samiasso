@@ -118,10 +118,10 @@ export const AuthModal: React.FC = () => {
             </div>
             <div>
               <h2 id="auth-modal-title" className="text-xl font-bold tracking-tight">
-                Acesso Seguro ITPSS
+                Acesso de Demonstração ITPSS
               </h2>
               <p className="text-xs text-slate-300">
-                Instituto Técnico Privado de Saúde Samiasso
+                Instituto Técnico Privado de Saúde Samiasso · ambiente de teste
               </p>
             </div>
           </div>
@@ -380,7 +380,7 @@ export const AuthModal: React.FC = () => {
                 </span>
                 <h3 className="font-bold text-[#10385F]">Painel de Gestão e Secretaria</h3>
                 <p className="text-xs text-slate-500">
-                  Acesso reservado à direção, professores e administração
+                  Conta ilustrativa para a apresentação à direção
                 </p>
               </div>
 
@@ -441,7 +441,7 @@ export const AuthModal: React.FC = () => {
                   onClick={fillDemoAdmin}
                   className="w-full py-2 text-xs font-medium text-[#F28C28] hover:bg-orange-50 rounded-lg transition-colors cursor-pointer"
                 >
-                  Preencher dados de Administrador de Demonstração
+                  Preencher conta de demonstração (admin123)
                 </button>
               </div>
             </form>
