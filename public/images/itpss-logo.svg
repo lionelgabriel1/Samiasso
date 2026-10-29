@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Top Text Path (Curved across the upper hemisphere) -->
+    <path id="top-arc" d="M 65,250 A 185,185 0 0,1 435,250" fill="none" />
+    <!-- Bottom Text Path (Curved across the lower hemisphere) -->
+    <path id="bottom-arc" d="M 435,250 A 185,185 0 0,1 65,250" fill="none" />
+    
+    <!-- Filter for subtle depth -->
+    <filter id="logo-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Neon/Cyan accent rim -->
+  <circle cx="250" cy="250" r="244" fill="none" stroke="#00E5A3" stroke-width="5" />
+  
+  <!-- Outer Blue Ring -->
+  <circle cx="250" cy="250" r="238" fill="#1456A0" stroke="#10385F" stroke-width="4" />
+  
+  <!-- Inner Ring Border (Greenish/Cyan line) -->
+  <circle cx="250" cy="250" r="162" fill="none" stroke="#00E5A3" stroke-width="4" />
+
+  <!-- Inner Orange Circle -->
+  <circle cx="250" cy="250" r="158" fill="#F28C28" />
+
+  <!-- Top Text: INSTITUTO TÉCNICO PRIVADO DE SAÚDE -->
+  <text fill="#FFFFFF" font-family="'Arial Black', 'Impact', sans-serif" font-weight="900" font-size="28" letter-spacing="3">
+    <textPath href="#top-arc" startOffset="50%" text-anchor="middle">
+      INSTITUTO TÉCNICO PRIVADO DE SAÚDE
+    </textPath>
+  </text>
+
+  <!-- Bottom Text: SAMIASSO with Stars -->
+  <text fill="#FFFFFF" font-family="'Times New Roman', serif" font-weight="bold" font-size="44" letter-spacing="6">
+    <textPath href="#bottom-arc" startOffset="50%" text-anchor="middle">
+      ★ SAMIASSO ★
+    </textPath>
+  </text>
+
+  <!-- Center Artwork inside Orange Circle -->
+  <g transform="translate(250, 240)">
+    <!-- Open Book Illustration -->
+    <g transform="translate(0, 20)">
+      <!-- Left Page -->
+      <path d="M -90,-25 C -45,-38 -10,-28 0,-15 L 0,38 C -10,25 -45,15 -90,28 Z" fill="#FFFFFF" stroke="#1456A0" stroke-width="3" />
+      <path d="M -80,-15 C -45,-25 -15,-18 0,-8" fill="none" stroke="#F28C28" stroke-width="2" />
+      <path d="M -80,0 C -45,-10 -15,-3 0,7" fill="none" stroke="#F28C28" stroke-width="2" />
+      <path d="M -80,15 C -45,5 -15,12 0,22" fill="none" stroke="#F28C28" stroke-width="2" />
+
+      <!-- Right Page -->
+      <path d="M 90,-25 C 45,-38 10,-28 0,-15 L 0,38 C 10,25 45,15 90,28 Z" fill="#FFFFFF" stroke="#1456A0" stroke-width="3" />
+      <path d="M 80,-15 C 45,-25 15,-18 0,-8" fill="none" stroke="#F28C28" stroke-width="2" />
+      <path d="M 80,0 C 45,-10 15,-3 0,7" fill="none" stroke="#F28C28" stroke-width="2" />
+      <path d="M 80,15 C 45,5 15,12 0,22" fill="none" stroke="#F28C28" stroke-width="2" />
+
+      <!-- Book Spine -->
+      <path d="M 0,-15 L 0,38" stroke="#10385F" stroke-width="4" />
+    </g>
+
+    <!-- Large Blue Serif Letter "S" -->
+    <text x="0" y="5" text-anchor="middle" font-family="'Times New Roman', Georgia, serif" font-size="160" font-weight="bold" fill="#10385F" stroke="#FFFFFF" stroke-width="6" paint-order="stroke fill">
+      S
+    </text>
+
+    <!-- ITPSS Acronym below book -->
+    <text x="0" y="86" text-anchor="middle" font-family="'Georgia', serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="4">
+      ITPSS
+    </text>
+  </g>
+</svg>

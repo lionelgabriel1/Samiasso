@@ -1,0 +1,6 @@
+{
+  "name": "ITPSS - Instituto Técnico Privado de Saúde Samiasso",
+  "description": "Plataforma institucional, administrativa e académica do Instituto Técnico Privado de Saúde Samiasso (ITPSS) no Luena, Moxico.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

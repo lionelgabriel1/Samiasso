@@ -1,0 +1,338 @@
+import { Course, PaymentItem, Student, Teacher, PreEnrollment, NewsItem, GalleryPhoto, ScheduleItem, Notice } from '../types/index.ts';
+
+export const INSTITUTION_INFO = {
+  name: 'Instituto Técnico Privado de Saúde Samiasso',
+  acronym: 'ITPSS',
+  license: '225/2026',
+  locationText: 'Bairro Social, Luena - Moxico, Por trás da antiga Baúca, na zona militar',
+  province: 'Moxico',
+  city: 'Luena',
+  phone1: '+244 938 195 813',
+  phone1Raw: '244938195813',
+  phone2: '+244 924 481 348',
+  phone2Raw: '244924481348',
+  academicClasses: ['10.ª Classe', '11.ª Classe'],
+};
+
+export const INITIAL_COURSES: Course[] = [
+  {
+    id: 'enfermagem-geral',
+    name: 'Enfermagem Geral',
+    description: 'Formação voltada para o cuidado com a vida, com foco na prática e no atendimento humanizado.',
+    monthlyFee: 25000,
+    image: '/images/practical-banner.jpg',
+    classes: ['10ª Classe', '11ª Classe'],
+    careerOpportunities: [
+      'Hospitais Gerais e Municipais',
+      'Centros e Postos de Saúde',
+      'Clínicas Privadas e Cuidados Domiciliares',
+      'Serviços de Urgência e Emergência'
+    ],
+    practicalFocus: 'Aulas em laboratórios equipados, simulações clínicas e estágios hospitalares supervisionados.',
+  },
+  {
+    id: 'analises-clinicas',
+    name: 'Análises Clínicas',
+    description: 'Capacita para a realização de exames laboratoriais e apoio no diagnóstico clínico.',
+    monthlyFee: 25000,
+    image: '/images/lab-students.jpg',
+    classes: ['10ª Classe', '11ª Classe'],
+    careerOpportunities: [
+      'Laboratórios de Análises Clínicas',
+      'Hospitais e Bancos de Sangue',
+      'Centros de Diagnóstico Biomédico',
+      'Postos de Triagem e Investigação'
+    ],
+    practicalFocus: 'Microscopia, hematologia, bioquímica, parasitologia e manipulação segura de amostras.',
+  },
+  {
+    id: 'cardiopneumologia',
+    name: 'Cardiopneumologia',
+    description: 'Prepara para o acompanhamento de pacientes com doenças do coração e do sistema respiratório.',
+    monthlyFee: 27500,
+    image: '/images/medical-staff.jpg',
+    classes: ['10ª Classe', '11ª Classe'],
+    careerOpportunities: [
+      'Unidades de Cardiologia e Pneumologia',
+      'Salas de Hemodinâmica e Eletrocardiograma',
+      'Centros de Reabilitação Cardiorrespiratória',
+      'Serviços de Cuidados Intensivos'
+    ],
+    practicalFocus: 'Registos eletrocardiográficos, espirometria, monitorização hemodinâmica e apoio cardiovascular.',
+  },
+];
+
+export const INITIAL_PAYMENTS: PaymentItem[] = [
+  {
+    id: 'bata',
+    name: 'Bata',
+    price: 22500,
+    description: 'Uniforme institucional obrigatório para aulas laboratoriais e teóricas',
+    frequency: 'Pagamento único',
+    icon: 'shirt',
+  },
+  {
+    id: 'cartao',
+    name: 'Cartão de estudante',
+    price: 5000,
+    description: 'Identificação oficial do aluno com acesso às dependências escolares',
+    frequency: 'Pagamento único',
+    icon: 'card',
+  },
+  {
+    id: 'ficha',
+    name: 'Ficha de inscrição',
+    price: 0,
+    description: 'Documento oficial para formalização da matrícula na secretaria',
+    frequency: 'Gratuito',
+    icon: 'file',
+  },
+];
+
+export const INITIAL_STUDENTS: Student[] = [
+  {
+    id: 'std-1',
+    studentNumber: '2024-0142',
+    name: 'Ana Silva',
+    courseId: 'enfermagem-geral',
+    courseName: 'Enfermagem Geral',
+    classLevel: '10.ª Classe',
+    classId: '10ª A',
+    academicYear: '2024/2025',
+    email: 'ana.silva@aluno.itpss.ao',
+    phone: '+244 931 223 441',
+    attendanceRate: 92,
+    overallAverage: 14.2,
+    disciplines: [
+      { id: 'd1', name: 'Anatomia', grades: { periodo1: 14, periodo2: 15, periodo3: 16 }, teacher: 'Dr. Afonso Kambala' },
+      { id: 'd2', name: 'Fisiologia', grades: { periodo1: 13, periodo2: 14, periodo3: 15 }, teacher: 'Dra. Maria Samakuva' },
+      { id: 'd3', name: 'Farmacologia', grades: { periodo1: 12, periodo2: 14, periodo3: 15 }, teacher: 'Dr. Tchissola Vunge' },
+      { id: 'd4', name: 'Enfermagem Geral', grades: { periodo1: 15, periodo2: 16, periodo3: 17 }, teacher: 'Dra. Beatriz Candimba' },
+      { id: 'd5', name: 'Saúde Pública', grades: { periodo1: 14, periodo2: 15, periodo3: 16 }, teacher: 'Dr. Domingos Chivela' },
+    ],
+  },
+  {
+    id: 'std-2',
+    studentNumber: '2024-0188',
+    name: 'Carlos Manuel',
+    courseId: 'analises-clinicas',
+    courseName: 'Análises Clínicas',
+    classLevel: '10.ª Classe',
+    classId: '10ª B',
+    academicYear: '2024/2025',
+    email: 'carlos.manuel@aluno.itpss.ao',
+    phone: '+244 928 334 112',
+    attendanceRate: 88,
+    overallAverage: 15.1,
+    disciplines: [
+      { id: 'd1', name: 'Hematologia', grades: { periodo1: 15, periodo2: 15, periodo3: 16 }, teacher: 'Dra. Eunice Cachiço' },
+      { id: 'd2', name: 'Bioquímica Clínica', grades: { periodo1: 14, periodo2: 15, periodo3: 15 }, teacher: 'Dr. Valdemar Cassoma' },
+      { id: 'd3', name: 'Microbiologia', grades: { periodo1: 16, periodo2: 16, periodo3: 17 }, teacher: 'Dra. Lídia Muangombe' },
+      { id: 'd4', name: 'Parasitologia', grades: { periodo1: 14, periodo2: 14, periodo3: 15 }, teacher: 'Dr. Lucas Samahina' },
+    ],
+  },
+  {
+    id: 'std-3',
+    studentNumber: '2024-0095',
+    name: 'Teresa Chimuco',
+    courseId: 'cardiopneumologia',
+    courseName: 'Cardiopneumologia',
+    classLevel: '11.ª Classe',
+    classId: '11ª A',
+    academicYear: '2024/2025',
+    email: 'teresa.chimuco@aluno.itpss.ao',
+    phone: '+244 945 112 998',
+    attendanceRate: 95,
+    overallAverage: 16.0,
+    disciplines: [
+      { id: 'd1', name: 'Eletrocardiografia', grades: { periodo1: 16, periodo2: 17, periodo3: 17 }, teacher: 'Dr. Mateus Sacuanda' },
+      { id: 'd2', name: 'Fisiopatologia Cardíaca', grades: { periodo1: 15, periodo2: 16, periodo3: 16 }, teacher: 'Dr. Tchissola Vunge' },
+      { id: 'd3', name: 'Espirometria e Função Pulmonar', grades: { periodo1: 16, periodo2: 15, periodo3: 16 }, teacher: 'Dra. Maria Samakuva' },
+    ],
+  },
+];
+
+export const INITIAL_TEACHERS: Teacher[] = [
+  { id: 't1', name: 'Dr. Afonso Kambala', subject: 'Anatomia e Fisiologia', phone: '+244 923 111 222', status: 'Ativo', courseId: 'enfermagem-geral' },
+  { id: 't2', name: 'Dra. Beatriz Candimba', subject: 'Técnicas de Enfermagem', phone: '+244 934 333 444', status: 'Ativo', courseId: 'enfermagem-geral' },
+  { id: 't3', name: 'Dra. Eunice Cachiço', subject: 'Hematologia Clínica', phone: '+244 912 555 666', status: 'Ativo', courseId: 'analises-clinicas' },
+  { id: 't4', name: 'Dr. Mateus Sacuanda', subject: 'Eletrocardiografia', phone: '+244 945 777 888', status: 'Ativo', courseId: 'cardiopneumologia' },
+  { id: 't5', name: 'Dr. Domingos Chivela', subject: 'Saúde Pública e Ética', phone: '+244 928 999 000', status: 'Ativo', courseId: 'enfermagem-geral' },
+];
+
+export const INITIAL_PRE_ENROLLMENTS: PreEnrollment[] = [
+  {
+    id: 'pre-1',
+    code: 'ITPSS-2026-0048',
+    fullName: 'Mauro António Tchitende',
+    phone: '+244 932 445 120',
+    classLevel: '10ª',
+    courseId: 'enfermagem-geral',
+    courseName: 'Enfermagem Geral',
+    message: 'Pretendo frequentar o turno da manhã. Já resido no Bairro Social.',
+    createdAt: '2026-10-27 10:30',
+    status: 'Pendente',
+  },
+  {
+    id: 'pre-2',
+    code: 'ITPSS-2026-0047',
+    fullName: 'Jandira Esperança Vilinga',
+    phone: '+244 923 881 723',
+    classLevel: '10ª',
+    courseId: 'analises-clinicas',
+    courseName: 'Análises Clínicas',
+    message: 'Gostaria de saber a data de início da entrega dos documentos físicos.',
+    createdAt: '2026-10-26 15:45',
+    status: 'Contactado',
+  },
+  {
+    id: 'pre-3',
+    code: 'ITPSS-2026-0046',
+    fullName: 'Nelson Paulo Calandula',
+    phone: '+244 941 002 918',
+    classLevel: '11ª',
+    courseId: 'cardiopneumologia',
+    courseName: 'Cardiopneumologia',
+    message: 'Transferência de outra província. Já tenho o certificado da 10.ª classe.',
+    createdAt: '2026-10-25 09:15',
+    status: 'Aprovado',
+  },
+];
+
+export const INITIAL_NEWS: NewsItem[] = [
+  {
+    id: 'news-1',
+    title: 'Abertura das Matrículas para a 10.ª e 11.ª Classes — Ano Letivo 2026',
+    category: 'Matrículas',
+    date: '24 Out 2026',
+    summary: 'O Instituto Técnico Privado de Saúde Samiasso dá início ao processo de pré-inscrições nos cursos de Enfermagem Geral, Análises Clínicas e Cardiopneumologia.',
+    content: 'O Instituto Técnico Privado de Saúde Samiasso (ITPSS), legalmente constituído ao abrigo da Licença 225/2026, anuncia publicamente a abertura das pré-inscrições e matrículas para as 10.ª e 11.ª classes.\n\nLocalizada no Luena, Moxico (Bairro Social, atrás do antigo Baúca, na zona militar), a nossa instituição oferece ensino técnico rigoroso, com foco prático intensivo em laboratórios próprios e docentes qualificados.\n\nOs interessados podem submeter a pré-inscrição diretamente no portal institucional ou dirigir-se à secretaria da escola com a documentação escolar.',
+    image: '/images/hero-drone-source.jpg',
+    readTime: '3 min de leitura',
+    published: true,
+  },
+  {
+    id: 'news-2',
+    title: 'Laboratórios de Saúde e Prática Clínica Intensiva no Moxico',
+    category: 'Académico',
+    date: '18 Out 2026',
+    summary: 'Aulas laboratoriais garantem preparação técnica real para o mercado de trabalho na área hospitalar.',
+    content: 'No ITPSS, a aprendizagem prática não é um complemento, mas sim o coração da formação técnica. Os nossos estudantes de Análises Clínicas e Enfermagem realizam rotinas laboratoriais de microscopia, colheita, biossegurança e simulação de urgências desde as fases iniciais do curso.',
+    image: '/images/lab-students.jpg',
+    readTime: '4 min de leitura',
+    published: true,
+  },
+  {
+    id: 'news-3',
+    title: 'Reunião de Pais e Encarregados de Educação — Avaliação Periódica',
+    category: 'Institucional',
+    date: '10 Out 2026',
+    summary: 'Encontro trimestral de balanço pedagógico e acompanhamento dos resultados dos estudantes.',
+    content: 'A Direção Pedagógica do ITPSS convida todos os pais e encarregados de educação para a reunião de acompanhamento académico. Serão apresentadas as pautas trimestrais e o calendário de exames e estágios.',
+    image: '/images/students-group-1.jpg',
+    readTime: '2 min de leitura',
+    published: true,
+  },
+];
+
+export const INITIAL_GALLERY: GalleryPhoto[] = [
+  {
+    id: 'g1',
+    title: 'Vista Aérea do Campus ITPSS',
+    category: 'Instalações',
+    url: '/images/campus-drone.jpg',
+    caption: 'Instalações da escola no Bairro Social, Luena, Moxico, na zona militar.',
+    date: 'Outubro 2026',
+  },
+  {
+    id: 'g2',
+    title: 'Alunos no Pátio Académico',
+    category: 'Alunos',
+    url: '/images/gallery-students-1.jpg',
+    caption: 'Comunidade estudantil do ITPSS durante o intervalo letivo.',
+    date: 'Outubro 2026',
+  },
+  {
+    id: 'g3',
+    title: 'Aula Prática em Laboratório',
+    category: 'Laboratórios',
+    url: '/images/lab-students.jpg',
+    caption: 'Estudantes realizando procedimentos práticos com microscópios clínicos.',
+    date: 'Setembro 2026',
+  },
+  {
+    id: 'g4',
+    title: 'Simulação de Cuidados de Enfermagem',
+    category: 'Laboratórios',
+    url: '/images/gallery-lab-1.jpg',
+    caption: 'Treino prático de administração e monitorização de sinais vitais.',
+    date: 'Setembro 2026',
+  },
+  {
+    id: 'g5',
+    title: 'Prática de Atendimento Humanizado',
+    category: 'Alunos',
+    url: '/images/gallery-nurse.jpg',
+    caption: 'Desenvolvimento de competências técnicas e éticas de saúde.',
+    date: 'Agosto 2026',
+  },
+  {
+    id: 'g6',
+    title: 'Edifício Principal e Salas de Aula',
+    category: 'Instalações',
+    url: '/images/gallery-building.jpg',
+    caption: 'Bloco de salas de aula e secretaria do ITPSS.',
+    date: 'Agosto 2026',
+  },
+  {
+    id: 'g7',
+    title: 'Turma de Enfermagem Geral',
+    category: 'Alunos',
+    url: '/images/students-group-2.jpg',
+    caption: 'Jovens futuros técnicos de saúde formados com dedicação.',
+    date: 'Julho 2026',
+  },
+  {
+    id: 'g8',
+    title: 'Sessão Prática em Sala Especializada',
+    category: 'Laboratórios',
+    url: '/images/gallery-class.jpg',
+    caption: 'Acompanhamento docente em tempo real com instrumentação médica.',
+    date: 'Julho 2026',
+  },
+];
+
+export const INITIAL_SCHEDULE: ScheduleItem[] = [
+  { id: 'sch-1', time: '08:00 - 10:00', subject: 'Anatomia Humana', teacher: 'Dr. Afonso Kambala', room: 'Sala 12', classId: '10ª A', day: 'Segunda-feira' },
+  { id: 'sch-2', time: '10:15 - 12:15', subject: 'Fisiologia', teacher: 'Dra. Maria Samakuva', room: 'Sala 12', classId: '10ª A', day: 'Segunda-feira' },
+  { id: 'sch-3', time: '14:00 - 16:00', subject: 'Enfermagem Geral (Prática)', teacher: 'Dra. Beatriz Candimba', room: 'Laboratório 01', classId: '10ª A', day: 'Terça-feira' },
+  { id: 'sch-4', time: '16:15 - 18:15', subject: 'Farmacologia Básica', teacher: 'Dr. Tchissola Vunge', room: 'Sala 08', classId: '10ª A', day: 'Quarta-feira' },
+  { id: 'sch-5', time: '08:00 - 10:00', subject: 'Saúde Pública e Epidemiologia', teacher: 'Dr. Domingos Chivela', room: 'Sala 12', classId: '10ª A', day: 'Quinta-feira' },
+];
+
+export const INITIAL_NOTICES: Notice[] = [
+  {
+    id: 'not-1',
+    title: 'Reunião de Pais e Encarregados de Educação',
+    date: '10 Abr 2026',
+    category: 'Reunião',
+    content: 'Convocatória para a reunião trimestral sobre o aproveitamento escolar e entrega das pautas.',
+    priority: 'alta',
+  },
+  {
+    id: 'not-2',
+    title: 'Início das Aulas Práticas nos Laboratórios',
+    date: '8 Abr 2026',
+    category: 'Aulas',
+    content: 'Informamos que o uso da bata institucional branca é obrigatório a partir desta segunda-feira.',
+    priority: 'alta',
+  },
+  {
+    id: 'not-3',
+    title: 'Calendário de Provas do 2.º Período',
+    date: '25 Mar 2026',
+    category: 'Avaliação',
+    content: 'O calendário oficial de avaliações parcelares está afixado na vitrine da secretaria e disponível no portal.',
+    priority: 'normal',
+  },
+];
