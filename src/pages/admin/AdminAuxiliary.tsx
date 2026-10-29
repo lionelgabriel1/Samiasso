@@ -1,7 +1,135 @@
 import React from 'react';
-import { Users, Calendar, Clock, Settings, Shield, MapPin, Phone, GraduationCap } from 'lucide-react';
+import { Users, Calendar, Clock, Settings, Shield, MapPin, Phone, GraduationCap, ClipboardList, CalendarCheck } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 import { INSTITUTION_INFO } from '../../data/initialData.ts';
+
+
+export const AdminResultados: React.FC = () => {
+  const { students } = useApp();
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-start gap-3">
+        <div className="w-11 h-11 rounded-2xl bg-blue-50 text-[#1456A0] flex items-center justify-center">
+          <ClipboardList className="w-5 h-5" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-black text-[#10385F]">Resultados Académicos</h2>
+          <p className="text-xs text-slate-500 mt-1">Consulta das médias gerais dos estudantes.</p>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                <th className="py-3.5 px-4">N.º Matrícula</th>
+                <th className="py-3.5 px-4">Estudante</th>
+                <th className="py-3.5 px-4">Curso</th>
+                <th className="py-3.5 px-4">Classe / Turma</th>
+                <th className="py-3.5 px-4">Média geral</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {students.map((student) => (
+                <tr key={student.id} className="hover:bg-slate-50/70 transition-colors">
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#1456A0]">{student.studentNumber}</td>
+                  <td className="py-3.5 px-4 font-bold text-[#10385F]">{student.name}</td>
+                  <td className="py-3.5 px-4 text-slate-600">{student.courseName}</td>
+                  <td className="py-3.5 px-4 text-slate-600">{student.classLevel} · {student.classId}</td>
+                  <td className="py-3.5 px-4">
+                    <span className={`font-black text-sm ${student.overallAverage >= 9.5 ? 'text-emerald-600' : student.overallAverage >= 7 ? 'text-[#F28C28]' : 'text-rose-600'}`}>
+                      {student.overallAverage.toFixed(1)}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+              {students.length === 0 && (
+                <tr><td colSpan={5} className="p-8 text-center text-slate-500">Ainda não existem estudantes para apresentar.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const AdminAssiduidade: React.FC = () => {
+  const { students } = useApp();
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-start gap-3">
+        <div className="w-11 h-11 rounded-2xl bg-orange-50 text-[#F28C28] flex items-center justify-center">
+          <CalendarCheck className="w-5 h-5" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-black text-[#10385F]">Assiduidade dos Estudantes</h2>
+          <p className="text-xs text-slate-500 mt-1">Visão geral das taxas de presença dos estudantes.</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80">
+          <p className="text-xs text-slate-500">Estudantes listados</p>
+          <p className="text-2xl font-black text-[#10385F] mt-2">{students.length}</p>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80">
+          <p className="text-xs text-slate-500">Presença igual ou superior a 90%</p>
+          <p className="text-2xl font-black text-emerald-600 mt-2">{students.filter((student) => student.attendanceRate >= 90).length}</p>
+        </div>
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80">
+          <p className="text-xs text-slate-500">Presença inferior a 75%</p>
+          <p className="text-2xl font-black text-rose-600 mt-2">{students.filter((student) => student.attendanceRate < 75).length}</p>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                <th className="py-3.5 px-4">Estudante</th>
+                <th className="py-3.5 px-4">N.º Matrícula</th>
+                <th className="py-3.5 px-4">Classe / Turma</th>
+                <th className="py-3.5 px-4">Taxa de presença</th>
+                <th className="py-3.5 px-4">Indicador</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {students.map((student) => {
+                const rate = student.attendanceRate;
+                const status = rate >= 90 ? 'Regular' : rate >= 75 ? 'Acompanhar' : 'Baixa presença';
+                const statusClass = rate >= 90 ? 'bg-emerald-50 text-emerald-700' : rate >= 75 ? 'bg-amber-50 text-amber-700' : 'bg-rose-50 text-rose-700';
+                return (
+                  <tr key={student.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-[#10385F]">{student.name}</td>
+                    <td className="py-3.5 px-4 font-mono text-[#1456A0]">{student.studentNumber}</td>
+                    <td className="py-3.5 px-4 text-slate-600">{student.classLevel} · {student.classId}</td>
+                    <td className="py-3.5 px-4 min-w-44">
+                      <div className="flex items-center gap-3">
+                        <div className="h-2 flex-1 rounded-full bg-slate-100 overflow-hidden">
+                          <div className="h-full rounded-full bg-[#1456A0]" style={{ width: `${Math.max(0, Math.min(100, rate))}%` }} />
+                        </div>
+                        <span className="font-bold tabular-nums">{rate}%</span>
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4"><span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold ${statusClass}`}>{status}</span></td>
+                  </tr>
+                );
+              })}
+              {students.length === 0 && (
+                <tr><td colSpan={5} className="p-8 text-center text-slate-500">Ainda não existem estudantes para apresentar.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const AdminDocentes: React.FC = () => {
   const { teachers } = useApp();
