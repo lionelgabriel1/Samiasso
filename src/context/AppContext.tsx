@@ -338,30 +338,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  // Auth Operations
+  // DEMO ONLY: these credentials are local presentation shortcuts, not real authentication.
   const loginAsAdmin = async (email: string, pass: string): Promise<{ success: boolean; error?: string }> => {
-    // Realistic validation
-    if (!email || !pass) {
+    if (!email.trim() || !pass) {
       return { success: false, error: 'Por favor preencha o e-mail e a palavra-passe.' };
     }
-    // Accept standard institutional admin credentials
-    if (email.toLowerCase().includes('admin') || pass.length >= 4) {
-      const user = { ...ADMIN_DEFAULT_USER, email };
-      setCurrentUser(user);
-      setActiveSection('admin');
-      setAdminRoute('dashboard');
-      setIsAuthModalOpen(false);
-      showToast('Sessão iniciada como Administrador!');
-      return { success: true };
+
+    const validDemoCredentials =
+      email.trim().toLowerCase() === 'admin@itpss.ao' && pass === 'admin123';
+
+    if (!validDemoCredentials) {
+      return { success: false, error: 'Dados de demonstração inválidos. Use admin@itpss.ao / admin123.' };
     }
-    return { success: false, error: 'Credenciais inválidas. Utilize admin@itpss.ao / admin123' };
+
+    setCurrentUser(ADMIN_DEFAULT_USER);
+    setActiveSection('admin');
+    setAdminRoute('dashboard');
+    setIsAuthModalOpen(false);
+    showToast('Sessão de demonstração iniciada como Administrador.');
+    return { success: true };
   };
 
   const loginAsStudent = async (
     studentNumberOrEmail: string,
     pass: string
   ): Promise<{ success: boolean; error?: string }> => {
-    if (!studentNumberOrEmail || !pass) {
+    if (!studentNumberOrEmail.trim() || !pass) {
       return { success: false, error: 'Informe o número de estudante (ou e-mail) e a palavra-passe.' };
     }
 
@@ -370,31 +372,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       (s) =>
         s.studentNumber.toLowerCase() === cleanInput ||
         s.email.toLowerCase() === cleanInput ||
-        s.name.toLowerCase().includes(cleanInput)
+        s.name.toLowerCase() === cleanInput
     );
 
-    if (found) {
-      selectStudent(found.id);
-      setActiveSection('student');
-      setStudentRoute('visao-geral');
-      setIsAuthModalOpen(false);
-      showToast(`Bem-vindo(a), ${found.name}!`);
-      return { success: true };
+    // All sample student accounts use this shared password in the demo only.
+    if (!found || pass !== 'senha123') {
+      return {
+        success: false,
+        error: 'Dados de demonstração inválidos. Use uma conta existente e a palavra-passe senha123.',
+      };
     }
 
-    // Default to first student if demo
-    if (cleanInput.includes('ana') || cleanInput.includes('2024')) {
-      selectStudent('std-1');
-      setActiveSection('student');
-      setStudentRoute('visao-geral');
-      setIsAuthModalOpen(false);
-      return { success: true };
-    }
-
-    return {
-      success: false,
-      error: 'Estudante não encontrado. Verifique o número de matrícula (ex: 2024-0142).',
-    };
+    selectStudent(found.id);
+    setActiveSection('student');
+    setStudentRoute('visao-geral');
+    setIsAuthModalOpen(false);
+    showToast(`Sessão de demonstração iniciada: ${found.name}.`);
+    return { success: true };
   };
 
   const registerStudent = async (data: {
