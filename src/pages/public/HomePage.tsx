@@ -34,7 +34,7 @@ export const HomePage: React.FC = () => {
         {/* Drone Image Background with subtle dark overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/campus-drone.jpg"
+            src="/images/Foto da escola feita com drone.jpg"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
             className="w-full h-full object-cover object-center opacity-30 md:opacity-40"
           />
@@ -122,7 +122,7 @@ export const HomePage: React.FC = () => {
             {/* Real Lab Students Image Frame */}
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 group">
               <img
-                src="/images/lab-students.jpg"
+                src="/images/Duas estudantes no laboratório.jpg"
                 alt="Alunos do ITPSS em aula prática no laboratório"
                 className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -274,7 +274,7 @@ export const HomePage: React.FC = () => {
       <section className="relative py-20 bg-[#10385F] text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/practical-banner.jpg"
+            src="/images/Laboratório com camas com manequins.jpg"
             alt="Aprendizagem prática no ITPSS"
             className="w-full h-full object-cover opacity-25"
           />
@@ -335,7 +335,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-1',
                   title: 'Alunos do ITPSS no Pátio Escolar',
                   category: 'Alunos',
-                  url: '/images/students-group-1.jpg',
+                  url: '/images/Foto com drone da escola com alunos nos corredores.jpg',
                   caption: 'Convivência saudável e formação cívica no campus do Luena.',
                   date: 'Ano Letivo 2026',
                 })
@@ -344,7 +344,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/students-group-1.jpg"
+                  src="/images/Foto com drone da escola com alunos nos corredores.jpg"
                   alt="Estudantes do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -364,7 +364,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-2',
                   title: 'Turma em Uniforme Institucional',
                   category: 'Alunos',
-                  url: '/images/students-group-2.jpg',
+                  url: '/images/Mulher observando no microscópio .jpg',
                   caption: 'Futuros profissionais de saúde com a bata oficial.',
                   date: 'Ano Letivo 2026',
                 })
@@ -373,7 +373,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/students-group-2.jpg"
+                  src="/images/Mulher observando no microscópio .jpg"
                   alt="Turma de saúde do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -393,7 +393,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-3',
                   title: 'Atividades Práticas de Saúde',
                   category: 'Laboratórios',
-                  url: '/images/students-group-3.jpg',
+                  url: '/images/Mulher_peganddo_um esqueleto humano.jpg',
                   caption: 'Simulações e procedimentos práticos em ambiente formativo.',
                   date: 'Ano Letivo 2026',
                 })
@@ -402,7 +402,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/students-group-3.jpg"
+                  src="/images/Mulher_peganddo_um esqueleto humano.jpg"
                   alt="Formação prática"
                   loading="lazy"
                   className="w-full h-full object-cover"
