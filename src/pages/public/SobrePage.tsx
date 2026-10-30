@@ -17,7 +17,7 @@ export const SobrePage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/medical-staff.jpg"
+            src="/images/Mulher numa sala cheia de microscópios .jpg"
             alt="Profissionais de saúde Samiasso"
             className="w-full h-full object-cover opacity-20"
           />
@@ -121,7 +121,7 @@ export const SobrePage: React.FC = () => {
                     id: 'sobre-drone',
                     title: 'Instalações do ITPSS no Luena, Moxico',
                     category: 'Instalações',
-                    url: '/images/campus-aerial-sobre.jpg',
+                    url: '/images/Foto da escola num andar de cima.jpg',
                     caption: 'Vista aérea oficial do campus escolar no Bairro Social.',
                     date: '2026',
                   })
@@ -129,7 +129,7 @@ export const SobrePage: React.FC = () => {
                 className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 img-card-interactive img-zoom-container group cursor-pointer"
               >
                 <img
-                  src="/images/campus-aerial-sobre.jpg"
+                  src="/images/Foto da escola num andar de cima.jpg"
                   alt="Campus escolar ITPSS no Luena"
                   loading="lazy"
                   className="w-full h-80 object-cover"
@@ -180,7 +180,7 @@ export const SobrePage: React.FC = () => {
                     id: 'dt-1',
                     title: 'Pátio e Fachada Principal',
                     category: 'Instalações',
-                    url: '/images/campus-detail-1.jpg',
+                    url: '/images/Foto da escola da vista de baixo pra cima.jpg',
                     caption: 'Entrada do Instituto Técnico Privado de Saúde Samiasso.',
                     date: '2026',
                   })
@@ -188,7 +188,7 @@ export const SobrePage: React.FC = () => {
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
                 <img
-                  src="/images/campus-detail-1.jpg"
+                  src="/images/Foto da escola da vista de baixo pra cima.jpg"
                   alt="Instalações ITPSS"
                   loading="lazy"
                   className="w-full h-44 object-cover"
@@ -201,7 +201,7 @@ export const SobrePage: React.FC = () => {
                     id: 'dt-2',
                     title: 'Laboratórios de Saúde',
                     category: 'Laboratórios',
-                    url: '/images/lab-students.jpg',
+                    url: '/images/Duas estudantes no laboratório.jpg',
                     caption: 'Salas com bancadas e instrumentos para aulas práticas.',
                     date: '2026',
                   })
@@ -209,7 +209,7 @@ export const SobrePage: React.FC = () => {
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
                 <img
-                  src="/images/lab-students.jpg"
+                  src="/images/Duas estudantes no laboratório.jpg"
                   alt="Laboratórios ITPSS"
                   loading="lazy"
                   className="w-full h-44 object-cover"
@@ -222,7 +222,7 @@ export const SobrePage: React.FC = () => {
                     id: 'dt-3',
                     title: 'Bloco de Salas e Convivência',
                     category: 'Instalações',
-                    url: '/images/campus-detail-2.jpg',
+                    url: '/images/Foto do bloco de baixo da escola.jpg',
                     caption: 'Espaços dedicados ao estudo e formação cívica.',
                     date: '2026',
                   })
@@ -230,7 +230,7 @@ export const SobrePage: React.FC = () => {
                 className="col-span-2 rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
                 <img
-                  src="/images/campus-detail-2.jpg"
+                  src="/images/Foto do bloco de baixo da escola.jpg"
                   alt="Estrutura e bloco ITPSS"
                   loading="lazy"
                   className="w-full h-48 object-cover"
