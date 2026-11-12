@@ -246,37 +246,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setToast(null);
     }, 4000);
   };
+  const persist = <T,>(key: string, value: T) => {
+    try { getRepository().set(key, value); }
+    catch { showToast('O armazenamento local está cheio. Remova alguns anexos ou reinicie os dados da demonstração.', 'error'); }
+  };
 
   // Sync to localStorage
   useEffect(() => {
-    getRepository().set('itpss_courses', courses);
+    persist('itpss_courses', courses);
   }, [courses]);
 
   useEffect(() => {
-    getRepository().set('itpss_pre_enrollments', preEnrollments);
+    persist('itpss_pre_enrollments', preEnrollments);
   }, [preEnrollments]);
 
   useEffect(() => {
-    getRepository().set('itpss_students', students);
+    persist('itpss_students', students);
   }, [students]);
 
   useEffect(() => {
-    getRepository().set('itpss_news', news);
+    persist('itpss_news', news);
   }, [news]);
 
   useEffect(() => {
-    getRepository().set('itpss_gallery', gallery);
+    persist('itpss_gallery', gallery);
   }, [gallery]);
 
-  useEffect(() => getRepository().set('itpss_minipautas', minipautas), [minipautas]);
-  useEffect(() => getRepository().set('itpss_minipauta_audit', minipautaAuditLogs), [minipautaAuditLogs]);
-  useEffect(() => getRepository().set('itpss_declarations', declarations), [declarations]);
-  useEffect(() => getRepository().set('itpss_cadernetas', cadernetas), [cadernetas]);
-  useEffect(() => getRepository().set('itpss_certificates', certificates), [certificates]);
-  useEffect(() => getRepository().set('itpss_absences', absences), [absences]);
-  useEffect(() => getRepository().set('itpss_transfers', transfers), [transfers]);
-  useEffect(() => getRepository().set('itpss_payment_receipts', paymentReceipts), [paymentReceipts]);
-  useEffect(() => getRepository().set('itpss_notifications', notifications), [notifications]);
+  useEffect(() => persist('itpss_minipautas', minipautas), [minipautas]);
+  useEffect(() => persist('itpss_minipauta_audit', minipautaAuditLogs), [minipautaAuditLogs]);
+  useEffect(() => persist('itpss_declarations', declarations), [declarations]);
+  useEffect(() => persist('itpss_cadernetas', cadernetas), [cadernetas]);
+  useEffect(() => persist('itpss_certificates', certificates), [certificates]);
+  useEffect(() => persist('itpss_absences', absences), [absences]);
+  useEffect(() => persist('itpss_transfers', transfers), [transfers]);
+  useEffect(() => persist('itpss_payment_receipts', paymentReceipts), [paymentReceipts]);
+  useEffect(() => persist('itpss_notifications', notifications), [notifications]);
 
   // Handle current student calculation
   const currentStudent = students.find((s) => s.id === currentStudentId) || students[0] || null;
@@ -571,7 +575,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     setStudents((prev) => [newStudent, ...prev]);
-    selectStudent(newStudentId);
+    setCurrentStudentId(newStudentId);
+    setCurrentUser({ id: newStudent.id, name: newStudent.name, email: newStudent.email, role: 'student', studentNumber: newStudent.studentNumber, courseId: newStudent.courseId, courseName: newStudent.courseName, classLevel: newStudent.classLevel, classId: newStudent.classId, academicYear: newStudent.academicYear, phone: newStudent.phone });
     setActiveSection('student');
     setStudentRoute('visao-geral');
     setIsAuthModalOpen(false);
