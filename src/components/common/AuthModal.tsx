@@ -55,7 +55,7 @@ export const AuthModal: React.FC = () => {
     setErrorMsg('');
     setIsSubmitting(true);
     let res;
-    if (adminEmail.toLowerCase().includes('sec')) {
+    if (adminEmail.trim().toLowerCase() === 'secretaria@itpss.ao') {
       res = await loginAsSecretaria(adminEmail, adminPassword);
     } else {
       res = await loginAsAdmin(adminEmail, adminPassword);
