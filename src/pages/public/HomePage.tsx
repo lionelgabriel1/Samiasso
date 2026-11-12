@@ -36,10 +36,10 @@ export const HomePage: React.FC = () => {
           <img
             src="/images/Foto da escola feita com drone.jpg"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
-            className="w-full h-full object-cover object-center opacity-60 md:opacity-70 scale-100 transition-transform duration-1000 ease-out"
+            className="w-full h-full object-cover object-center opacity-100 scale-100 contrast-[1.12] saturate-[1.08] brightness-[1.04] transition-transform duration-1000 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/95 via-[#10385F]/80 to-[#10385F]/55" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#10385F] via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/78 via-[#10385F]/48 to-[#10385F]/22" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/90 via-transparent to-black/10" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
