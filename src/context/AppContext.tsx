@@ -412,32 +412,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setDeclarations((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de declaração', `${student.studentName} solicitou ${data.type}.`, 'pedido'); showToast('Pedido de declaração registado.');
   };
   const updateDeclarationStatus = (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => {
-    updateRequest<DeclarationRequest>(setDeclarations, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); showToast('Estado do pedido atualizado.');
+    const item = declarations.find((entry) => entry.id === id); updateRequest<DeclarationRequest>(setDeclarations, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); if (item) notify(item.studentId, 'Pedido de declaração atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado do pedido atualizado.');
   };
   const submitCadernetaRequest = (data: { type: CadernetaRequest['type']; reason: string }) => {
     const student = studentSnapshot(); if (!student) return;
     const item: CadernetaRequest = { id: `cad-${Date.now()}`, requestCode: createRequestCode('CAD'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     setCadernetas((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de caderneta', `${student.studentName} solicitou uma caderneta.`, 'pedido'); showToast('Pedido de caderneta registado.');
   };
-  const updateCadernetaStatus = (id: string, status: RequestStatus, note?: string) => { updateRequest<CadernetaRequest>(setCadernetas, id, status, note); showToast('Estado da caderneta atualizado.'); };
+  const updateCadernetaStatus = (id: string, status: RequestStatus, note?: string) => { const item = cadernetas.find((entry) => entry.id === id); updateRequest<CadernetaRequest>(setCadernetas, id, status, note); if (item) notify(item.studentId, 'Pedido de caderneta atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado da caderneta atualizado.'); };
   const submitCertificateRequest = (data: { type: CertificateType; purpose: string; observations?: string }) => {
     const student = studentSnapshot(); if (!student) return;
     const item: CertificateRequest = { id: `cert-${Date.now()}`, requestCode: createRequestCode('CERT'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     setCertificates((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de certificado', `${student.studentName} solicitou ${data.type}.`, 'pedido'); showToast('Pedido de certificado registado.');
   };
-  const updateCertificateStatus = (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => { updateRequest<CertificateRequest>(setCertificates, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); showToast('Estado do certificado atualizado.'); };
+  const updateCertificateStatus = (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => { const item = certificates.find((entry) => entry.id === id); updateRequest<CertificateRequest>(setCertificates, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); if (item) notify(item.studentId, 'Pedido de certificado atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado do certificado atualizado.'); };
   const submitAbsenceJustification = (data: { absenceDate: string; discipline: string; reason: AbsenceJustificationRequest['reason']; description: string; attachmentName?: string; attachmentUrl?: string }) => {
     const student = studentSnapshot(); if (!student) return;
     const item: AbsenceJustificationRequest = { id: `abs-${Date.now()}`, requestCode: createRequestCode('FAL'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     setAbsences((prev) => [item, ...prev]); notify('secretaria', 'Nova justificação de falta', `${student.studentName} submeteu uma justificação.`, 'pedido'); showToast('Justificação submetida.');
   };
-  const updateAbsenceStatus = (id: string, status: RequestStatus, note?: string) => { updateRequest<AbsenceJustificationRequest>(setAbsences, id, status, note); showToast('Justificação atualizada.'); };
+  const updateAbsenceStatus = (id: string, status: RequestStatus, note?: string) => { const item = absences.find((entry) => entry.id === id); updateRequest<AbsenceJustificationRequest>(setAbsences, id, status, note); if (item) notify(item.studentId, 'Justificação de falta atualizada', `A justificação ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Justificação atualizada.'); };
   const submitTransferRequest = (data: { destinationInstitution: string; reason: string; observations?: string }) => {
     const student = studentSnapshot(); if (!student) return;
     const item: TransferRequest = { id: `trf-${Date.now()}`, requestCode: createRequestCode('TRF'), ...student, currentCourse: student.courseName, currentClass: student.classId, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     setTransfers((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de transferência', `${student.studentName} solicitou transferência.`, 'pedido'); showToast('Pedido de transferência submetido.');
   };
-  const updateTransferStatus = (id: string, status: RequestStatus, note?: string) => { updateRequest<TransferRequest>(setTransfers, id, status, note); showToast('Pedido de transferência atualizado.'); };
+  const updateTransferStatus = (id: string, status: RequestStatus, note?: string) => { const item = transfers.find((entry) => entry.id === id); updateRequest<TransferRequest>(setTransfers, id, status, note); if (item) notify(item.studentId, 'Pedido de transferência atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Pedido de transferência atualizado.'); };
   const submitPaymentReceipt = (data: { feeType: FeeType; amountPaid: number; paymentDate: string; bankReference: string; observations?: string; receiptFileName: string; receiptFileUrl: string; receiptFileType: 'image' | 'pdf' }) => {
     const student = studentSnapshot(); if (!student) return;
     if (!data.receiptFileUrl || !data.receiptFileName) { showToast('Anexe o comprovativo antes de submeter.', 'error'); return; }
