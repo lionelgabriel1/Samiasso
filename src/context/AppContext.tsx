@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getRepository } from '../data/repository.ts';
 import {
   User,
   UserRole,
@@ -127,37 +128,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [authModalTab, setAuthModalTab] = useState<'admin' | 'student-login' | 'student-register'>('student-login');
 
   // Business State with LocalStorage Persistence
-  const [courses, setCourses] = useState<Course[]>(() => {
-    const saved = localStorage.getItem('itpss_courses');
-    return saved ? JSON.parse(saved) : INITIAL_COURSES;
-  });
+  const [courses, setCourses] = useState<Course[]>(() => getRepository().get('itpss_courses', INITIAL_COURSES));
 
-  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>(() => {
-    const saved = localStorage.getItem('itpss_payments');
-    return saved ? JSON.parse(saved) : INITIAL_PAYMENTS;
-  });
+  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>(() => getRepository().get('itpss_payments', INITIAL_PAYMENTS));
 
-  const [students, setStudents] = useState<Student[]>(() => {
-    const saved = localStorage.getItem('itpss_students');
-    return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
-  });
+  const [students, setStudents] = useState<Student[]>(() => getRepository().get('itpss_students', INITIAL_STUDENTS));
 
   const [teachers] = useState<Teacher[]>(INITIAL_TEACHERS);
 
-  const [preEnrollments, setPreEnrollments] = useState<PreEnrollment[]>(() => {
-    const saved = localStorage.getItem('itpss_pre_enrollments');
-    return saved ? JSON.parse(saved) : INITIAL_PRE_ENROLLMENTS;
-  });
+  const [preEnrollments, setPreEnrollments] = useState<PreEnrollment[]>(() => getRepository().get('itpss_pre_enrollments', INITIAL_PRE_ENROLLMENTS));
 
-  const [news, setNews] = useState<NewsItem[]>(() => {
-    const saved = localStorage.getItem('itpss_news');
-    return saved ? JSON.parse(saved) : INITIAL_NEWS;
-  });
+  const [news, setNews] = useState<NewsItem[]>(() => getRepository().get('itpss_news', INITIAL_NEWS));
 
-  const [gallery, setGallery] = useState<GalleryPhoto[]>(() => {
-    const saved = localStorage.getItem('itpss_gallery');
-    return saved ? JSON.parse(saved) : INITIAL_GALLERY;
-  });
+  const [gallery, setGallery] = useState<GalleryPhoto[]>(() => getRepository().get('itpss_gallery', INITIAL_GALLERY));
 
   const [schedule] = useState<ScheduleItem[]>(INITIAL_SCHEDULE);
   const [notices] = useState<Notice[]>(INITIAL_NOTICES);
@@ -187,23 +170,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Sync to localStorage
   useEffect(() => {
-    localStorage.setItem('itpss_courses', JSON.stringify(courses));
+    getRepository().set('itpss_courses', courses);
   }, [courses]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_pre_enrollments', JSON.stringify(preEnrollments));
+    getRepository().set('itpss_pre_enrollments', preEnrollments);
   }, [preEnrollments]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_students', JSON.stringify(students));
+    getRepository().set('itpss_students', students);
   }, [students]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_news', JSON.stringify(news));
+    getRepository().set('itpss_news', news);
   }, [news]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_gallery', JSON.stringify(gallery));
+    getRepository().set('itpss_gallery', gallery);
   }, [gallery]);
 
   // Handle current student calculation
@@ -443,12 +426,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const resetDemoData = () => {
-    localStorage.removeItem('itpss_courses');
-    localStorage.removeItem('itpss_payments');
-    localStorage.removeItem('itpss_students');
-    localStorage.removeItem('itpss_news');
-    localStorage.removeItem('itpss_gallery');
-    localStorage.removeItem('itpss_pre_enrollments');
+    ['itpss_courses', 'itpss_payments', 'itpss_students', 'itpss_news', 'itpss_gallery', 'itpss_pre_enrollments'].forEach((key) => getRepository().remove(key));
 
     setCourses(INITIAL_COURSES);
     setPaymentItems(INITIAL_PAYMENTS);
