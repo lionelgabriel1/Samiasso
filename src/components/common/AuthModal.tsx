@@ -9,6 +9,7 @@ export const AuthModal: React.FC = () => {
     authModalTab,
     setAuthModalTab,
     loginAsAdmin,
+    loginAsSecretaria,
     loginAsStudent,
     registerStudent,
     courses,
@@ -53,7 +54,12 @@ export const AuthModal: React.FC = () => {
     e.preventDefault();
     setErrorMsg('');
     setIsSubmitting(true);
-    const res = await loginAsAdmin(adminEmail, adminPassword);
+    let res;
+    if (adminEmail.toLowerCase().includes('sec')) {
+      res = await loginAsSecretaria(adminEmail, adminPassword);
+    } else {
+      res = await loginAsAdmin(adminEmail, adminPassword);
+    }
     setIsSubmitting(false);
     if (!res.success) {
       setErrorMsg(res.error || 'Erro ao iniciar sessão.');
@@ -87,6 +93,12 @@ export const AuthModal: React.FC = () => {
   const fillDemoAdmin = () => {
     setAdminEmail('admin@itpss.ao');
     setAdminPassword('admin123');
+    setErrorMsg('');
+  };
+
+  const fillDemoSecretaria = () => {
+    setAdminEmail('secretaria@itpss.ao');
+    setAdminPassword('sec123');
     setErrorMsg('');
   };
 
@@ -436,13 +448,23 @@ export const AuthModal: React.FC = () => {
                   {isSubmitting ? 'A autenticar...' : 'Entrar no Painel Administrativo'}
                 </button>
 
-                <button
-                  type="button"
-                  onClick={fillDemoAdmin}
-                  className="w-full py-2 text-xs font-medium text-[#F28C28] hover:bg-orange-50 rounded-lg transition-colors cursor-pointer"
-                >
-                  Preencher dados de Administrador de Demonstração
-                </button>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={fillDemoSecretaria}
+                    className="py-2 text-[11px] font-semibold text-[#1456A0] bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors cursor-pointer text-center"
+                  >
+                    Acesso Secretaria (Demo)
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={fillDemoAdmin}
+                    className="py-2 text-[11px] font-semibold text-[#F28C28] bg-orange-50 hover:bg-orange-100 rounded-xl transition-colors cursor-pointer text-center"
+                  >
+                    Acesso Direção (Demo)
+                  </button>
+                </div>
               </div>
             </form>
           )}

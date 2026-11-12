@@ -19,6 +19,11 @@ import {
   Globe,
   Menu,
   X,
+  FileSpreadsheet,
+  FileText,
+  Receipt,
+  Building,
+  ShieldCheck,
 } from 'lucide-react';
 import { useApp, AdminRoute } from '../../context/AppContext.tsx';
 import { Logo } from '../../components/common/Logo.tsx';
@@ -35,31 +40,77 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     currentUser,
     logout,
     preEnrollments,
+    declarations,
+    cadernetas,
+    certificates,
+    absences,
+    transfers,
+    paymentReceipts,
   } = useApp();
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
-  const pendingPreEnrollmentsCount = preEnrollments.filter(
-    (p) => p.status === 'Pendente'
-  ).length;
+  const pendingPreEnrollmentsCount = preEnrollments.filter((p) => p.status === 'Pendente').length;
+  const pendingDeclarationsCount = declarations.filter((d) => d.status === 'Pendente').length;
+  const pendingCadernetasCount = cadernetas.filter((c) => c.status === 'Pendente').length;
+  const pendingCertificatesCount = certificates.filter((c) => c.status === 'Pendente').length;
+  const pendingAbsencesCount = absences.filter((a) => a.status === 'Pendente').length;
+  const pendingTransfersCount = transfers.filter((t) => t.status === 'Pendente').length;
+  const pendingReceiptsCount = paymentReceipts.filter((r) => r.status === 'Aguardando validação').length;
 
   const menuItems: { id: AdminRoute; label: string; icon: React.ReactNode; badge?: number }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
-    { id: 'alunos', label: 'Alunos', icon: <Users className="w-5 h-5" /> },
+    { id: 'minipautas', label: 'Minipautas', icon: <FileSpreadsheet className="w-5 h-5" /> },
+    {
+      id: 'comprovativos',
+      label: 'Comprovativos / Emolumentos',
+      icon: <Receipt className="w-5 h-5" />,
+      badge: pendingReceiptsCount,
+    },
+    {
+      id: 'declaracoes',
+      label: 'Declarações',
+      icon: <FileText className="w-5 h-5" />,
+      badge: pendingDeclarationsCount,
+    },
+    {
+      id: 'cadernetas',
+      label: 'Cadernetas',
+      icon: <BookOpen className="w-5 h-5" />,
+      badge: pendingCadernetasCount,
+    },
+    {
+      id: 'certificados',
+      label: 'Certificados',
+      icon: <Award className="w-5 h-5" />,
+      badge: pendingCertificatesCount,
+    },
+    {
+      id: 'faltas',
+      label: 'Justificação de Faltas',
+      icon: <Clock className="w-5 h-5" />,
+      badge: pendingAbsencesCount,
+    },
+    {
+      id: 'transferencias',
+      label: 'Transferências',
+      icon: <Building className="w-5 h-5" />,
+      badge: pendingTransfersCount,
+    },
+    { id: 'alunos', label: 'Estudantes', icon: <Users className="w-5 h-5" /> },
+    { id: 'turmas', label: 'Turmas & Classes', icon: <Calendar className="w-5 h-5" /> },
     { id: 'docentes', label: 'Docentes', icon: <GraduationCap className="w-5 h-5" /> },
-    { id: 'cursos', label: 'Cursos', icon: <BookOpen className="w-5 h-5" /> },
-    { id: 'turmas', label: 'Turmas', icon: <Calendar className="w-5 h-5" /> },
-    { id: 'resultados', label: 'Resultados (Notas)', icon: <Award className="w-5 h-5" /> },
-    { id: 'assiduidade', label: 'Assiduidade', icon: <Clock className="w-5 h-5" /> },
+    { id: 'cursos', label: 'Cursos Médios', icon: <BookOpen className="w-5 h-5" /> },
     {
       id: 'matriculas',
-      label: 'Matrículas',
+      label: 'Pré-Inscrições',
       icon: <ClipboardList className="w-5 h-5" />,
       badge: pendingPreEnrollmentsCount,
     },
-    { id: 'noticias', label: 'Notícias', icon: <Newspaper className="w-5 h-5" /> },
-    { id: 'galeria', label: 'Imagens / Galeria', icon: <ImageIcon className="w-5 h-5" /> },
+    { id: 'utilizadores', label: 'Utilizadores & Perfis', icon: <ShieldCheck className="w-5 h-5" /> },
+    { id: 'noticias', label: 'Notícias & Avisos', icon: <Newspaper className="w-5 h-5" /> },
+    { id: 'galeria', label: 'Galeria Fotográfica', icon: <ImageIcon className="w-5 h-5" /> },
     { id: 'configuracoes', label: 'Configurações', icon: <Settings className="w-5 h-5" /> },
   ];
 
@@ -69,7 +120,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] flex flex-col lg:flex-row text-[#10385F] pt-9">
+    <div className="min-h-screen bg-[#F4F6F9] flex flex-col lg:flex-row text-[#10385F]">
       {/* 1. DESKTOP SIDEBAR */}
       <aside
         className={`hidden lg:flex flex-col bg-[#10385F] text-white transition-all duration-300 relative border-r border-[#0b2743] shrink-0 ${

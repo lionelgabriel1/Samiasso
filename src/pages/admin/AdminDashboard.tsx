@@ -29,7 +29,20 @@ import {
 import { useApp } from '../../context/AppContext.tsx';
 
 export const AdminDashboard: React.FC = () => {
-  const { students, teachers, courses, preEnrollments, setAdminRoute } = useApp();
+  const {
+    students,
+    teachers,
+    courses,
+    preEnrollments,
+    minipautas,
+    declarations,
+    cadernetas,
+    certificates,
+    absences,
+    transfers,
+    paymentReceipts,
+    setAdminRoute,
+  } = useApp();
 
   // Metrics matching mockup
   const totalStudents = 124;
@@ -37,6 +50,16 @@ export const AdminDashboard: React.FC = () => {
   const totalClasses = 7;
   const totalCourses = courses.length;
   const totalPreEnrollments = 48;
+
+  const pendingServicesCount =
+    declarations.filter((d) => d.status === 'Pendente').length +
+    cadernetas.filter((c) => c.status === 'Pendente').length +
+    certificates.filter((c) => c.status === 'Pendente').length +
+    absences.filter((a) => a.status === 'Pendente').length +
+    transfers.filter((t) => t.status === 'Pendente').length;
+
+  const pendingReceiptsCount = paymentReceipts.filter((r) => r.status === 'Aguardando validação').length;
+  const publishedMinipautasCount = minipautas.filter((m) => m.published).length;
 
   // 1. Line Chart Data: Evolução das Matrículas (Jan - Dez)
   const enrollmentEvolutionData = [
@@ -87,13 +110,34 @@ export const AdminDashboard: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setAdminRoute('minipautas')}
+            className="px-3.5 py-2 bg-[#1456A0] hover:bg-[#10385F] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+          >
+            <span>Minipautas ({publishedMinipautasCount} publicadas)</span>
+          </button>
+
+          <button
+            onClick={() => setAdminRoute('comprovativos')}
+            className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+          >
+            <span>Validar Comprovativos ({pendingReceiptsCount})</span>
+          </button>
+
+          <button
+            onClick={() => setAdminRoute('declaracoes')}
+            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+          >
+            <span>Serviços Digitais ({pendingServicesCount})</span>
+          </button>
+
           <button
             onClick={() => setAdminRoute('matriculas')}
-            className="px-4 py-2 bg-[#F28C28] hover:bg-[#e07b16] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#F28C28] hover:bg-[#e07b16] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
           >
             <ClipboardList className="w-4 h-4" />
-            <span>Ver Pré-Inscrições ({preEnrollments.length})</span>
+            <span>Pré-Inscrições ({preEnrollments.length})</span>
           </button>
         </div>
       </div>

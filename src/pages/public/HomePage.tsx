@@ -31,14 +31,15 @@ export const HomePage: React.FC = () => {
     <div className="min-h-screen bg-[#F4F6F9]">
       {/* 1. HERO SECTION WITH REAL DRONE AERIAL PHOTOGRAPHY */}
       <section className="relative bg-[#10385F] text-white overflow-hidden">
-        {/* Drone Image Background with subtle dark overlay */}
+        {/* Drone Image Background with enhanced visibility and high-contrast readability */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/Foto da escola feita com drone.jpg"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
-            className="w-full h-full object-cover object-center opacity-30 md:opacity-40"
+            className="w-full h-full object-cover object-center opacity-60 md:opacity-70 scale-100 transition-transform duration-1000 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#10385F] via-[#10385F]/90 to-[#10385F]/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/95 via-[#10385F]/80 to-[#10385F]/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10385F] via-transparent to-black/30" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
