@@ -52,8 +52,8 @@ export const AdminComprovativos: React.FC = () => {
     setValidationDecision(defaultStatus);
     setValidationNote(
       defaultStatus === 'Validado'
-        ? 'Pagamento conferido com sucesso no extrato bancário oficial do ITPSS.'
-        : 'Bordereau ilegível ou referência não localizada no extrato.'
+        ? 'Comprovativo conferido pela Secretaria durante a demonstração.'
+        : 'Comprovativo ilegível ou dados insuficientes para validação.'
     );
   };
 
@@ -68,7 +68,7 @@ export const AdminComprovativos: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-[#10385F]">Validação Manual de Comprovativos Bancários</h2>
+          <h2 className="text-2xl font-black text-[#10385F]">Receção e Validação de Comprovativos</h2>
           <p className="text-xs text-slate-500">
             Conferência de depósitos, transferências e pagamentos de propinas e emolumentos da Secretaria
           </p>
@@ -76,7 +76,7 @@ export const AdminComprovativos: React.FC = () => {
 
         <span className="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold rounded-xl flex items-center gap-1.5 self-start sm:self-auto">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>Reconciliação Oficial Ativa</span>
+          <span>Validação Manual</span>
         </span>
       </div>
 
