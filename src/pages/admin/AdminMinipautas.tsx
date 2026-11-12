@@ -91,7 +91,7 @@ export const AdminMinipautas: React.FC = () => {
     importMinipautaEntries(activeMinipauta.id, localEntries);
   };
 
-  const mapCsvEntries = (entries: typeof parseMinipautaCSV extends (...args: any[]) => infer R ? R extends { entries: infer E } ? E : never : never) => {
+  const mapCsvEntries = (entries: ReturnType<typeof parseMinipautaCSV>['entries']) => {
     const errors: string[] = [];
     const mapped: Omit<MinipautaEntry, 'notaFinal'>[] = [];
     entries.forEach((entry) => {
