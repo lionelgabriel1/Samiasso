@@ -23,6 +23,10 @@ import { ContactosPage } from './pages/public/ContactosPage.tsx';
 
 // Admin Pages
 import { AdminLayout } from './pages/admin/AdminLayout.tsx';
+import { AdminMinipautas } from './pages/admin/AdminMinipautas.tsx';
+import { AdminServicos } from './pages/admin/AdminServicos.tsx';
+import { AdminComprovativos } from './pages/admin/AdminComprovativos.tsx';
+import { AdminUtilizadores } from './pages/admin/AdminUtilizadores.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
 import { AdminCursos } from './pages/admin/AdminCursos.tsx';
 import { AdminPreInscricoes } from './pages/admin/AdminPreInscricoes.tsx';
@@ -35,6 +39,7 @@ import { AdminDocentes, AdminTurmas, AdminConfiguracoes, AdminResultados, AdminA
 import { StudentLayout } from './pages/student/StudentLayout.tsx';
 import { StudentDashboard } from './pages/student/StudentDashboard.tsx';
 import { StudentResultados } from './pages/student/StudentResultados.tsx';
+import { StudentDeclaracoes, StudentCadernetas, StudentCertificados, StudentFaltas, StudentTransferencias, StudentPagamentos, StudentNotificacoes } from './pages/student/StudentServicos.tsx';
 import {
   StudentHorario,
   StudentAssiduidade,
@@ -61,6 +66,10 @@ const AppContent: React.FC = () => {
           {adminRoute === 'docentes' && <AdminDocentes />}
           {adminRoute === 'turmas' && <AdminTurmas />}
           {adminRoute === 'configuracoes' && <AdminConfiguracoes />}
+          {adminRoute === 'minipautas' && <AdminMinipautas />}
+          {adminRoute === 'comprovativos' && <AdminComprovativos />}
+          {['declaracoes', 'cadernetas', 'certificados', 'faltas', 'transferencias'].includes(adminRoute) && <AdminServicos />}
+          {adminRoute === 'utilizadores' && <AdminUtilizadores />}
         </div>
       </AdminLayout>
     );
@@ -77,6 +86,13 @@ const AppContent: React.FC = () => {
           {studentRoute === 'assiduidade' && <StudentAssiduidade />}
           {studentRoute === 'comunicados' && <StudentComunicados />}
           {studentRoute === 'perfil' && <StudentPerfil />}
+          {studentRoute === 'pedidos' && <StudentDeclaracoes />}
+          {studentRoute === 'cadernetas' && <StudentCadernetas />}
+          {studentRoute === 'certificados' && <StudentCertificados />}
+          {studentRoute === 'faltas' && <StudentFaltas />}
+          {studentRoute === 'transferencias' && <StudentTransferencias />}
+          {studentRoute === 'pagamentos' && <StudentPagamentos />}
+          {studentRoute === 'notificacoes' && <StudentNotificacoes />}
         </div>
       </StudentLayout>
     );
@@ -84,7 +100,7 @@ const AppContent: React.FC = () => {
 
   // Default: Public Portal
   return (
-    <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F] pt-9">
+    <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F]">
       <Header />
       <main className="flex-1">
         <div key={publicRoute} className="animate-fade-in">

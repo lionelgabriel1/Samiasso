@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getRepository } from '../data/repository.ts';
 import {
   User,
   UserRole,
@@ -11,6 +12,10 @@ import {
   GalleryPhoto,
   ScheduleItem,
   Notice,
+  Minipauta, MinipautaEntry, MinipautaAuditLog,
+  DeclarationRequest, DeclarationType, CadernetaRequest, CertificateRequest, CertificateType,
+  AbsenceJustificationRequest, TransferRequest, PaymentReceipt, PaymentReceiptStatus, FeeType,
+  PortalNotification, RequestStatus,
 } from '../types/index.ts';
 import {
   INITIAL_COURSES,
@@ -26,12 +31,13 @@ import {
 import {
   calculateDisciplineAverage,
   calculateOverallAverage,
+  calculateTrimestralGrade,
   validatePreEnrollment,
 } from '../utils/academic.ts';
 
 export type PublicRoute = 'home' | 'sobre' | 'cursos' | 'matriculas' | 'noticias' | 'galeria' | 'contactos';
-export type AdminRoute = 'dashboard' | 'alunos' | 'docentes' | 'cursos' | 'turmas' | 'resultados' | 'assiduidade' | 'matriculas' | 'noticias' | 'galeria' | 'configuracoes';
-export type StudentRoute = 'visao-geral' | 'resultados' | 'horario' | 'assiduidade' | 'comunicados' | 'perfil';
+export type AdminRoute = 'dashboard' | 'alunos' | 'docentes' | 'cursos' | 'turmas' | 'resultados' | 'assiduidade' | 'matriculas' | 'noticias' | 'galeria' | 'configuracoes' | 'minipautas' | 'comprovativos' | 'declaracoes' | 'cadernetas' | 'certificados' | 'faltas' | 'transferencias' | 'utilizadores';
+export type StudentRoute = 'visao-geral' | 'resultados' | 'horario' | 'assiduidade' | 'comunicados' | 'perfil' | 'pedidos' | 'cadernetas' | 'certificados' | 'faltas' | 'transferencias' | 'pagamentos' | 'notificacoes';
 
 interface ToastState {
   message: string;
@@ -84,6 +90,32 @@ interface AppContextType {
   schedule: ScheduleItem[];
   notices: Notice[];
 
+  // Academic results and digital services (shared local demo data)
+  minipautas: Minipauta[];
+  minipautaAuditLogs: MinipautaAuditLog[];
+  togglePublishMinipauta: (id: string, published: boolean) => void;
+  importMinipautaEntries: (id: string, entries: MinipautaEntry[], action?: 'Atualização de Notas' | 'Importação Excel/CSV') => void;
+  declarations: DeclarationRequest[];
+  cadernetas: CadernetaRequest[];
+  certificates: CertificateRequest[];
+  absences: AbsenceJustificationRequest[];
+  transfers: TransferRequest[];
+  paymentReceipts: PaymentReceipt[];
+  notifications: PortalNotification[];
+  submitDeclarationRequest: (data: { type: DeclarationType; purpose: string; observations?: string }) => void;
+  updateDeclarationStatus: (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => void;
+  submitCadernetaRequest: (data: { type: CadernetaRequest['type']; reason: string }) => void;
+  updateCadernetaStatus: (id: string, status: RequestStatus, note?: string) => void;
+  submitCertificateRequest: (data: { type: CertificateType; purpose: string; observations?: string }) => void;
+  updateCertificateStatus: (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => void;
+  submitAbsenceJustification: (data: { absenceDate: string; discipline: string; reason: AbsenceJustificationRequest['reason']; description: string; attachmentName?: string; attachmentUrl?: string }) => void;
+  updateAbsenceStatus: (id: string, status: RequestStatus, note?: string) => void;
+  submitTransferRequest: (data: { destinationInstitution: string; reason: string; observations?: string }) => void;
+  updateTransferStatus: (id: string, status: RequestStatus, note?: string) => void;
+  submitPaymentReceipt: (data: { feeType: FeeType; amountPaid: number; paymentDate: string; bankReference: string; observations?: string; receiptFileName: string; receiptFileUrl: string; receiptFileType: 'image' | 'pdf' }) => void;
+  validatePaymentReceipt: (id: string, status: PaymentReceiptStatus, note?: string) => void;
+  markNotificationAsRead: (id: string) => void;
+
   // Lightbox & Reader
   lightboxPhoto: GalleryPhoto | null;
   setLightboxPhoto: (photo: GalleryPhoto | null) => void;
@@ -114,6 +146,43 @@ const ADMIN_DEFAULT_USER: User = {
   avatar: '/images/campus-drone.jpg',
 };
 
+const buildInitialMinipautas = (): Minipauta[] => {
+  const grouped = new Map<string, Minipauta>();
+  INITIAL_STUDENTS.forEach((student) => {
+    student.disciplines.forEach((discipline) => {
+      const key = [student.courseId, student.classId, discipline.id].join('|');
+      const existing = grouped.get(key);
+      const entry: MinipautaEntry = {
+        studentId: student.id,
+        studentNumber: student.studentNumber,
+        studentName: student.name,
+        mac: discipline.grades.periodo1,
+        npp: discipline.grades.periodo2,
+        npt: discipline.grades.periodo3,
+        notaFinal: calculateTrimestralGrade(discipline.grades.periodo1, discipline.grades.periodo2, discipline.grades.periodo3),
+      };
+      if (existing) existing.entries.push(entry);
+      else grouped.set(key, {
+        id: `mini-${key.replace(/[^a-z0-9]+/gi, '-')}`,
+        courseId: student.courseId,
+        courseName: student.courseName,
+        classId: student.classId,
+        classLevel: student.classLevel,
+        disciplineId: discipline.id,
+        disciplineName: discipline.name,
+        period: '1º Trimestre',
+        academicYear: student.academicYear,
+        published: true,
+        publishedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        updatedBy: 'Dados de demonstração',
+        entries: [entry],
+      });
+    });
+  });
+  return [...grouped.values()];
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Navigation State
   const [activeSection, setActiveSection] = useState<'public' | 'admin' | 'student'>('public');
@@ -127,40 +196,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [authModalTab, setAuthModalTab] = useState<'admin' | 'student-login' | 'student-register'>('student-login');
 
   // Business State with LocalStorage Persistence
-  const [courses, setCourses] = useState<Course[]>(() => {
-    const saved = localStorage.getItem('itpss_courses');
-    return saved ? JSON.parse(saved) : INITIAL_COURSES;
-  });
+  const [courses, setCourses] = useState<Course[]>(() => getRepository().get('itpss_courses', INITIAL_COURSES));
 
-  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>(() => {
-    const saved = localStorage.getItem('itpss_payments');
-    return saved ? JSON.parse(saved) : INITIAL_PAYMENTS;
-  });
+  const [paymentItems, setPaymentItems] = useState<PaymentItem[]>(() => getRepository().get('itpss_payments', INITIAL_PAYMENTS));
 
-  const [students, setStudents] = useState<Student[]>(() => {
-    const saved = localStorage.getItem('itpss_students');
-    return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
-  });
+  const [students, setStudents] = useState<Student[]>(() => getRepository().get('itpss_students', INITIAL_STUDENTS));
 
   const [teachers] = useState<Teacher[]>(INITIAL_TEACHERS);
 
-  const [preEnrollments, setPreEnrollments] = useState<PreEnrollment[]>(() => {
-    const saved = localStorage.getItem('itpss_pre_enrollments');
-    return saved ? JSON.parse(saved) : INITIAL_PRE_ENROLLMENTS;
-  });
+  const [preEnrollments, setPreEnrollments] = useState<PreEnrollment[]>(() => getRepository().get('itpss_pre_enrollments', INITIAL_PRE_ENROLLMENTS));
 
-  const [news, setNews] = useState<NewsItem[]>(() => {
-    const saved = localStorage.getItem('itpss_news');
-    return saved ? JSON.parse(saved) : INITIAL_NEWS;
-  });
+  const [news, setNews] = useState<NewsItem[]>(() => getRepository().get('itpss_news', INITIAL_NEWS));
 
-  const [gallery, setGallery] = useState<GalleryPhoto[]>(() => {
-    const saved = localStorage.getItem('itpss_gallery');
-    return saved ? JSON.parse(saved) : INITIAL_GALLERY;
-  });
+  const [gallery, setGallery] = useState<GalleryPhoto[]>(() => getRepository().get('itpss_gallery', INITIAL_GALLERY));
 
   const [schedule] = useState<ScheduleItem[]>(INITIAL_SCHEDULE);
   const [notices] = useState<Notice[]>(INITIAL_NOTICES);
+
+  // All newly added academic/service modules share the same repository boundary.
+  const [minipautas, setMinipautas] = useState<Minipauta[]>(() => getRepository().get('itpss_minipautas', buildInitialMinipautas()));
+  const [minipautaAuditLogs, setMinipautaAuditLogs] = useState<MinipautaAuditLog[]>(() => getRepository().get('itpss_minipauta_audit', []));
+  const [declarations, setDeclarations] = useState<DeclarationRequest[]>(() => getRepository().get('itpss_declarations', []));
+  const [cadernetas, setCadernetas] = useState<CadernetaRequest[]>(() => getRepository().get('itpss_cadernetas', []));
+  const [certificates, setCertificates] = useState<CertificateRequest[]>(() => getRepository().get('itpss_certificates', []));
+  const [absences, setAbsences] = useState<AbsenceJustificationRequest[]>(() => getRepository().get('itpss_absences', []));
+  const [transfers, setTransfers] = useState<TransferRequest[]>(() => getRepository().get('itpss_transfers', []));
+  const [paymentReceipts, setPaymentReceipts] = useState<PaymentReceipt[]>(() => getRepository().get('itpss_payment_receipts', []));
+  const [notifications, setNotifications] = useState<PortalNotification[]>(() => getRepository().get('itpss_notifications', []));
 
   // Active student selection for student portal
   const [currentStudentId, setCurrentStudentId] = useState<string>('std-1');
@@ -184,27 +246,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setToast(null);
     }, 4000);
   };
+  const persist = <T,>(key: string, value: T) => {
+    try { getRepository().set(key, value); }
+    catch { showToast('O armazenamento local está cheio. Remova alguns anexos ou reinicie os dados da demonstração.', 'error'); }
+  };
 
   // Sync to localStorage
   useEffect(() => {
-    localStorage.setItem('itpss_courses', JSON.stringify(courses));
+    persist('itpss_courses', courses);
   }, [courses]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_pre_enrollments', JSON.stringify(preEnrollments));
+    persist('itpss_pre_enrollments', preEnrollments);
   }, [preEnrollments]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_students', JSON.stringify(students));
+    persist('itpss_students', students);
   }, [students]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_news', JSON.stringify(news));
+    persist('itpss_news', news);
   }, [news]);
 
   useEffect(() => {
-    localStorage.setItem('itpss_gallery', JSON.stringify(gallery));
+    persist('itpss_gallery', gallery);
   }, [gallery]);
+
+  useEffect(() => persist('itpss_minipautas', minipautas), [minipautas]);
+  useEffect(() => persist('itpss_minipauta_audit', minipautaAuditLogs), [minipautaAuditLogs]);
+  useEffect(() => persist('itpss_declarations', declarations), [declarations]);
+  useEffect(() => persist('itpss_cadernetas', cadernetas), [cadernetas]);
+  useEffect(() => persist('itpss_certificates', certificates), [certificates]);
+  useEffect(() => persist('itpss_absences', absences), [absences]);
+  useEffect(() => persist('itpss_transfers', transfers), [transfers]);
+  useEffect(() => persist('itpss_payment_receipts', paymentReceipts), [paymentReceipts]);
+  useEffect(() => persist('itpss_notifications', notifications), [notifications]);
 
   // Handle current student calculation
   const currentStudent = students.find((s) => s.id === currentStudentId) || students[0] || null;
@@ -318,6 +394,78 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Fotografia removida da galeria!');
   };
 
+  const createRequestCode = (prefix: string) => `${prefix}-${Date.now().toString().slice(-8)}`;
+  const studentSnapshot = () => currentStudent ? {
+    studentId: currentStudent.id, studentNumber: currentStudent.studentNumber,
+    studentName: currentStudent.name, courseName: currentStudent.courseName, classId: currentStudent.classId,
+  } : null;
+  const notify = (recipientId: string, title: string, message: string, type: PortalNotification['type']) => {
+    setNotifications((prev) => [{ id: `ntf-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, recipientId, title, message, type, read: false, createdAt: new Date().toLocaleString('pt-PT') }, ...prev]);
+  };
+  const updateRequest = <T extends { id: string; status: RequestStatus; secretaryNote?: string; updatedAt?: string }>(
+    setter: React.Dispatch<React.SetStateAction<T[]>>, id: string, status: RequestStatus, note?: string, extra?: Partial<T>
+  ) => setter((prev) => prev.map((item) => item.id === id ? { ...item, status, secretaryNote: note, updatedAt: new Date().toISOString(), ...extra } : item));
+
+  const submitDeclarationRequest = (data: { type: DeclarationType; purpose: string; observations?: string }) => {
+    const student = studentSnapshot(); if (!student) return;
+    const item: DeclarationRequest = { id: `dec-${Date.now()}`, requestCode: createRequestCode('DEC'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    setDeclarations((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de declaração', `${student.studentName} solicitou ${data.type}.`, 'pedido'); showToast('Pedido de declaração registado.');
+  };
+  const updateDeclarationStatus = (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => {
+    const item = declarations.find((entry) => entry.id === id); updateRequest<DeclarationRequest>(setDeclarations, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); if (item) notify(item.studentId, 'Pedido de declaração atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado do pedido atualizado.');
+  };
+  const submitCadernetaRequest = (data: { type: CadernetaRequest['type']; reason: string }) => {
+    const student = studentSnapshot(); if (!student) return;
+    const item: CadernetaRequest = { id: `cad-${Date.now()}`, requestCode: createRequestCode('CAD'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    setCadernetas((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de caderneta', `${student.studentName} solicitou uma caderneta.`, 'pedido'); showToast('Pedido de caderneta registado.');
+  };
+  const updateCadernetaStatus = (id: string, status: RequestStatus, note?: string) => { const item = cadernetas.find((entry) => entry.id === id); updateRequest<CadernetaRequest>(setCadernetas, id, status, note); if (item) notify(item.studentId, 'Pedido de caderneta atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado da caderneta atualizado.'); };
+  const submitCertificateRequest = (data: { type: CertificateType; purpose: string; observations?: string }) => {
+    const student = studentSnapshot(); if (!student) return;
+    const item: CertificateRequest = { id: `cert-${Date.now()}`, requestCode: createRequestCode('CERT'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    setCertificates((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de certificado', `${student.studentName} solicitou ${data.type}.`, 'pedido'); showToast('Pedido de certificado registado.');
+  };
+  const updateCertificateStatus = (id: string, status: RequestStatus, note?: string, url?: string, name?: string) => { const item = certificates.find((entry) => entry.id === id); updateRequest<CertificateRequest>(setCertificates, id, status, note, { issuedDocumentUrl: url, issuedDocumentName: name }); if (item) notify(item.studentId, 'Pedido de certificado atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Estado do certificado atualizado.'); };
+  const submitAbsenceJustification = (data: { absenceDate: string; discipline: string; reason: AbsenceJustificationRequest['reason']; description: string; attachmentName?: string; attachmentUrl?: string }) => {
+    const student = studentSnapshot(); if (!student) return;
+    const item: AbsenceJustificationRequest = { id: `abs-${Date.now()}`, requestCode: createRequestCode('FAL'), ...student, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    setAbsences((prev) => [item, ...prev]); notify('secretaria', 'Nova justificação de falta', `${student.studentName} submeteu uma justificação.`, 'pedido'); showToast('Justificação submetida.');
+  };
+  const updateAbsenceStatus = (id: string, status: RequestStatus, note?: string) => { const item = absences.find((entry) => entry.id === id); updateRequest<AbsenceJustificationRequest>(setAbsences, id, status, note); if (item) notify(item.studentId, 'Justificação de falta atualizada', `A justificação ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Justificação atualizada.'); };
+  const submitTransferRequest = (data: { destinationInstitution: string; reason: string; observations?: string }) => {
+    const student = studentSnapshot(); if (!student) return;
+    const item: TransferRequest = { id: `trf-${Date.now()}`, requestCode: createRequestCode('TRF'), ...student, currentCourse: student.courseName, currentClass: student.classId, ...data, status: 'Pendente', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    setTransfers((prev) => [item, ...prev]); notify('secretaria', 'Novo pedido de transferência', `${student.studentName} solicitou transferência.`, 'pedido'); showToast('Pedido de transferência submetido.');
+  };
+  const updateTransferStatus = (id: string, status: RequestStatus, note?: string) => { const item = transfers.find((entry) => entry.id === id); updateRequest<TransferRequest>(setTransfers, id, status, note); if (item) notify(item.studentId, 'Pedido de transferência atualizado', `O pedido ${item.requestCode} está agora: ${status}.`, 'pedido'); showToast('Pedido de transferência atualizado.'); };
+  const submitPaymentReceipt = (data: { feeType: FeeType; amountPaid: number; paymentDate: string; bankReference: string; observations?: string; receiptFileName: string; receiptFileUrl: string; receiptFileType: 'image' | 'pdf' }) => {
+    const student = studentSnapshot(); if (!student) return;
+    if (!data.receiptFileUrl || !data.receiptFileName) { showToast('Anexe o comprovativo antes de submeter.', 'error'); return; }
+    const item: PaymentReceipt = { id: `pay-${Date.now()}`, receiptCode: createRequestCode('PAG'), ...student, ...data, status: 'Aguardando validação', createdAt: new Date().toISOString() };
+    setPaymentReceipts((prev) => [item, ...prev]); notify('secretaria', 'Novo comprovativo recebido', `${student.studentName} enviou comprovativo de ${data.feeType}.`, 'comprovativo'); showToast('Comprovativo enviado para validação manual.');
+  };
+  const validatePaymentReceipt = (id: string, status: PaymentReceiptStatus, note?: string) => {
+    setPaymentReceipts((prev) => prev.map((item) => item.id === id ? { ...item, status, secretaryNote: note, validatedBy: currentUser?.name || 'Secretaria', validatedAt: new Date().toISOString() } : item));
+    const receipt = paymentReceipts.find((item) => item.id === id); if (receipt) notify(receipt.studentId, 'Atualização do comprovativo', `O comprovativo ${receipt.receiptCode} foi marcado como ${status}.`, 'comprovativo');
+    showToast('Validação do comprovativo registada.');
+  };
+  const togglePublishMinipauta = (id: string, published: boolean) => {
+    setMinipautas((prev) => prev.map((item) => item.id === id ? { ...item, published, publishedAt: published ? new Date().toISOString() : undefined, updatedAt: new Date().toISOString() } : item));
+    const item = minipautas.find((m) => m.id === id);
+    if (item) setMinipautaAuditLogs((prev) => [{ id: `audit-${Date.now()}`, minipautaId: id, disciplineName: item.disciplineName, classId: item.classId, action: published ? 'Publicação' : 'Ocultação', details: published ? 'Minipauta publicada para consulta.' : 'Minipauta retirada da consulta.', author: currentUser?.name || 'Secretaria', timestamp: new Date().toLocaleString('pt-PT') }, ...prev]);
+    notify('all', published ? 'Minipauta publicada' : 'Minipauta atualizada', item?.disciplineName || 'Resultados académicos', 'minipauta');
+    showToast(published ? 'Minipauta publicada.' : 'Minipauta ocultada.');
+  };
+  const importMinipautaEntries = (id: string, entries: MinipautaEntry[], action: 'Atualização de Notas' | 'Importação Excel/CSV' = 'Atualização de Notas') => {
+    const target = minipautas.find((item) => item.id === id); if (!target) { showToast('Minipauta não encontrada.', 'error'); return; }
+    const validEntries = entries.filter((entry) => students.some((student) => student.id === entry.studentId && student.studentNumber === entry.studentNumber));
+    if (validEntries.length !== entries.length) { showToast('Existem estudantes sem matrícula correspondente. Corrija a importação antes de gravar.', 'error'); return; }
+    setMinipautas((prev) => prev.map((item) => item.id === id ? { ...item, entries: validEntries, published: false, updatedAt: new Date().toISOString(), updatedBy: currentUser?.name || 'Secretaria' } : item));
+    setMinipautaAuditLogs((prev) => [{ id: `audit-${Date.now()}`, minipautaId: id, disciplineName: target.disciplineName, classId: target.classId, action, details: `${validEntries.length} registos guardados. A publicação foi desativada até nova conferência.`, author: currentUser?.name || 'Secretaria', timestamp: new Date().toLocaleString('pt-PT') }, ...prev]);
+    showToast('Notas guardadas. Reveja e publique a minipauta quando estiver pronta.');
+  };
+  const markNotificationAsRead = (id: string) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
+
   const selectStudent = (id: string) => {
     setCurrentStudentId(id);
     const found = students.find((s) => s.id === id);
@@ -427,7 +575,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     setStudents((prev) => [newStudent, ...prev]);
-    selectStudent(newStudentId);
+    setCurrentStudentId(newStudentId);
+    setCurrentUser({ id: newStudent.id, name: newStudent.name, email: newStudent.email, role: 'student', studentNumber: newStudent.studentNumber, courseId: newStudent.courseId, courseName: newStudent.courseName, classLevel: newStudent.classLevel, classId: newStudent.classId, academicYear: newStudent.academicYear, phone: newStudent.phone });
     setActiveSection('student');
     setStudentRoute('visao-geral');
     setIsAuthModalOpen(false);
@@ -443,12 +592,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const resetDemoData = () => {
-    localStorage.removeItem('itpss_courses');
-    localStorage.removeItem('itpss_payments');
-    localStorage.removeItem('itpss_students');
-    localStorage.removeItem('itpss_news');
-    localStorage.removeItem('itpss_gallery');
-    localStorage.removeItem('itpss_pre_enrollments');
+    ['itpss_courses', 'itpss_payments', 'itpss_students', 'itpss_news', 'itpss_gallery', 'itpss_pre_enrollments', 'itpss_minipautas', 'itpss_minipauta_audit', 'itpss_declarations', 'itpss_cadernetas', 'itpss_certificates', 'itpss_absences', 'itpss_transfers', 'itpss_payment_receipts', 'itpss_notifications'].forEach((key) => getRepository().remove(key));
 
     setCourses(INITIAL_COURSES);
     setPaymentItems(INITIAL_PAYMENTS);
@@ -456,6 +600,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setNews(INITIAL_NEWS);
     setGallery(INITIAL_GALLERY);
     setPreEnrollments(INITIAL_PRE_ENROLLMENTS);
+    setMinipautas(buildInitialMinipautas());
+    setMinipautaAuditLogs([]);
+    setDeclarations([]);
+    setCadernetas([]);
+    setCertificates([]);
+    setAbsences([]);
+    setTransfers([]);
+    setPaymentReceipts([]);
+    setNotifications([]);
     setCurrentStudentId('std-1');
 
     showToast('Dados de demonstração repostos com sucesso!', 'info');
@@ -520,6 +673,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteGalleryPhoto,
         schedule,
         notices,
+        minipautas, minipautaAuditLogs, togglePublishMinipauta, importMinipautaEntries,
+        declarations, cadernetas, certificates, absences, transfers, paymentReceipts, notifications,
+        submitDeclarationRequest, updateDeclarationStatus, submitCadernetaRequest, updateCadernetaStatus,
+        submitCertificateRequest, updateCertificateStatus, submitAbsenceJustification, updateAbsenceStatus,
+        submitTransferRequest, updateTransferStatus, submitPaymentReceipt, validatePaymentReceipt, markNotificationAsRead,
 
         lightboxPhoto,
         setLightboxPhoto,

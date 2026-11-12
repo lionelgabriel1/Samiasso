@@ -33,6 +33,14 @@ import {
   FeeType,
 } from '../../types/index.ts';
 
+const fileToDataUrl = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => typeof reader.result === 'string' ? resolve(reader.result) : reject(new Error('Ficheiro inválido.'));
+    reader.onerror = () => reject(new Error('Não foi possível ler o ficheiro.'));
+    reader.readAsDataURL(file);
+  });
+
 // -------------------------------------------------------------
 // 1. COMPONENTE: DECLARAÇÕES
 // -------------------------------------------------------------
@@ -258,7 +266,7 @@ export const StudentDeclaracoes: React.FC = () => {
                 <p className="font-bold uppercase tracking-wider text-[11px] text-[#10385F]">REPÚBLICA DE ANGOLA</p>
                 <p className="font-bold uppercase tracking-wider text-[11px] text-[#10385F]">GOVERNO DA PROVÍNCIA DO BENGO</p>
                 <p className="font-extrabold uppercase text-xs text-[#1456A0]">INSTITUTO TÉCNICO PRIVADO DE SAÚDE SAMIASSO (ITPSS)</p>
-                <p className="text-[10px] text-slate-500 font-sans">Decreto Executivo n.º 39/23 • Samias - Panguila, Bengo</p>
+                <p className="text-[10px] text-slate-500 font-sans">Licença n.º 225/2026 • Luena, Moxico</p>
               </div>
 
               <div className="border-t border-b border-slate-200 py-3 text-center">
@@ -656,12 +664,13 @@ export const StudentCertificados: React.FC = () => {
 // 4. COMPONENTE: JUSTIFICAÇÃO DE FALTAS
 // -------------------------------------------------------------
 export const StudentFaltas: React.FC = () => {
-  const { currentStudent, absences, submitAbsenceJustification } = useApp();
-  const [absenceDate, setAbsenceDate] = useState('2025-05-12');
+  const { currentStudent, absences, submitAbsenceJustification, showToast } = useApp();
+  const [absenceDate, setAbsenceDate] = useState(new Date().toISOString().slice(0, 10));
   const [discipline, setDiscipline] = useState('Anatomia e Fisiologia Humana');
   const [reason, setReason] = useState<AbsenceJustificationRequest['reason']>('Consulta / Motivo Médico');
   const [description, setDescription] = useState('');
   const [fileName, setFileName] = useState('');
+  const [fileDataUrl, setFileDataUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!currentStudent) return null;
@@ -678,11 +687,12 @@ export const StudentFaltas: React.FC = () => {
         reason,
         description,
         attachmentName: fileName || undefined,
-        attachmentUrl: fileName ? `/comprovativos/${fileName}` : undefined,
+        attachmentUrl: fileDataUrl || undefined,
       });
       setIsSubmitting(false);
       setDescription('');
       setFileName('');
+      setFileDataUrl('');
     }, 400);
   };
 
@@ -772,9 +782,11 @@ export const StudentFaltas: React.FC = () => {
                   type="file"
                   id="absence-file"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setFileName(e.target.files[0].name);
-                    }
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    if (file.size > 1024 * 1024) { showToast('Na demonstração, cada anexo deve ter no máximo 1 MB.', 'error'); return; }
+                    if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) { showToast('Formato não suportado. Use PDF, JPG ou PNG.', 'error'); return; }
+                    fileToDataUrl(file).then((dataUrl) => { setFileName(file.name); setFileDataUrl(dataUrl); }).catch(() => showToast('Não foi possível carregar o anexo.', 'error'));
                   }}
                   className="hidden"
                 />
@@ -1054,15 +1066,16 @@ export const StudentTransferencias: React.FC = () => {
 // 6. COMPONENTE: EMOLUMENTOS E COMPROVATIVOS
 // -------------------------------------------------------------
 export const StudentPagamentos: React.FC = () => {
-  const { currentStudent, paymentReceipts, submitPaymentReceipt } = useApp();
+  const { currentStudent, paymentReceipts, submitPaymentReceipt, showToast } = useApp();
 
   const [feeType, setFeeType] = useState<FeeType>('Propinas');
   const [feeMonth, setFeeMonth] = useState('Maio');
-  const [amount, setAmount] = useState('25000');
+  const [amount, setAmount] = useState('');
   const [paymentDate, setPaymentDate] = useState('2025-05-12');
   const [bankReference, setBankReference] = useState('');
   const [bankName, setBankName] = useState('BAI');
   const [selectedFileName, setSelectedFileName] = useState('');
+  const [selectedFileData, setSelectedFileData] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState<PaymentReceipt | null>(null);
 
@@ -1072,23 +1085,24 @@ export const StudentPagamentos: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!bankReference.trim()) { showToast('Informe a referência que aparece no comprovativo.', 'error'); return; }
+    if (!selectedFileData || !selectedFileName) { showToast('Selecione o ficheiro real do comprovativo.', 'error'); return; }
+    if (!Number.isFinite(Number(amount)) || Number(amount) <= 0) { showToast('Informe um valor válido.', 'error'); return; }
     setIsSubmitting(true);
-
-    setTimeout(() => {
-      submitPaymentReceipt({
-        feeType,
-        amountPaid: Number(amount) || 0,
-        paymentDate,
-        bankReference: bankReference || `REF-${Math.floor(100000 + Math.random() * 900000)}`,
-        observations: feeType === 'Propinas' ? `Propina ref. ao mês de ${feeMonth} (${bankName})` : `Banco: ${bankName}`,
-        receiptFileName: selectedFileName || 'comprovativo-bancario.jpg',
-        receiptFileUrl: selectedFileName ? `/comprovativos/${selectedFileName}` : '/images/bordereau-sample.jpg',
-        receiptFileType: selectedFileName.endsWith('.pdf') ? 'pdf' : 'image',
-      });
-      setIsSubmitting(false);
-      setBankReference('');
-      setSelectedFileName('');
-    }, 450);
+    submitPaymentReceipt({
+      feeType,
+      amountPaid: Number(amount),
+      paymentDate,
+      bankReference: bankReference.trim(),
+      observations: feeType === 'Propinas' ? `Propina ref. ao mês de ${feeMonth} (${bankName})` : `Banco: ${bankName}`,
+      receiptFileName: selectedFileName,
+      receiptFileUrl: selectedFileData,
+      receiptFileType: selectedFileName.toLowerCase().endsWith('.pdf') ? 'pdf' : 'image',
+    });
+    setIsSubmitting(false);
+    setBankReference('');
+    setSelectedFileName('');
+    setSelectedFileData('');
   };
 
   return (
@@ -1242,9 +1256,11 @@ export const StudentPagamentos: React.FC = () => {
                   type="file"
                   id="receipt-file"
                   onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setSelectedFileName(e.target.files[0].name);
-                    }
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    if (file.size > 1024 * 1024) { showToast('Na demonstração, cada anexo deve ter no máximo 1 MB.', 'error'); return; }
+                    if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) { showToast('Formato não suportado. Use PDF, JPG ou PNG.', 'error'); return; }
+                    fileToDataUrl(file).then((dataUrl) => { setSelectedFileName(file.name); setSelectedFileData(dataUrl); }).catch(() => showToast('Não foi possível carregar o comprovativo.', 'error'));
                   }}
                   className="hidden"
                 />

@@ -52,8 +52,8 @@ export const AdminComprovativos: React.FC = () => {
     setValidationDecision(defaultStatus);
     setValidationNote(
       defaultStatus === 'Validado'
-        ? 'Pagamento conferido com sucesso no extrato bancário oficial do ITPSS.'
-        : 'Bordereau ilegível ou referência não localizada no extrato.'
+        ? 'Comprovativo conferido pela Secretaria durante a demonstração.'
+        : 'Comprovativo ilegível ou dados insuficientes para validação.'
     );
   };
 
@@ -68,7 +68,7 @@ export const AdminComprovativos: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-[#10385F]">Validação Manual de Comprovativos Bancários</h2>
+          <h2 className="text-2xl font-black text-[#10385F]">Receção e Validação de Comprovativos</h2>
           <p className="text-xs text-slate-500">
             Conferência de depósitos, transferências e pagamentos de propinas e emolumentos da Secretaria
           </p>
@@ -76,7 +76,7 @@ export const AdminComprovativos: React.FC = () => {
 
         <span className="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold rounded-xl flex items-center gap-1.5 self-start sm:self-auto">
           <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <span>Reconciliação Oficial Ativa</span>
+          <span>Validação Manual</span>
         </span>
       </div>
 
@@ -303,8 +303,12 @@ export const AdminComprovativos: React.FC = () => {
               <span className="font-semibold text-[#10385F] block mb-1">
                 Ficheiro Digitalizado do Comprovativo
               </span>
-              <div className="h-28 bg-white border border-slate-200 rounded-lg flex items-center justify-center font-mono text-[11px] text-slate-400">
-                [Comprovativo: {selectedReceipt.receiptFileUrl}]
+              <div className="min-h-28 bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center">
+                {selectedReceipt.receiptFileType === 'image' ? (
+                  <img src={selectedReceipt.receiptFileUrl} alt="Comprovativo enviado pelo estudante" className="max-h-72 w-full object-contain" />
+                ) : (
+                  <iframe src={selectedReceipt.receiptFileUrl} title="Comprovativo PDF" className="w-full h-72" />
+                )}
               </div>
             </div>
 
@@ -315,7 +319,7 @@ export const AdminComprovativos: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setValidationDecision('Validado');
-                    setValidationNote('Pagamento conferido com sucesso no extrato bancário oficial do ITPSS.');
+                    setValidationNote('Comprovativo conferido pela Secretaria durante a demonstração.');
                   }}
                   className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     validationDecision === 'Validado'

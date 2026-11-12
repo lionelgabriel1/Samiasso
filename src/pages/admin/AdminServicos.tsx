@@ -88,10 +88,8 @@ export const AdminServicos: React.FC = () => {
         modalItem.data.id,
         modalStatus,
         modalNotes,
-        modalStatus === 'Aprovado' || modalStatus === 'Concluído'
-          ? `/documentos/declaracao-${modalItem.data.requestCode}.pdf`
-          : undefined,
-        `Declaracao_${modalItem.data.requestCode}.pdf`
+        undefined,
+        undefined
       );
     } else if (modalItem.type === 'caderneta') {
       updateCadernetaStatus(modalItem.data.id, modalStatus, modalNotes);
@@ -100,8 +98,8 @@ export const AdminServicos: React.FC = () => {
         modalItem.data.id,
         modalStatus,
         modalNotes,
-        modalStatus === 'Concluído' ? `/certificados/cert-${modalItem.data.requestCode}.pdf` : undefined,
-        `Certificado_${modalItem.data.requestCode}.pdf`
+        undefined,
+        undefined
       );
     } else if (modalItem.type === 'absence') {
       updateAbsenceStatus(modalItem.data.id, modalStatus, modalNotes);
@@ -539,6 +537,17 @@ export const AdminServicos: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {modalItem.type === 'absence' && modalItem.data.attachmentUrl && (
+              <div className="rounded-xl border border-slate-200 p-3 space-y-2">
+                <p className="text-xs font-bold text-[#10385F]">Anexo enviado pelo estudante</p>
+                {modalItem.data.attachmentUrl.startsWith('data:image/') ? (
+                  <img src={modalItem.data.attachmentUrl} alt="Atestado anexado" className="max-h-56 w-full object-contain rounded-lg" />
+                ) : (
+                  <a href={modalItem.data.attachmentUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold text-[#1456A0] underline">Abrir documento PDF</a>
+                )}
+              </div>
+            )}
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">Decisão / Novo Estado</label>

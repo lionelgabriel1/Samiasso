@@ -34,26 +34,9 @@ export const DemoPresentationBar: React.FC = () => {
   }
 
   return (
-    <div className="fixed top-0 inset-x-0 z-50 bg-[#0b2743]/95 backdrop-blur-md text-white border-b border-white/10 shadow-lg text-xs py-1.5 px-4 animate-in slide-in-from-top-2">
+    <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-5xl bg-[#0b2743]/95 backdrop-blur-md text-white border border-white/10 shadow-lg rounded-2xl text-xs py-2 px-3 animate-in slide-in-from-bottom-2">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-        {/* Left: Presentation Badge */}
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <div className="flex items-center gap-1.5">
-            <span className="font-extrabold text-[#F28C28] uppercase tracking-wider text-[10px]">
-              Apresentação à Direção
-            </span>
-            <span className="text-white/30 hidden sm:inline">•</span>
-            <span className="text-slate-300 text-[11px] hidden sm:inline">
-              Ambiente de Demonstração Interativo
-            </span>
-          </div>
-        </div>
-
-        {/* Center: 1-Click View Switchers for Smooth Live Demo */}
+        {/* Quick view switchers */}
         <div className="flex items-center gap-1.5 bg-[#10385F] p-1 rounded-xl border border-white/10">
           <button
             type="button"
