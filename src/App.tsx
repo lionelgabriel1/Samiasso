@@ -100,7 +100,7 @@ const AppContent: React.FC = () => {
 
   // Default: Public Portal
   return (
-    <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F] pt-9">
+    <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F]">
       <Header />
       <main className="flex-1">
         <div key={publicRoute} className="animate-fade-in">
