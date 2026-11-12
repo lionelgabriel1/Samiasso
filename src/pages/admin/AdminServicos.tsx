@@ -88,10 +88,8 @@ export const AdminServicos: React.FC = () => {
         modalItem.data.id,
         modalStatus,
         modalNotes,
-        modalStatus === 'Aprovado' || modalStatus === 'Concluído'
-          ? `/documentos/declaracao-${modalItem.data.requestCode}.pdf`
-          : undefined,
-        `Declaracao_${modalItem.data.requestCode}.pdf`
+        undefined,
+        undefined
       );
     } else if (modalItem.type === 'caderneta') {
       updateCadernetaStatus(modalItem.data.id, modalStatus, modalNotes);
@@ -100,8 +98,8 @@ export const AdminServicos: React.FC = () => {
         modalItem.data.id,
         modalStatus,
         modalNotes,
-        modalStatus === 'Concluído' ? `/certificados/cert-${modalItem.data.requestCode}.pdf` : undefined,
-        `Certificado_${modalItem.data.requestCode}.pdf`
+        undefined,
+        undefined
       );
     } else if (modalItem.type === 'absence') {
       updateAbsenceStatus(modalItem.data.id, modalStatus, modalNotes);
