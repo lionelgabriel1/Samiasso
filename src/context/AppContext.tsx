@@ -58,6 +58,7 @@ interface AppContextType {
   // Authentication
   currentUser: User | null;
   loginAsAdmin: (email: string, pass: string) => Promise<{ success: boolean; error?: string }>;
+  loginAsSecretaria: (email: string, pass: string) => Promise<{ success: boolean; error?: string }>;
   loginAsStudent: (studentNumberOrEmail: string, pass: string) => Promise<{ success: boolean; error?: string }>;
   registerStudent: (data: { name: string; email: string; phone: string; courseId: string; classLevel: string; pass: string }) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
@@ -504,6 +505,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return { success: true };
   };
 
+  const loginAsSecretaria = async (email: string, pass: string): Promise<{ success: boolean; error?: string }> => {
+    if (!email.trim() || !pass) {
+      return { success: false, error: 'Por favor preencha o e-mail e a palavra-passe.' };
+    }
+
+    if (email.trim().toLowerCase() !== 'secretaria@itpss.ao' || pass !== 'sec123') {
+      return { success: false, error: 'Credenciais da Secretaria inválidas. Verifique o e-mail e a palavra-passe.' };
+    }
+
+    setCurrentUser({
+      id: 'usr-secretaria-1',
+      name: 'Secretaria ITPSS',
+      email: 'secretaria@itpss.ao',
+      role: 'secretaria',
+      avatar: '/images/campus-drone.jpg',
+    });
+    setActiveSection('admin');
+    setAdminRoute('dashboard');
+    setIsAuthModalOpen(false);
+    showToast('Sessão iniciada como Secretaria.');
+    return { success: true };
+  };
+
   const loginAsStudent = async (
     studentNumberOrEmail: string,
     pass: string
@@ -643,6 +667,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         currentUser,
         loginAsAdmin,
+        loginAsSecretaria,
         loginAsStudent,
         registerStudent,
         logout,
