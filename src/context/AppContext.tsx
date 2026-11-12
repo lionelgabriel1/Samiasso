@@ -587,7 +587,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const resetDemoData = () => {
-    ['itpss_courses', 'itpss_payments', 'itpss_students', 'itpss_news', 'itpss_gallery', 'itpss_pre_enrollments'].forEach((key) => getRepository().remove(key));
+    ['itpss_courses', 'itpss_payments', 'itpss_students', 'itpss_news', 'itpss_gallery', 'itpss_pre_enrollments', 'itpss_minipautas', 'itpss_minipauta_audit', 'itpss_declarations', 'itpss_cadernetas', 'itpss_certificates', 'itpss_absences', 'itpss_transfers', 'itpss_payment_receipts', 'itpss_notifications'].forEach((key) => getRepository().remove(key));
 
     setCourses(INITIAL_COURSES);
     setPaymentItems(INITIAL_PAYMENTS);
@@ -595,6 +595,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setNews(INITIAL_NEWS);
     setGallery(INITIAL_GALLERY);
     setPreEnrollments(INITIAL_PRE_ENROLLMENTS);
+    setMinipautas(buildInitialMinipautas());
+    setMinipautaAuditLogs([]);
+    setDeclarations([]);
+    setCadernetas([]);
+    setCertificates([]);
+    setAbsences([]);
+    setTransfers([]);
+    setPaymentReceipts([]);
+    setNotifications([]);
     setCurrentStudentId('std-1');
 
     showToast('Dados de demonstração repostos com sucesso!', 'info');
