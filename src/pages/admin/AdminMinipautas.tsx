@@ -25,6 +25,7 @@ type PeriodType = '1º Trimestre' | '2º Trimestre' | '3º Trimestre';
 export const AdminMinipautas: React.FC = () => {
   const {
     courses,
+    students,
     minipautas,
     minipautaAuditLogs,
     togglePublishMinipauta,
@@ -90,18 +91,25 @@ export const AdminMinipautas: React.FC = () => {
     importMinipautaEntries(activeMinipauta.id, localEntries);
   };
 
+  const mapCsvEntries = (entries: typeof parseMinipautaCSV extends (...args: any[]) => infer R ? R extends { entries: infer E } ? E : never : never) => {
+    const errors: string[] = [];
+    const mapped: Omit<MinipautaEntry, 'notaFinal'>[] = [];
+    entries.forEach((entry) => {
+      const student = students.find((item) => item.studentNumber.trim().toLowerCase() === entry.studentNumber.trim().toLowerCase());
+      if (!student) {
+        errors.push(`Matrícula não encontrada: ${entry.studentNumber}`);
+        return;
+      }
+      mapped.push({ studentId: student.id, studentNumber: student.studentNumber, studentName: student.name, mac: entry.mac, npp: entry.npp, npt: entry.npt });
+    });
+    return { mapped, errors };
+  };
+
   const handleCsvParse = () => {
     const res = parseMinipautaCSV(csvRawText);
-    const mapped: Omit<MinipautaEntry, 'notaFinal'>[] = res.entries.map((e, idx) => ({
-      studentId: `std-imp-${idx}`,
-      studentNumber: e.studentNumber,
-      studentName: e.studentName,
-      mac: e.mac,
-      npp: e.npp,
-      npt: e.npt,
-    }));
-    setParsedEntries(mapped);
-    setParseErrors(res.errors);
+    const mapped = mapCsvEntries(res.entries);
+    setParsedEntries(mapped.mapped);
+    setParseErrors([...res.errors, ...mapped.errors]);
   };
 
   const handleConfirmImport = () => {
@@ -110,7 +118,7 @@ export const AdminMinipautas: React.FC = () => {
       ...e,
       notaFinal: calculateTrimestralGrade(e.mac, e.npp, e.npt),
     }));
-    importMinipautaEntries(activeMinipauta.id, fullEntries, 'importacao-csv.csv');
+    importMinipautaEntries(activeMinipauta.id, fullEntries, 'Importação Excel/CSV');
     setIsImportModalOpen(false);
     setCsvRawText('');
     setParsedEntries([]);
@@ -118,23 +126,17 @@ export const AdminMinipautas: React.FC = () => {
   };
 
   const loadCsvSampleTemplate = () => {
-    const sample = `studentNumber,studentName,mac,npp,npt
-2024-0142,Ana Paula Silva,16.5,15.0,17.0
-2024-0143,Carlos Manuel Bengo,14.0,13.5,15.0
-2024-0144,Esperança Domingos,17.0,16.0,18.0
-2024-0145,Mateus João Afonso,12.5,11.0,13.0`;
+    const sampleStudents = students.slice(0, 4);
+    if (sampleStudents.length === 0) {
+      setParseErrors(['Não existem estudantes registados para criar um exemplo.']);
+      return;
+    }
+    const sample = `studentNumber,studentName,mac,npp,npt\n` + sampleStudents.map((student, index) => `${student.studentNumber},${student.name},${14 + index},${13 + index},${15 + index}`).join('\n');
     setCsvRawText(sample);
     const res = parseMinipautaCSV(sample);
-    const mapped: Omit<MinipautaEntry, 'notaFinal'>[] = res.entries.map((e, idx) => ({
-      studentId: `std-imp-${idx}`,
-      studentNumber: e.studentNumber,
-      studentName: e.studentName,
-      mac: e.mac,
-      npp: e.npp,
-      npt: e.npt,
-    }));
-    setParsedEntries(mapped);
-    setParseErrors(res.errors);
+    const mapped = mapCsvEntries(res.entries);
+    setParsedEntries(mapped.mapped);
+    setParseErrors([...res.errors, ...mapped.errors]);
   };
 
   return (
