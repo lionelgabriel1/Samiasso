@@ -31,6 +31,7 @@ import {
 import {
   calculateDisciplineAverage,
   calculateOverallAverage,
+  calculateTrimestralGrade,
   validatePreEnrollment,
 } from '../utils/academic.ts';
 
@@ -145,6 +146,43 @@ const ADMIN_DEFAULT_USER: User = {
   avatar: '/images/campus-drone.jpg',
 };
 
+const buildInitialMinipautas = (): Minipauta[] => {
+  const grouped = new Map<string, Minipauta>();
+  INITIAL_STUDENTS.forEach((student) => {
+    student.disciplines.forEach((discipline) => {
+      const key = [student.courseId, student.classId, discipline.id].join('|');
+      const existing = grouped.get(key);
+      const entry: MinipautaEntry = {
+        studentId: student.id,
+        studentNumber: student.studentNumber,
+        studentName: student.name,
+        mac: discipline.grades.periodo1,
+        npp: discipline.grades.periodo2,
+        npt: discipline.grades.periodo3,
+        notaFinal: calculateTrimestralGrade(discipline.grades.periodo1, discipline.grades.periodo2, discipline.grades.periodo3),
+      };
+      if (existing) existing.entries.push(entry);
+      else grouped.set(key, {
+        id: `mini-${key.replace(/[^a-z0-9]+/gi, '-')}`,
+        courseId: student.courseId,
+        courseName: student.courseName,
+        classId: student.classId,
+        classLevel: student.classLevel,
+        disciplineId: discipline.id,
+        disciplineName: discipline.name,
+        period: '1º Trimestre',
+        academicYear: student.academicYear,
+        published: true,
+        publishedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        updatedBy: 'Dados de demonstração',
+        entries: [entry],
+      });
+    });
+  });
+  return [...grouped.values()];
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Navigation State
   const [activeSection, setActiveSection] = useState<'public' | 'admin' | 'student'>('public');
@@ -176,7 +214,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [notices] = useState<Notice[]>(INITIAL_NOTICES);
 
   // All newly added academic/service modules share the same repository boundary.
-  const [minipautas, setMinipautas] = useState<Minipauta[]>(() => getRepository().get('itpss_minipautas', []));
+  const [minipautas, setMinipautas] = useState<Minipauta[]>(() => getRepository().get('itpss_minipautas', buildInitialMinipautas()));
   const [minipautaAuditLogs, setMinipautaAuditLogs] = useState<MinipautaAuditLog[]>(() => getRepository().get('itpss_minipauta_audit', []));
   const [declarations, setDeclarations] = useState<DeclarationRequest[]>(() => getRepository().get('itpss_declarations', []));
   const [cadernetas, setCadernetas] = useState<CadernetaRequest[]>(() => getRepository().get('itpss_cadernetas', []));
