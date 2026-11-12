@@ -266,7 +266,7 @@ export const StudentDeclaracoes: React.FC = () => {
                 <p className="font-bold uppercase tracking-wider text-[11px] text-[#10385F]">REPÚBLICA DE ANGOLA</p>
                 <p className="font-bold uppercase tracking-wider text-[11px] text-[#10385F]">GOVERNO DA PROVÍNCIA DO BENGO</p>
                 <p className="font-extrabold uppercase text-xs text-[#1456A0]">INSTITUTO TÉCNICO PRIVADO DE SAÚDE SAMIASSO (ITPSS)</p>
-                <p className="text-[10px] text-slate-500 font-sans">Decreto Executivo n.º 39/23 • Samias - Panguila, Bengo</p>
+                <p className="text-[10px] text-slate-500 font-sans">Licença n.º 225/2026 • Luena, Moxico</p>
               </div>
 
               <div className="border-t border-b border-slate-200 py-3 text-center">
@@ -665,7 +665,7 @@ export const StudentCertificados: React.FC = () => {
 // -------------------------------------------------------------
 export const StudentFaltas: React.FC = () => {
   const { currentStudent, absences, submitAbsenceJustification, showToast } = useApp();
-  const [absenceDate, setAbsenceDate] = useState('2025-05-12');
+  const [absenceDate, setAbsenceDate] = useState(new Date().toISOString().slice(0, 10));
   const [discipline, setDiscipline] = useState('Anatomia e Fisiologia Humana');
   const [reason, setReason] = useState<AbsenceJustificationRequest['reason']>('Consulta / Motivo Médico');
   const [description, setDescription] = useState('');
@@ -1070,7 +1070,7 @@ export const StudentPagamentos: React.FC = () => {
 
   const [feeType, setFeeType] = useState<FeeType>('Propinas');
   const [feeMonth, setFeeMonth] = useState('Maio');
-  const [amount, setAmount] = useState('25000');
+  const [amount, setAmount] = useState('');
   const [paymentDate, setPaymentDate] = useState('2025-05-12');
   const [bankReference, setBankReference] = useState('');
   const [bankName, setBankName] = useState('BAI');
