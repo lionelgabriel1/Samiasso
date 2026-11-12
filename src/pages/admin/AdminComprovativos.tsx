@@ -303,8 +303,12 @@ export const AdminComprovativos: React.FC = () => {
               <span className="font-semibold text-[#10385F] block mb-1">
                 Ficheiro Digitalizado do Comprovativo
               </span>
-              <div className="h-28 bg-white border border-slate-200 rounded-lg flex items-center justify-center font-mono text-[11px] text-slate-400">
-                [Comprovativo: {selectedReceipt.receiptFileUrl}]
+              <div className="min-h-28 bg-white border border-slate-200 rounded-lg overflow-hidden flex items-center justify-center">
+                {selectedReceipt.receiptFileType === 'image' ? (
+                  <img src={selectedReceipt.receiptFileUrl} alt="Comprovativo enviado pelo estudante" className="max-h-72 w-full object-contain" />
+                ) : (
+                  <iframe src={selectedReceipt.receiptFileUrl} title="Comprovativo PDF" className="w-full h-72" />
+                )}
               </div>
             </div>
 
@@ -315,7 +319,7 @@ export const AdminComprovativos: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setValidationDecision('Validado');
-                    setValidationNote('Pagamento conferido com sucesso no extrato bancário oficial do ITPSS.');
+                    setValidationNote('Comprovativo conferido pela Secretaria durante a demonstração.');
                   }}
                   className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     validationDecision === 'Validado'
