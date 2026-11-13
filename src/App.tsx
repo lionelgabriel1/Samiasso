@@ -10,7 +10,6 @@ import { Footer } from './components/common/Footer.tsx';
 import { Lightbox } from './components/common/Lightbox.tsx';
 import { Toast } from './components/common/Toast.tsx';
 import { AuthModal } from './components/common/AuthModal.tsx';
-import { DemoPresentationBar } from './components/common/DemoPresentationBar.tsx';
 
 // Public Pages
 import { HomePage } from './pages/public/HomePage.tsx';
@@ -28,18 +27,37 @@ import { AdminServicos } from './pages/admin/AdminServicos.tsx';
 import { AdminComprovativos } from './pages/admin/AdminComprovativos.tsx';
 import { AdminUtilizadores } from './pages/admin/AdminUtilizadores.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
+import { AdminPautasGerais } from './pages/admin/AdminPautasGerais.tsx';
+import { AdminMinipautas } from './pages/admin/AdminMinipautas.tsx';
+import { AdminComprovativos } from './pages/admin/AdminComprovativos.tsx';
+import { AdminServicos } from './pages/admin/AdminServicos.tsx';
+import { AdminUtilizadores } from './pages/admin/AdminUtilizadores.tsx';
 import { AdminCursos } from './pages/admin/AdminCursos.tsx';
 import { AdminPreInscricoes } from './pages/admin/AdminPreInscricoes.tsx';
 import { AdminAlunos } from './pages/admin/AdminAlunos.tsx';
 import { AdminNoticias } from './pages/admin/AdminNoticias.tsx';
 import { AdminGaleria } from './pages/admin/AdminGaleria.tsx';
-import { AdminDocentes, AdminTurmas, AdminConfiguracoes, AdminResultados, AdminAssiduidade } from './pages/admin/AdminAuxiliary.tsx';
+import {
+  AdminDocentes,
+  AdminTurmas,
+  AdminConfiguracoes,
+  AdminAssiduidade,
+} from './pages/admin/AdminAuxiliary.tsx';
 
 // Student Pages
 import { StudentLayout } from './pages/student/StudentLayout.tsx';
 import { StudentDashboard } from './pages/student/StudentDashboard.tsx';
 import { StudentResultados } from './pages/student/StudentResultados.tsx';
 import { StudentDeclaracoes, StudentCadernetas, StudentCertificados, StudentFaltas, StudentTransferencias, StudentPagamentos, StudentNotificacoes } from './pages/student/StudentServicos.tsx';
+import {
+  StudentDeclaracoes,
+  StudentCadernetas,
+  StudentCertificados,
+  StudentFaltas,
+  StudentTransferencias,
+  StudentPagamentos,
+  StudentNotificacoes,
+} from './pages/student/StudentServicos.tsx';
 import {
   StudentHorario,
   StudentAssiduidade,
@@ -50,17 +68,26 @@ import {
 const AppContent: React.FC = () => {
   const { activeSection, publicRoute, adminRoute, studentRoute } = useApp();
 
-  // Render Admin Section
   if (activeSection === 'admin') {
     return (
       <AdminLayout>
         <div key={adminRoute} className="animate-fade-in">
           {adminRoute === 'dashboard' && <AdminDashboard />}
+          {(adminRoute === 'pautas-gerais' || adminRoute === 'resultados') && (
+            <AdminPautasGerais />
+          )}
+          {adminRoute === 'minipautas' && <AdminMinipautas />}
+          {adminRoute === 'comprovativos' && <AdminComprovativos />}
+          {(adminRoute === 'declaracoes' ||
+            adminRoute === 'cadernetas' ||
+            adminRoute === 'certificados' ||
+            adminRoute === 'faltas' ||
+            adminRoute === 'transferencias') && <AdminServicos />}
           {adminRoute === 'cursos' && <AdminCursos />}
           {adminRoute === 'matriculas' && <AdminPreInscricoes />}
           {adminRoute === 'alunos' && <AdminAlunos />}
-          {adminRoute === 'resultados' && <AdminResultados />}
           {adminRoute === 'assiduidade' && <AdminAssiduidade />}
+          {adminRoute === 'utilizadores' && <AdminUtilizadores />}
           {adminRoute === 'noticias' && <AdminNoticias />}
           {adminRoute === 'galeria' && <AdminGaleria />}
           {adminRoute === 'docentes' && <AdminDocentes />}
@@ -75,13 +102,19 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // Render Student Section
   if (activeSection === 'student') {
     return (
       <StudentLayout>
         <div key={studentRoute} className="animate-fade-in">
           {studentRoute === 'visao-geral' && <StudentDashboard />}
           {studentRoute === 'resultados' && <StudentResultados />}
+          {studentRoute === 'pedidos' && <StudentDeclaracoes />}
+          {studentRoute === 'cadernetas' && <StudentCadernetas />}
+          {studentRoute === 'certificados' && <StudentCertificados />}
+          {studentRoute === 'faltas' && <StudentFaltas />}
+          {studentRoute === 'transferencias' && <StudentTransferencias />}
+          {studentRoute === 'pagamentos' && <StudentPagamentos />}
+          {studentRoute === 'notificacoes' && <StudentNotificacoes />}
           {studentRoute === 'horario' && <StudentHorario />}
           {studentRoute === 'assiduidade' && <StudentAssiduidade />}
           {studentRoute === 'comunicados' && <StudentComunicados />}
@@ -98,7 +131,6 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // Default: Public Portal
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F]">
       <Header />
@@ -121,7 +153,6 @@ const AppContent: React.FC = () => {
 export default function App() {
   return (
     <AppProvider>
-      <DemoPresentationBar />
       <AppContent />
       <Lightbox />
       <AuthModal />

@@ -61,7 +61,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   const menuItems: { id: AdminRoute; label: string; icon: React.ReactNode; badge?: number }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
-    { id: 'minipautas', label: 'Minipautas', icon: <FileSpreadsheet className="w-5 h-5" /> },
+    { id: 'pautas-gerais', label: 'Pautas Gerais', icon: <FileSpreadsheet className="w-5 h-5" /> },
+    { id: 'minipautas', label: 'Minipautas', icon: <Award className="w-5 h-5" /> },
     {
       id: 'comprovativos',
       label: 'Comprovativos / Emolumentos',
@@ -205,14 +206,16 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           <div className="p-2.5 rounded-xl bg-[#0b2743] flex items-center justify-between">
             <div className="flex items-center gap-2 overflow-hidden">
               <div className="w-8 h-8 rounded-lg bg-[#1456A0] text-white flex items-center justify-center font-bold text-xs shrink-0">
-                AD
+                {currentUser?.role === 'secretaria' ? 'SC' : 'AD'}
               </div>
               {!isSidebarCollapsed && (
                 <div className="truncate">
                   <div className="text-xs font-bold text-white truncate">
                     {currentUser?.name || 'Administrador'}
                   </div>
-                  <div className="text-[10px] text-slate-400">Admin ITPSS</div>
+                  <div className="text-[10px] text-slate-400">
+                    {currentUser?.role === 'secretaria' ? 'Secretaria ITPSS' : 'Admin ITPSS'}
+                  </div>
                 </div>
               )}
             </div>
@@ -329,16 +332,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <h1 className="text-lg font-extrabold text-[#10385F] capitalize">
               {adminRoute.replace('-', ' ')}
             </h1>
-            <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80 text-[10px] font-bold">
-              <span>Modo Demonstração</span>
+            <span className="hidden md:inline text-xs text-slate-400">
+              · Gestão Académica ITPSS
             </span>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Direct Switcher buttons */}
             <button
               onClick={() => setActiveSection('student')}
-              className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1456A0] text-xs font-bold rounded-xl transition-colors cursor-pointer hidden sm:flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1456A0] text-xs font-bold rounded-xl transition-colors cursor-pointer hidden sm:flex items-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <GraduationCap className="w-4 h-4" />
               <span>Ver Área do Aluno</span>
@@ -346,7 +348,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
             <button
               onClick={() => setActiveSection('public')}
-              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer hidden sm:flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer hidden sm:flex items-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <Globe className="w-3.5 h-3.5 text-[#F28C28]" />
               <span>Ver Site Público</span>
@@ -356,10 +358,10 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-[#10385F] text-white font-bold text-xs flex items-center justify-center">
-                AD
+                {currentUser?.role === 'secretaria' ? 'SC' : 'AD'}
               </div>
               <span className="text-xs font-bold text-[#10385F] hidden md:inline">
-                Admin ITPSS
+                {currentUser?.name || 'Admin ITPSS'}
               </span>
             </div>
           </div>

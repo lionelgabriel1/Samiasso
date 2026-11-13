@@ -340,3 +340,93 @@ export interface PortalNotification {
   createdAt: string;
   linkRoute?: string;
 }
+
+// ==========================================
+// 5. MÓDULO DE PAUTAS GERAIS (IMPORTAÇÃO / EXPORTAÇÃO EXCEL)
+// ==========================================
+export type PautaPeriod = '1º Trimestre' | '2º Trimestre' | '3º Trimestre' | 'Final Anual';
+
+export interface PautaGeralRow {
+  order: number;
+  studentId: string;
+  studentNumber: string; // Matrícula (chave principal)
+  studentName: string;
+  grades: Record<string, number>; // nome da disciplina -> nota (0..20)
+  average: number;
+  status: 'Aprovado' | 'Recurso' | 'Reprovado';
+}
+
+export interface PautaDisciplineStat {
+  discipline: string;
+  average: number;
+  min: number;
+  max: number;
+  approvedCount: number;
+  passRate: number;
+}
+
+export interface PautaGeralSummary {
+  totalStudents: number;
+  approvedCount: number;
+  recursoCount: number;
+  reprovedCount: number;
+  passRate: number;
+  classAverage: number;
+  disciplineStats: PautaDisciplineStat[];
+}
+
+export interface PautaGeralVersion {
+  version: number;
+  savedAt: string;
+  savedBy: string;
+  sourceFileName?: string;
+  note?: string;
+  rows: PautaGeralRow[];
+  summary: PautaGeralSummary;
+}
+
+export interface PautaGeral {
+  id: string;
+  courseId: string;
+  courseName: string;
+  classLevel: string;
+  classId: string;
+  academicYear: string;
+  period: PautaPeriod;
+  disciplines: string[];
+  rows: PautaGeralRow[];
+  summary: PautaGeralSummary;
+  version: number;
+  versions: PautaGeralVersion[];
+  published: boolean;
+  publishedAt?: string;
+  publishedBy?: string;
+  sourceFileName?: string;
+  importedAt: string;
+  importedBy: string;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+export interface PautaGeralAuditLog {
+  id: string;
+  pautaId: string;
+  fileName?: string;
+  courseName: string;
+  classId: string;
+  academicYear: string;
+  period: PautaPeriod;
+  action:
+    | 'Importação Excel'
+    | 'Substituição Confirmada'
+    | 'Edição Manual'
+    | 'Publicação'
+    | 'Ocultação';
+  processedCount: number;
+  validCount: number;
+  errorCount: number;
+  author: string;
+  timestamp: string;
+  details: string;
+}
+

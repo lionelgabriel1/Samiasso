@@ -32,8 +32,10 @@ export const AdminDashboard: React.FC = () => {
   const {
     students,
     teachers,
+    classes,
     courses,
     preEnrollments,
+    pautasGerais,
     minipautas,
     declarations,
     cadernetas,
@@ -44,12 +46,11 @@ export const AdminDashboard: React.FC = () => {
     setAdminRoute,
   } = useApp();
 
-  // Metrics matching mockup
-  const totalStudents = 124;
-  const totalTeachers = 12;
-  const totalClasses = 7;
+  const totalStudents = students.length;
+  const totalTeachers = teachers.length;
+  const totalClasses = classes.length;
   const totalCourses = courses.length;
-  const totalPreEnrollments = 48;
+  const totalPreEnrollments = preEnrollments.length;
 
   const pendingServicesCount =
     declarations.filter((d) => d.status === 'Pendente').length +
@@ -60,6 +61,7 @@ export const AdminDashboard: React.FC = () => {
 
   const pendingReceiptsCount = paymentReceipts.filter((r) => r.status === 'Aguardando validação').length;
   const publishedMinipautasCount = minipautas.filter((m) => m.published).length;
+  const publishedPautasCount = pautasGerais.filter((p) => p.published).length;
 
   // 1. Line Chart Data: Evolução das Matrículas (Jan - Dez)
   const enrollmentEvolutionData = [
@@ -112,8 +114,15 @@ export const AdminDashboard: React.FC = () => {
 
         <div className="flex items-center gap-2 flex-wrap">
           <button
+            onClick={() => setAdminRoute('pautas-gerais')}
+            className="px-3.5 py-2 bg-[#10385F] hover:bg-[#1456A0] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
+          >
+            <span>Pautas Gerais ({publishedPautasCount} publicadas)</span>
+          </button>
+
+          <button
             onClick={() => setAdminRoute('minipautas')}
-            className="px-3.5 py-2 bg-[#1456A0] hover:bg-[#10385F] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#1456A0] hover:bg-[#10385F] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 whitespace-nowrap shrink-0"
           >
             <span>Minipautas ({publishedMinipautasCount} publicadas)</span>
           </button>
