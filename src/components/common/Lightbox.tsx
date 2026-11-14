@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React, { useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -42,11 +43,11 @@ export const Lightbox: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-label="Visualizador de imagem ampliada"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 lightbox-enter"
       onClick={() => setLightboxPhoto(null)}
     >
       <div
-        className="relative max-w-4xl w-full bg-[#10385F] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+        className="relative max-w-4xl w-full bg-[#10385F] rounded-xl overflow-hidden shadow-2xl border border-white/10 lightbox-panel-enter"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
@@ -68,10 +69,10 @@ export const Lightbox: React.FC = () => {
 
         {/* Image Frame */}
         <div className="relative bg-black flex items-center justify-center min-h-[360px] max-h-[70vh]">
-          <img
+          <ResponsiveImage
             src={lightboxPhoto.url}
             alt={lightboxPhoto.title}
-            className="max-h-[70vh] w-auto max-w-full object-contain mx-auto"
+            className="max-h-[70vh] w-auto max-w-full object-contain mx-auto lightbox-image-enter"
           />
 
           {/* Navigation Arrows */}
