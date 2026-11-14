@@ -1,5 +1,5 @@
-import { ResponsiveImage } from './ResponsiveImage.tsx';
 import React, { useEffect, useRef } from 'react';
+import { ResponsiveImage } from './ResponsiveImage.tsx';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 
@@ -34,7 +34,7 @@ export const Lightbox: React.FC = () => {
   };
 
   const handlePrev = () => {
-    if (gallery.length < 2) return;
+    if (!canNavigateGallery) return;
     if (currentIndex > 0) {
       setLightboxPhoto(gallery[currentIndex - 1]);
     } else {
@@ -107,7 +107,7 @@ export const Lightbox: React.FC = () => {
             onClick={handleNext}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Próxima imagem"
-            disabled={gallery.length < 2}
+            disabled={!canNavigateGallery}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
