@@ -74,7 +74,7 @@ export const GaleriaPage: React.FC = () => {
             <div
               key={photo.id}
               onClick={() => setLightboxPhoto(photo)}
-              className="group relative rounded-xl overflow-hidden img-card-interactive bg-white border border-slate-200/80 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1456A0]" role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setLightboxPhoto(photo); }}
+              className="group relative rounded-xl overflow-hidden img-card-interactive bg-white border border-slate-200/80 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1456A0]" role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setLightboxPhoto(photo); } }}
             >
               <div className="aspect-[4/3] img-zoom-container bg-slate-100">
                 <ResponsiveImage src={photo.url} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
@@ -85,7 +85,7 @@ export const GaleriaPage: React.FC = () => {
               </div>
 
               {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/95 via-[#10385F]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/95 via-[#10385F]/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#F28C28] bg-black/40 px-2 py-0.5 rounded w-fit mb-1">
                   {photo.category}
                 </span>
@@ -105,7 +105,7 @@ export const GaleriaPage: React.FC = () => {
         </div>
 
         {/* Story Quote Section matching mockup */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
