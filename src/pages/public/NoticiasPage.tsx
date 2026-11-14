@@ -46,10 +46,10 @@ export const NoticiasPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Notícias</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Notícias e Comunicados
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Acompanhe as atualizações institucionais, avisos e atividades escolares do ITPSS.
           </p>
         </div>
