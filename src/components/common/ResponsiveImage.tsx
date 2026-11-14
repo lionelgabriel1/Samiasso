@@ -2,7 +2,7 @@ import React from 'react';
 import imageVariants from '../../generated/imageVariants.json';
 
 type ImageVariant = { src: string; width: number };
-type ImageFormats = { avif?: ImageVariant[]; webp?: ImageVariant[] };
+type ImageFormats = { width: number; height: number; avif?: ImageVariant[]; webp?: ImageVariant[] };
 type ImageManifest = Record<string, ImageFormats>;
 
 interface ResponsiveImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -23,6 +23,8 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   priority = false,
   decoding = 'async',
   fetchPriority,
+  width,
+  height,
   ...props
 }) => {
   const variants = manifest[src];
@@ -38,7 +40,9 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
         sizes={sizes}
         loading={priority ? 'eager' : loading ?? 'lazy'}
         fetchPriority={priority ? 'high' : fetchPriority}
-        decoding={priority ? 'sync' : decoding}
+        decoding={decoding}
+        width={width ?? variants?.width}
+        height={height ?? variants?.height}
         {...props}
       />
     </picture>
