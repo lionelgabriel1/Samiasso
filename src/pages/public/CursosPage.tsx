@@ -48,15 +48,15 @@ export const CursosPage: React.FC = () => {
               Oferta Formativa Oficial
             </h2>
             <p className="text-slate-600 text-sm mt-1">
-              Matrículas abertas para a 10.ª e 11.ª classes com certificação técnica média oficial.
+              Cursos disponíveis para a 10.ª e 11.ª classes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" data-scroll-reveal>
             {courses.map((course) => (
               <div
                 key={course.id}
-                className="bg-white rounded-3xl overflow-hidden shadow-xs img-card-interactive border border-slate-200/80 flex flex-col group"
+                data-scroll-reveal="subtle" className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 flex flex-col group img-card-interactive"
               >
                 <div className="relative h-56 bg-slate-100 img-zoom-container">
                   <img
@@ -106,7 +106,7 @@ export const CursosPage: React.FC = () => {
                   <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] uppercase font-bold text-slate-400 block">
-                        Mensalidade Oficial
+                        Mensalidade
                       </span>
                       <span className="text-2xl font-black text-[#1456A0]">
                         {formatKwanza(course.monthlyFee)}
@@ -133,7 +133,7 @@ export const CursosPage: React.FC = () => {
         </div>
 
         {/* Outros Pagamentos Section matching mockup */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#1456A0] block mb-1">
               Transparência de Custos
