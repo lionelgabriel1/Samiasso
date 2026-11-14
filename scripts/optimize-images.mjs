@@ -36,7 +36,9 @@ for (const file of files) {
   const folder = path.join(outputRoot, path.dirname(relative));
   await fs.mkdir(folder, { recursive: true });
   const widths = targetWidths.filter((width) => width < metadata.width);
+  if (metadata.width <= 1600 && !widths.includes(metadata.width)) widths.push(metadata.width);
   if (widths.length === 0) widths.push(metadata.width);
+  widths.sort((a, b) => a - b);
   const avif = [];
   const webp = [];
 
