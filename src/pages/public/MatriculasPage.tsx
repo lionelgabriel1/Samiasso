@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React, { useState } from 'react';
 import {
   FileCheck,
@@ -70,7 +71,7 @@ export const MatriculasPage: React.FC = () => {
       {/* Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/campus-drone.jpg"
             alt="Matrículas ITPSS"
             className="w-full h-full object-cover opacity-20"
@@ -102,7 +103,7 @@ export const MatriculasPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Instructions and Clarification */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-6" data-scroll-reveal="left">
             <div className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#F28C28] text-xs font-bold">
                 <Calendar className="w-3.5 h-3.5" />
@@ -188,7 +189,7 @@ export const MatriculasPage: React.FC = () => {
           </div>
 
           {/* Right Column: Pre-Enrollment Form */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7" data-scroll-reveal="right">
             <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xs border border-slate-200/80">
               <div className="mb-8">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#1456A0] block mb-1">
