@@ -260,7 +260,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-black/75 flex lg:hidden animate-in fade-in"
+          className="fixed inset-0 z-50 bg-black/75 flex lg:hidden mobile-backdrop-enter"
         >
           <div className="w-72 bg-[#10385F] text-white h-full flex flex-col p-4 shadow-2xl">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
