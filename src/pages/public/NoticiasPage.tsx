@@ -151,11 +151,11 @@ export const NoticiasPage: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto lightbox-enter"
           onClick={() => setSelectedNewsArticle(null)}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 my-8 max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 my-8 max-h-[90vh] flex flex-col lightbox-panel-enter"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 bg-slate-100 shrink-0">
