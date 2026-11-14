@@ -162,8 +162,8 @@
 }
 
 .img-card-interactive:hover {
-  transform: translate3d(0, -4px, 0);
-  box-shadow: 0 16px 32px -8px rgba(16, 56, 95, 0.12), 0 6px 12px -4px rgba(16, 56, 95, 0.06);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 24px -14px rgba(16, 56, 95, 0.22);
 }
 
 .img-zoom-container {
@@ -172,12 +172,31 @@
 }
 
 .img-zoom-container img {
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
-  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .img-zoom-container:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
+}
+
+/* Scroll reveals are opt-in: content remains visible if JavaScript or IntersectionObserver is unavailable. */
+[data-scroll-reveal] {
+  transition:
+    opacity 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[data-scroll-reveal="subtle"] {
+  transition-duration: 320ms;
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal]:not([data-revealed="true"]) {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="subtle"]:not([data-revealed="true"]) {
+  transform: translate3d(0, 7px, 0);
 }
 
 /* Button tactile press effect */
