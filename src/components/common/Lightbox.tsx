@@ -24,6 +24,7 @@ export const Lightbox: React.FC = () => {
   const currentIndex = gallery.findIndex((p) => p.id === lightboxPhoto.id);
 
   const handleNext = () => {
+    if (gallery.length < 2) return;
     if (currentIndex < gallery.length - 1) {
       setLightboxPhoto(gallery[currentIndex + 1]);
     } else {
@@ -32,6 +33,7 @@ export const Lightbox: React.FC = () => {
   };
 
   const handlePrev = () => {
+    if (gallery.length < 2) return;
     if (currentIndex > 0) {
       setLightboxPhoto(gallery[currentIndex - 1]);
     } else {
