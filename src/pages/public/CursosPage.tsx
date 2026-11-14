@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import { ArrowRight, CheckCircle2, ShieldCheck, HelpCircle, FileText, CreditCard, Shirt } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -11,7 +12,7 @@ export const CursosPage: React.FC = () => {
       {/* Header Banner */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/practical-banner.jpg"
             alt="Cursos técnicos de saúde"
             className="w-full h-full object-cover opacity-25"
@@ -52,15 +53,14 @@ export const CursosPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" data-scroll-reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {courses.map((course) => (
               <div
                 key={course.id}
-                data-scroll-reveal="subtle" className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 flex flex-col group img-card-interactive"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 flex flex-col group img-card-interactive"
               >
                 <div className="relative h-56 bg-slate-100 img-zoom-container">
-                  <img
-                    src={course.image}
+                  <ResponsiveImage src={course.image} sizes="(min-width: 1024px) 33vw, 100vw"
                     alt={course.name}
                     loading="lazy"
                     className="w-full h-full object-cover"
