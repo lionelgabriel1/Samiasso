@@ -1,10 +1,11 @@
 import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 
 export const Lightbox: React.FC = () => {
   const { lightboxPhoto, setLightboxPhoto, gallery } = useApp();
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -68,10 +69,25 @@ export const Lightbox: React.FC = () => {
         </div>
 
         {/* Image Frame */}
-        <div className="relative bg-black flex items-center justify-center min-h-[360px] max-h-[70vh]">
+        <div
+          className="relative bg-black flex items-center justify-center min-h-[240px] sm:min-h-[360px] max-h-[70vh] touch-pan-y"
+          onTouchStart={(event) => { touchStartX.current = event.changedTouches[0]?.clientX ?? null; }}
+          onTouchEnd={(event) => {
+            const start = touchStartX.current;
+            const end = event.changedTouches[0]?.clientX;
+            touchStartX.current = null;
+            if (start === null || end === undefined) return;
+            const distance = end - start;
+            if (Math.abs(distance) < 48) return;
+            if (distance < 0) handleNext();
+            else handlePrev();
+          }}
+        >
           <ResponsiveImage
             src={lightboxPhoto.url}
             alt={lightboxPhoto.title}
+            priority
+            sizes="(min-width: 1024px) 70vw, 100vw"
             className="max-h-[70vh] w-auto max-w-full object-contain mx-auto lightbox-image-enter"
           />
 
@@ -80,6 +96,7 @@ export const Lightbox: React.FC = () => {
             onClick={handlePrev}
             className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Imagem anterior"
+            disabled={gallery.length < 2}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -87,6 +104,7 @@ export const Lightbox: React.FC = () => {
             onClick={handleNext}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Próxima imagem"
+            disabled={gallery.length < 2}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
