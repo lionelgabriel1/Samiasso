@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React, { useState } from 'react';
 import { Phone, MessageSquare, MapPin, Send, CheckCircle2, Building2 } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -26,7 +27,7 @@ export const ContactosPage: React.FC = () => {
       {/* Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/medical-staff.jpg"
             alt="Contactos ITPSS"
             className="w-full h-full object-cover opacity-20"
@@ -56,7 +57,7 @@ export const ContactosPage: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10" data-scroll-reveal="up">
           {/* Left Column: Official Contacts & Text Location */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
@@ -142,7 +143,7 @@ export const ContactosPage: React.FC = () => {
 
             {/* School Campus Photo Frame */}
             <div className="rounded-3xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2">
-              <img
+              <ResponsiveImage
                 src="/images/campus-drone.jpg"
                 alt="Instalações no Bairro Social"
                 className="w-full h-44 object-cover rounded-2xl"
