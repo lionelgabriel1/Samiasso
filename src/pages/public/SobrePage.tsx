@@ -37,10 +37,10 @@ export const SobrePage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Sobre</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Sobre o ITPSS
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Compromisso com a formação de profissionais de saúde.
           </p>
         </div>
