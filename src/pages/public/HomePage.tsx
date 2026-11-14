@@ -123,7 +123,7 @@ export const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Real Lab Students Image Frame */}
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 group">
+            <div className="relative rounded-xl overflow-hidden border border-slate-200 img-card-interactive img-zoom-container group" data-scroll-reveal="mask">
               <ResponsiveImage
                 src="/images/Duas estudantes no laboratório.jpg"
                 alt="Alunos do ITPSS em aula prática no laboratório"
@@ -136,7 +136,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Institution Description & Stats */}
-            <div className="space-y-6">
+            <div className="space-y-6" data-scroll-reveal="right">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
                 <Sparkles className="w-4 h-4 text-[#F28C28]" />
                 <span>Sobre o Instituto</span>
@@ -151,7 +151,7 @@ export const HomePage: React.FC = () => {
               </p>
 
               {/* 3 Metrics Badge Bar */}
-              <div className="grid grid-cols-3 gap-4 pt-2">
+              <div className="grid grid-cols-3 gap-4 pt-2" data-scroll-reveal="stagger">
                 <div className="p-4 rounded-xl bg-[#F4F6F9] border border-slate-200/80 text-center">
                   <div className="flex items-center justify-center text-[#1456A0] mb-1">
                     <BookOpen className="w-5 h-5" />
@@ -203,7 +203,7 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {courses.map((course) => (
               <div
                 key={course.id}
@@ -284,7 +284,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl">
+          <div className="max-w-xl" data-scroll-reveal="left">
             <span className="text-xs font-bold uppercase tracking-wider text-[#F28C28] block mb-2">
               Formação de Excelência
             </span>
@@ -330,7 +330,7 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             <div
               onClick={() =>
                 setLightboxPhoto({
