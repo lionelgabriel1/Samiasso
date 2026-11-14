@@ -1,4 +1,4 @@
-import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
+import { ResponsiveImage } from './ResponsiveImage.tsx';
 import React, { useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
