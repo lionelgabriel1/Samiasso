@@ -118,12 +118,10 @@
 /* Reusable Fast Animation Utility Classes */
 .animate-fade-in {
   animation: fadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity;
 }
 
 .animate-fade-in-up {
   animation: fadeInUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity, transform;
 }
 
 .animate-fade-in-down {
@@ -138,7 +136,6 @@
 
 .animate-float {
   animation: subtleFloat 4s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-pulse-glow {
@@ -328,6 +325,11 @@ picture { display: block; }
 .page-title-enter { animation: pageTitleEnter 560ms cubic-bezier(.2,.7,.2,1) both; }
 .page-subtitle-enter { animation: pageSubtitleEnter 520ms 110ms cubic-bezier(.2,.7,.2,1) both; }
 
+@keyframes toastEnter {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
 @keyframes routeEnter {
   from { opacity: 0; transform: translate3d(0, 5px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -337,6 +339,10 @@ picture { display: block; }
   from { opacity: .82; transform: translate3d(14px, 0, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
+
+.dropdown-enter { animation: fadeInScale 150ms cubic-bezier(.2,.7,.2,1) both; }
+.toast-enter { animation: toastEnter 220ms cubic-bezier(.2,.7,.2,1) both; }
+.mobile-backdrop-enter { animation: fadeIn 160ms ease-out both; }
 
 .route-transition-enter {
   animation: routeEnter 180ms ease-out both;
