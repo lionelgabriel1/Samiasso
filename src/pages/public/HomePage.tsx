@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import {
   GraduationCap,
@@ -33,16 +34,18 @@ export const HomePage: React.FC = () => {
       <section className="relative bg-[#10385F] text-white overflow-hidden">
         {/* Drone Image Background with enhanced visibility and high-contrast readability */}
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Foto da escola feita com drone.jpg"
+            priority
+            sizes="100vw"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
-            className="w-full h-full object-cover object-center opacity-100 scale-100 contrast-[1.12] saturate-[1.08] brightness-[1.04] transition-transform duration-1000 ease-out"
+            className="w-full h-full object-cover object-center opacity-100 contrast-[1.08] saturate-[1.04] brightness-[1.02] hero-image-reveal"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/78 via-[#10385F]/48 to-[#10385F]/22" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/90 via-transparent to-black/10" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 hero-copy">
           <div className="max-w-2xl">
             {/* License Official Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6 animate-fade-in">
@@ -52,7 +55,7 @@ export const HomePage: React.FC = () => {
               <span className="text-slate-300">Luena, Moxico</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-in-up font-heading">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-in-left font-heading">
               Formação técnica para <span className="text-[#F28C28]">cuidar de vidas.</span>
             </h1>
 
@@ -121,7 +124,7 @@ export const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Real Lab Students Image Frame */}
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 group">
-              <img
+              <ResponsiveImage
                 src="/images/Duas estudantes no laboratório.jpg"
                 alt="Alunos do ITPSS em aula prática no laboratório"
                 className="w-full h-[360px] object-cover"
@@ -209,8 +212,7 @@ export const HomePage: React.FC = () => {
               >
                 {/* Course Image */}
                 <div className="relative h-48 img-zoom-container bg-slate-100">
-                  <img
-                    src={course.image}
+                  <ResponsiveImage src={course.image} sizes="(min-width: 1024px) 33vw, 100vw"
                     alt={course.name}
                     loading="lazy"
                     className="w-full h-full object-cover"
@@ -273,7 +275,7 @@ export const HomePage: React.FC = () => {
       {/* 4. APRENDIZAGEM PRÁTICA BANNER */}
       <section className="relative py-20 bg-[#10385F] text-white overflow-hidden" data-scroll-reveal>
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Laboratório com camas com manequins.jpg"
             alt="Aprendizagem prática no ITPSS"
             className="w-full h-full object-cover opacity-25"
@@ -343,7 +345,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Foto com drone da escola com alunos nos corredores.jpg"
                   alt="Estudantes do ITPSS"
                   loading="lazy"
@@ -372,7 +374,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Mulher observando no microscópio .jpg"
                   alt="Turma de saúde do ITPSS"
                   loading="lazy"
@@ -401,7 +403,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Mulher_peganddo_um esqueleto humano.jpg"
                   alt="Formação prática"
                   loading="lazy"
