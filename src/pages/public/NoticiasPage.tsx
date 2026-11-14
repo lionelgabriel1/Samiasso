@@ -105,7 +105,7 @@ export const NoticiasPage: React.FC = () => {
                   <ResponsiveImage
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-3 left-3 bg-[#10385F]/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
                     {item.category}
