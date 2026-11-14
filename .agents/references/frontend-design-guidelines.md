@@ -121,7 +121,39 @@ Os três cursos — Enfermagem Geral, Análises Clínicas e Cardiopneumologia �
 
 Preservar as designações oficiais e abreviaturas nos documentos importados/exportados. Não criar matrizes diferentes por curso sem confirmação institucional.
 
-## 9. Skills e referências
+## 9. Skills, ferramentas e referências externas
+
+### Skills já presentes no repositório
+Consultar primeiro as skills existentes em `.agents/skills/`. Dar prioridade a:
+- `design-taste-frontend` — direção de arte, hierarquia visual e verificação de interface.
+- `frontend-ui-engineering` — arquitetura React, acessibilidade e responsividade.
+- `performance-optimization` — bundle, imagens, renderização e Core Web Vitals.
+- `test-driven-development` — testes e prevenção de regressões.
+- `debugging-and-error-recovery` — diagnóstico por causa raiz.
+- `browser-testing-with-devtools` — inspeção e testes no navegador.
+- `code-review-and-quality` e `code-simplification` — revisão e simplificação.
+- `security-and-hardening` — validação, importações e isolamento de perfis.
+
+### Referências adicionais indicadas para este projeto
+O utilizador também indicou as seguintes ferramentas e coleções. Devem fazer parte da referência de trabalho do agente, sempre que os respetivos materiais estejam disponíveis:
+
+1. **Anthropic Frontend Design** — usar como referência para direção visual, intenção estética e construção de interfaces com identidade própria.
+2. **Impeccable** — considerar os seus 23 comandos, incluindo `/polish`, `/audit` e `/distill`, para polimento visual, auditoria de interface e simplificação. Aplicar apenas comandos efetivamente disponíveis no ambiente.
+3. **UI/UX Pro Max** — consultar para padrões de UI/UX, combinações visuais, tipografia, cores, layouts e experiência responsiva.
+4. **Vercel Web Design Guidelines** — usar como checklist de qualidade de interface, acessibilidade, semântica e comportamento web.
+5. **Vercel React Best Practices** — consultar as 57 regras para decisões de React, desempenho, composição e manutenção; aplicar as regras relevantes sem refactors desnecessários.
+6. **Vercel Composition Patterns** — usar para estruturar componentes compostos, APIs de componentes e separar responsabilidades sem criar abstrações excessivas.
+7. **AccessLint / Bencium UX Designer** — usar como apoio à auditoria de acessibilidade e à avaliação da experiência de utilização.
+
+### Regras de utilização
+- Estas referências adicionais foram indicadas para orientar o trabalho; a sua menção neste documento **não significa que estejam instaladas** no repositório ou disponíveis no agente.
+- Antes de usar uma ferramenta, confirmar a instalação, a versão e as instruções oficiais no ambiente.
+- Não inventar comandos, resultados de auditoria, métricas ou conformidade. Se uma ferramenta não estiver disponível, aplicar manualmente apenas os princípios conhecidos e documentados, assinalando essa limitação.
+- Evitar sobreposição: não executar várias auditorias que verificam exatamente os mesmos pontos sem uma razão concreta.
+- Resolver conflitos pela seguinte ordem: identidade visual e requisitos do Samiasso; regras de negócio e segurança do projeto; acessibilidade; desempenho; recomendações genéricas das ferramentas.
+- Não copiar cegamente regras de uma skill. Adaptá-las ao contexto, à identidade visual e às necessidades reais do Samiasso.
+
+## 10. Critérios de conclusão
 
 Consultar as skills já existentes em `.agents/skills/` antes de implementar. Dar prioridade a design-taste-frontend, frontend-ui-engineering, performance-optimization, browser-testing-with-devtools, code-review-and-quality e security-and-hardening.
 
