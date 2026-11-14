@@ -50,7 +50,7 @@ export const SobrePage: React.FC = () => {
         {/* Quem Somos */}
         <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6" data-scroll-reveal="left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#1456A0] text-xs font-bold">
                 <Sparkles className="w-3.5 h-3.5 text-[#F28C28]" />
                 <span>Identidade Institucional</span>
@@ -69,7 +69,7 @@ export const SobrePage: React.FC = () => {
               </p>
 
               {/* Badges Bar */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4" data-scroll-reveal="stagger">
                 <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F4F6F9] border border-slate-200/80">
                   <div className="p-2 rounded-xl bg-blue-100 text-[#1456A0] shrink-0">
                     <Shield className="w-5 h-5" />
@@ -115,7 +115,7 @@ export const SobrePage: React.FC = () => {
             </div>
 
             {/* Aerial Campus Image */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5" data-scroll-reveal="mask">
               <div
                 onClick={() =>
                   setLightboxPhoto({
@@ -146,9 +146,9 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Estrutura e Instalações */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 space-y-5">
+            <div className="lg:col-span-5 space-y-5" data-scroll-reveal="left">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
                 <Building className="w-4 h-4 text-[#F28C28]" />
                 <span>Espaço de Aprendizagem</span>
