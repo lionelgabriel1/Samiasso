@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext.tsx';
 import { Header } from './components/common/Header.tsx';
 import { Footer } from './components/common/Footer.tsx';
@@ -62,6 +62,46 @@ import {
 
 const AppContent: React.FC = () => {
   const { activeSection, publicRoute, adminRoute, studentRoute } = useApp();
+
+  useEffect(() => {
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-scroll-reveal]')
+    );
+
+    if (targets.length === 0) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      targets.forEach((target) => {
+        target.dataset.revealed = 'true';
+      });
+      return;
+    }
+
+    targets.forEach((target) => {
+      delete target.dataset.revealed;
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).dataset.revealed = 'true';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    document.documentElement.dataset.scrollRevealReady = 'true';
+
+    return () => {
+      observer.disconnect();
+      delete document.documentElement.dataset.scrollRevealReady;
+    };
+  }, [activeSection, publicRoute, adminRoute, studentRoute]);
 
   if (activeSection === 'admin') {
     return (
