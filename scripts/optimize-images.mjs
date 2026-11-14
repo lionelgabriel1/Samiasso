@@ -35,7 +35,8 @@ for (const file of files) {
   const base = path.basename(file, path.extname(file)).replace(/[^a-zA-Z0-9_-]+/g, '-') + '-' + path.extname(file).slice(1);
   const folder = path.join(outputRoot, path.dirname(relative));
   await fs.mkdir(folder, { recursive: true });
-  const widths = [...new Set([...targetWidths.filter((w) => w < metadata.width), metadata.width])].sort((a, b) => a - b);
+  const widths = targetWidths.filter((width) => width < metadata.width);
+  if (widths.length === 0) widths.push(metadata.width);
   const avif = [];
   const webp = [];
 
