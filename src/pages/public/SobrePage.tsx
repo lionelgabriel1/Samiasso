@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import { Shield, MapPin, Award, ArrowRight, Sparkles, Building, Compass, Eye, HeartHandshake } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -16,7 +17,7 @@ export const SobrePage: React.FC = () => {
       {/* Page Hero Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Mulher numa sala cheia de microscópios .jpg"
             alt="Profissionais de saúde Samiasso"
             className="w-full h-full object-cover opacity-20"
@@ -47,7 +48,7 @@ export const SobrePage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {/* Quem Somos */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#1456A0] text-xs font-bold">
@@ -126,9 +127,9 @@ export const SobrePage: React.FC = () => {
                     date: '2026',
                   })
                 }
-                className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 img-card-interactive img-zoom-container group cursor-pointer"
+                className="relative rounded-xl overflow-hidden border border-slate-200 img-card-interactive img-zoom-container group cursor-pointer" data-scroll-reveal="mask"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto da escola num andar de cima.jpg"
                   alt="Campus escolar ITPSS no Luena"
                   loading="lazy"
@@ -173,7 +174,7 @@ export const SobrePage: React.FC = () => {
             </div>
 
             {/* Grid of 3 Campus Photos */}
-            <div className="lg:col-span-7 grid grid-cols-2 gap-4">
+            <div className="lg:col-span-7 grid grid-cols-2 gap-4" data-scroll-reveal="stagger">
               <div
                 onClick={() =>
                   setLightboxPhoto({
@@ -187,7 +188,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto da escola da vista de baixo pra cima.jpg"
                   alt="Instalações ITPSS"
                   loading="lazy"
@@ -208,7 +209,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Duas estudantes no laboratório.jpg"
                   alt="Laboratórios ITPSS"
                   loading="lazy"
@@ -229,7 +230,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="col-span-2 rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto do bloco de baixo da escola.jpg"
                   alt="Estrutura e bloco ITPSS"
                   loading="lazy"
@@ -241,7 +242,7 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Institutional Pillars - Explicitly 'Em construção' matching mockup & instructions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
           <div className="bg-white p-8 rounded-2xl border border-slate-200/80 text-center shadow-xs">
             <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#1456A0] mx-auto flex items-center justify-center mb-4">
               <Compass className="w-6 h-6" />
