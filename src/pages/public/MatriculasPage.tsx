@@ -91,10 +91,10 @@ export const MatriculasPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Matrículas</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Matrículas e Pré-Inscrições
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Abertas para a 10.ª e 11.ª classes nos cursos técnicos de saúde.
           </p>
         </div>
