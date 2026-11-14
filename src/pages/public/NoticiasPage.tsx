@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React, { useState } from 'react';
 import { Calendar, Clock, ArrowRight, Tag, Search, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -25,7 +26,7 @@ export const NoticiasPage: React.FC = () => {
       {/* Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/hero-drone-source.jpg"
             alt="Notícias ITPSS"
             className="w-full h-full object-cover opacity-20"
@@ -101,7 +102,7 @@ export const NoticiasPage: React.FC = () => {
                 className="bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-slate-200/80 flex flex-col group cursor-pointer"
               >
                 <div className="relative h-48 bg-slate-100 overflow-hidden">
-                  <img
+                  <ResponsiveImage
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -158,7 +159,7 @@ export const NoticiasPage: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 bg-slate-100 shrink-0">
-              <img
+              <ResponsiveImage
                 src={selectedNewsArticle.image}
                 alt={selectedNewsArticle.title}
                 className="w-full h-full object-cover"
