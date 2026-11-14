@@ -103,6 +103,7 @@ export const Header: React.FC = () => {
                 return (
                   <button
                     key={link.route}
+                    aria-current={isActive ? "page" : undefined}
                     onClick={() => handleNavClick(link.route)}
                     className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer relative ${
                       isActive
