@@ -74,7 +74,7 @@ export const GaleriaPage: React.FC = () => {
             <div
               key={photo.id}
               onClick={() => setLightboxPhoto(photo)}
-              className="group relative rounded-xl overflow-hidden img-card-interactive bg-white border border-slate-200/80 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1456A0]" role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setLightboxPhoto(photo); } }}
+              className="group relative rounded-xl overflow-hidden img-card-interactive bg-white border border-slate-200/80 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1456A0]" role="button" aria-label={`Ampliar ${photo.title}`} tabIndex={0} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setLightboxPhoto(photo); } }}
             >
               <div className="aspect-[4/3] img-zoom-container bg-slate-100">
                 <ResponsiveImage src={photo.url} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
