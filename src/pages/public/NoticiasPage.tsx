@@ -94,18 +94,18 @@ export const NoticiasPage: React.FC = () => {
             Nenhuma notícia encontrada para esta pesquisa.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {filteredNews.map((item) => (
               <article
                 key={item.id}
                 onClick={() => setSelectedNewsArticle(item)}
                 className="bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-slate-200/80 flex flex-col group cursor-pointer"
               >
-                <div className="relative h-48 bg-slate-100 overflow-hidden">
+                <div className="relative h-48 bg-slate-100 overflow-hidden img-zoom-container">
                   <ResponsiveImage
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-3 left-3 bg-[#10385F]/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
                     {item.category}
