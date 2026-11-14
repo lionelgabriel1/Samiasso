@@ -41,10 +41,10 @@ export const GaleriaPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Galeria</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Galeria
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Momentos que mostram a nossa essência.
           </p>
         </div>
