@@ -32,7 +32,7 @@ for (const file of files) {
   if (!metadata.width || !metadata.height) continue;
   const relative = path.relative(imageRoot, file).split(path.sep).join('/');
   const key = `/images/${relative}`;
-  const base = path.basename(file, path.extname(file)).replace(/[^a-zA-Z0-9_-]+/g, '-');
+  const base = path.basename(file, path.extname(file)).replace(/[^a-zA-Z0-9_-]+/g, '-') + '-' + path.extname(file).slice(1);
   const folder = path.join(outputRoot, path.dirname(relative));
   await fs.mkdir(folder, { recursive: true });
   const widths = [...new Set([...targetWidths.filter((w) => w < metadata.width), metadata.width])].sort((a, b) => a - b);
@@ -50,7 +50,7 @@ for (const file of files) {
     avif.push({ src: urlPrefix + avifName, width });
     webp.push({ src: urlPrefix + webpName, width });
   }
-  manifest[key] = { avif, webp };
+  manifest[key] = { width: metadata.width, height: metadata.height, avif, webp };
 }
 
 await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
