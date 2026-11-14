@@ -343,6 +343,10 @@ picture { display: block; }
 .dropdown-enter { animation: fadeInScale 150ms cubic-bezier(.2,.7,.2,1) both; }
 .toast-enter { animation: toastEnter 220ms cubic-bezier(.2,.7,.2,1) both; }
 .mobile-backdrop-enter { animation: fadeIn 160ms ease-out both; }
+.mobile-drawer-enter { animation: mobileMenuEnter 220ms cubic-bezier(.2,.7,.2,1) both; }
+
+button:disabled, [role="button"][aria-disabled="true"] { cursor: not-allowed; opacity: .56; }
+input:disabled, select:disabled, textarea:disabled { cursor: not-allowed; background-color: #f1f5f9; }
 
 .route-transition-enter {
   animation: routeEnter 180ms ease-out both;
