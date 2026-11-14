@@ -22,9 +22,10 @@ export const Lightbox: React.FC = () => {
   if (!lightboxPhoto) return null;
 
   const currentIndex = gallery.findIndex((p) => p.id === lightboxPhoto.id);
+  const canNavigateGallery = currentIndex >= 0 && gallery.length > 1;
 
   const handleNext = () => {
-    if (gallery.length < 2) return;
+    if (!canNavigateGallery) return;
     if (currentIndex < gallery.length - 1) {
       setLightboxPhoto(gallery[currentIndex + 1]);
     } else {
@@ -98,7 +99,7 @@ export const Lightbox: React.FC = () => {
             onClick={handlePrev}
             className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Imagem anterior"
-            disabled={gallery.length < 2}
+            disabled={!canNavigateGallery}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
