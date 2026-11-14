@@ -43,3 +43,11 @@ Skills selecionadas em `.agents/skills/` com checklists partilhadas em `.agents/
 - **Typecheck**: `npm run lint` (`tsc --noEmit`)
 - **Build de produção**: `npm run build`
 - **Testes unitários**: `npx --yes tsx --test src/utils/academic.test.ts src/utils/pautaGeral.test.ts`
+
+
+## Diretrizes de Design e Frontend
+
+Antes de qualquer redesign ou alteração relevante de UI, ler:
+- `.agents/references/frontend-design-guidelines.md`
+
+Este documento complementa as regras acima com diretrizes de direção de arte, tipografia, carrosséis, animações, acessibilidade, performance, composição React e preservação funcional. Em caso de conflito, prevalecem a identidade visual oficial, os limites de arquitetura e as regras de negócio deste `AGENTS.md`.
