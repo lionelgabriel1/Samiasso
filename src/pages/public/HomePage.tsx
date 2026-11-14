@@ -87,7 +87,7 @@ export const HomePage: React.FC = () => {
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <GraduationCap className="w-5 h-5" />
                 </div>
-                <span>3 cursos técnicos</span>
+                <span>{courses.length} cursos técnicos</span>
               </div>
 
               <div className="flex items-center gap-3">
@@ -108,7 +108,7 @@ export const HomePage: React.FC = () => {
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <Award className="w-5 h-5" />
                 </div>
-                <span>Licença n.º 225/2026</span>
+                <span>Licença n.º {INSTITUTION_INFO.license}</span>
               </div>
             </div>
           </div>
