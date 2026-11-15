@@ -45,7 +45,7 @@ export const NoticiasPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Notícias</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Notícias e Comunicados
           </h1>
           <p className="text-base text-slate-200 max-w-xl">
@@ -93,7 +93,7 @@ export const NoticiasPage: React.FC = () => {
             Nenhuma notícia encontrada para esta pesquisa.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div data-scroll-reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredNews.map((item) => (
               <article
                 key={item.id}
