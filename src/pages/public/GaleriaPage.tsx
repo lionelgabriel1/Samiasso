@@ -21,7 +21,7 @@ export const GaleriaPage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/Foto da escola feita com drone.jpg"
+            src="/images/Foto da escola feita com drone.webp"
             alt="Galeria ITPSS"
             className="w-full h-full object-cover opacity-20"
           />
@@ -73,7 +73,7 @@ export const GaleriaPage: React.FC = () => {
             <div
               key={photo.id}
               onClick={() => setLightboxPhoto(photo)}
-              className="group relative rounded-2xl overflow-hidden shadow-xs img-card-interactive bg-white border border-slate-200/80 cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden shadow-xs img-card-interactive gallery-card-premium bg-white border border-slate-200/80 cursor-pointer"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
@@ -126,7 +126,7 @@ export const GaleriaPage: React.FC = () => {
                   setPublicRoute('matriculas');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="px-6 py-3.5 bg-[#1456A0] hover:bg-[#10385F] text-white text-xs font-bold rounded-xl shadow transition-all cursor-pointer"
+                className="px-6 py-3.5 bg-[#1456A0] hover:bg-[#10385F] text-white text-xs font-bold rounded-xl shadow transition-all btn-premium cursor-pointer"
               >
                 Fazer parte desta comunidade →
               </button>

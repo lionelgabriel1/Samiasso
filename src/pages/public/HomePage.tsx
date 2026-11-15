@@ -15,6 +15,7 @@ import {
 import { useApp } from '../../context/AppContext.tsx';
 import { INSTITUTION_INFO } from '../../data/initialData.ts';
 import { formatKwanza } from '../../utils/academic.ts';
+import { Reveal } from '../../components/common/Reveal.tsx';
 
 export const HomePage: React.FC = () => {
   const { courses, setPublicRoute, setLightboxPhoto, setSelectedCourseForEnrollment } = useApp();
@@ -32,39 +33,39 @@ export const HomePage: React.FC = () => {
       {/* 1. HERO SECTION WITH REAL DRONE AERIAL PHOTOGRAPHY */}
       <section className="relative bg-[#10385F] text-white overflow-hidden">
         {/* Drone Image Background with enhanced visibility and high-contrast readability */}
-        <div className="absolute inset-0 z-0">
+        <Reveal variant="image" className="absolute inset-0 z-0">
           <img
-            src="/images/Foto da escola feita com drone.jpg"
+            src="/images/Foto da escola feita com drone.webp"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
             className="w-full h-full object-cover object-center opacity-100 scale-100 contrast-[1.12] saturate-[1.08] brightness-[1.04] transition-transform duration-1000 ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/78 via-[#10385F]/48 to-[#10385F]/22" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/90 via-transparent to-black/10" />
-        </div>
+        </Reveal>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-2xl">
             {/* License Official Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6 animate-fade-in">
+            <Reveal delay={80} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6">
               <span className="w-2 h-2 rounded-full bg-[#F28C28] animate-pulse" />
               <span>Licença Oficial N.º {INSTITUTION_INFO.license}</span>
               <span className="text-white/40">•</span>
               <span className="text-slate-300">Luena, Moxico</span>
-            </div>
+            </Reveal>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-in-up font-heading">
+            <Reveal as="h1" variant="left" delay={140} className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 font-heading">
               Formamos profissionais de saúde para um{' '}
               <span className="text-[#F28C28]">futuro melhor</span>
-            </h1>
+            </Reveal>
 
-            <p className="text-base sm:text-lg text-slate-200 leading-relaxed mb-8 max-w-xl font-normal animate-fade-in-up stagger-1">
+            <Reveal variant="left" delay={240} className="text-base sm:text-lg text-slate-200 leading-relaxed mb-8 max-w-xl font-normal">
               No Instituto Técnico Privado de Saúde Samiasso (ITPSS), preparamos jovens para construírem carreiras sólidas na área da saúde, com formação técnica, prática e de qualidade.
-            </p>
+            </Reveal>
 
-            <div className="flex flex-wrap items-center gap-4 animate-fade-in-up stagger-2">
+            <Reveal delay={340} className="flex flex-wrap items-center gap-4">
               <button
                 onClick={() => goTo('matriculas')}
-                className="px-6 py-3.5 bg-[#F28C28] hover:bg-[#e07b16] text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-orange-500/25 btn-tactile cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 bg-[#F28C28] hover:bg-[#e07b16] text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-orange-500/25 btn-tactile btn-premium cursor-pointer flex items-center gap-2"
               >
                 <span>Inscrições Abertas</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -72,11 +73,11 @@ export const HomePage: React.FC = () => {
 
               <button
                 onClick={() => goTo('cursos')}
-                className="px-6 py-3.5 bg-[#1456A0] hover:bg-[#0f427c] text-white font-semibold text-sm rounded-xl border border-white/20 btn-tactile cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 bg-[#1456A0] hover:bg-[#0f427c] text-white font-semibold text-sm rounded-xl border border-white/20 btn-tactile btn-premium cursor-pointer flex items-center gap-2"
               >
                 <span>Conheça os Cursos</span>
               </button>
-            </div>
+            </Reveal>
           </div>
         </div>
 
@@ -121,9 +122,9 @@ export const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Real Lab Students Image Frame */}
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 group">
+            <Reveal variant="image" className="relative rounded-2xl overflow-hidden shadow-xl premium-image-frame group">
               <img
-                src="/images/Duas estudantes no laboratório.jpg"
+                src="/images/Duas estudantes no laboratório.webp"
                 alt="Alunos do ITPSS em aula prática no laboratório"
                 className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -131,10 +132,10 @@ export const HomePage: React.FC = () => {
               <div className="absolute bottom-4 left-4 right-4 text-white text-xs bg-black/40 backdrop-blur-md p-3 rounded-xl border border-white/10">
                 Aulas práticas com microscopia e equipamentos clínicos no campus do Luena
               </div>
-            </div>
+            </Reveal>
 
             {/* Institution Description & Stats */}
-            <div className="space-y-6">
+            <Reveal variant="right" delay={120} className="space-y-6">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
                 <Sparkles className="w-4 h-4 text-[#F28C28]" />
                 <span>Sobre o Instituto</span>
@@ -184,7 +185,7 @@ export const HomePage: React.FC = () => {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#F28C28]" />
                 </button>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -192,19 +193,20 @@ export const HomePage: React.FC = () => {
       {/* 3. NOSSOS CURSOS SECTION */}
       <section className="py-20 bg-[#F4F6F9]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl font-extrabold text-[#10385F] tracking-tight mb-3">
               Nossos Cursos
             </h2>
             <p className="text-slate-600 text-base">
               Escolha a formação que vai construir o seu futuro.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {courses.map((course) => (
-              <div
+              <Reveal
                 key={course.id}
+                delay={courses.findIndex((item) => item.id === course.id) * 100}
                 className="bg-white rounded-2xl overflow-hidden shadow-xs img-card-interactive border border-slate-200/80 flex flex-col group cursor-pointer"
                 onClick={() => goTo('matriculas', course.id)}
               >
@@ -255,7 +257,7 @@ export const HomePage: React.FC = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
 
@@ -275,7 +277,7 @@ export const HomePage: React.FC = () => {
       <section className="relative py-20 bg-[#10385F] text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/Laboratório com camas com manequins.jpg"
+            src="/images/Laboratório com camas com manequins.webp"
             alt="Aprendizagem prática no ITPSS"
             className="w-full h-full object-cover opacity-25"
           />
@@ -336,7 +338,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-1',
                   title: 'Alunos do ITPSS no Pátio Escolar',
                   category: 'Alunos',
-                  url: '/images/Foto com drone da escola com alunos nos corredores.jpg',
+                  url: '/images/Foto com drone da escola com alunos nos corredores.webp',
                   caption: 'Convivência saudável e formação cívica no campus do Luena.',
                   date: 'Ano Letivo 2026',
                 })
@@ -345,7 +347,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Foto com drone da escola com alunos nos corredores.jpg"
+                  src="/images/Foto com drone da escola com alunos nos corredores.webp"
                   alt="Estudantes do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -365,7 +367,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-2',
                   title: 'Turma em Uniforme Institucional',
                   category: 'Alunos',
-                  url: '/images/Mulher observando no microscópio .jpg',
+                  url: '/images/Mulher observando no microscópio .webp',
                   caption: 'Futuros profissionais de saúde com a bata oficial.',
                   date: 'Ano Letivo 2026',
                 })
@@ -374,7 +376,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Mulher observando no microscópio .jpg"
+                  src="/images/Mulher observando no microscópio .webp"
                   alt="Turma de saúde do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -394,7 +396,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-3',
                   title: 'Atividades Práticas de Saúde',
                   category: 'Laboratórios',
-                  url: '/images/Mulher_peganddo_um esqueleto humano.jpg',
+                  url: '/images/Mulher_peganddo_um esqueleto humano.webp',
                   caption: 'Simulações e procedimentos práticos em ambiente formativo.',
                   date: 'Ano Letivo 2026',
                 })
@@ -403,7 +405,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Mulher_peganddo_um esqueleto humano.jpg"
+                  src="/images/Mulher_peganddo_um esqueleto humano.webp"
                   alt="Formação prática"
                   loading="lazy"
                   className="w-full h-full object-cover"

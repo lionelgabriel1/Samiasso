@@ -26,7 +26,7 @@ export const NoticiasPage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/hero-drone-source.jpg"
+            src="/images/hero-drone-source.webp"
             alt="Notícias ITPSS"
             className="w-full h-full object-cover opacity-20"
           />
