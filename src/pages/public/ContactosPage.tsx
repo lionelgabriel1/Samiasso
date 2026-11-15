@@ -46,7 +46,7 @@ export const ContactosPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Contactos</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Contactos
           </h1>
           <p className="text-base text-slate-200 max-w-xl">
@@ -59,7 +59,7 @@ export const ContactosPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Column: Official Contacts & Text Location */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
+            <div data-scroll-reveal="left" className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
               <h2 className="text-xl font-extrabold text-[#10385F]">
                 Informações de contacto
               </h2>
@@ -155,7 +155,7 @@ export const ContactosPage: React.FC = () => {
 
           {/* Right Column: Contact Message Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xs border border-slate-200/80">
+            <div data-scroll-reveal className="bg-white rounded-3xl p-8 sm:p-10 shadow-xs border border-slate-200/80">
               <h2 className="text-2xl font-black text-[#10385F] mb-1">
                 Envie uma mensagem
               </h2>
@@ -164,7 +164,7 @@ export const ContactosPage: React.FC = () => {
               </p>
 
               {isSent ? (
-                <div className="py-12 text-center space-y-4">
+                <div data-scroll-reveal="scale" className="py-12 text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
