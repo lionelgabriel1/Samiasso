@@ -28,10 +28,6 @@ import { AdminComprovativos } from './pages/admin/AdminComprovativos.tsx';
 import { AdminUtilizadores } from './pages/admin/AdminUtilizadores.tsx';
 import { AdminDashboard } from './pages/admin/AdminDashboard.tsx';
 import { AdminPautasGerais } from './pages/admin/AdminPautasGerais.tsx';
-import { AdminMinipautas } from './pages/admin/AdminMinipautas.tsx';
-import { AdminComprovativos } from './pages/admin/AdminComprovativos.tsx';
-import { AdminServicos } from './pages/admin/AdminServicos.tsx';
-import { AdminUtilizadores } from './pages/admin/AdminUtilizadores.tsx';
 import { AdminCursos } from './pages/admin/AdminCursos.tsx';
 import { AdminPreInscricoes } from './pages/admin/AdminPreInscricoes.tsx';
 import { AdminAlunos } from './pages/admin/AdminAlunos.tsx';
@@ -48,7 +44,6 @@ import {
 import { StudentLayout } from './pages/student/StudentLayout.tsx';
 import { StudentDashboard } from './pages/student/StudentDashboard.tsx';
 import { StudentResultados } from './pages/student/StudentResultados.tsx';
-import { StudentDeclaracoes, StudentCadernetas, StudentCertificados, StudentFaltas, StudentTransferencias, StudentPagamentos, StudentNotificacoes } from './pages/student/StudentServicos.tsx';
 import {
   StudentDeclaracoes,
   StudentCadernetas,
@@ -93,10 +88,6 @@ const AppContent: React.FC = () => {
           {adminRoute === 'docentes' && <AdminDocentes />}
           {adminRoute === 'turmas' && <AdminTurmas />}
           {adminRoute === 'configuracoes' && <AdminConfiguracoes />}
-          {adminRoute === 'minipautas' && <AdminMinipautas />}
-          {adminRoute === 'comprovativos' && <AdminComprovativos />}
-          {['declaracoes', 'cadernetas', 'certificados', 'faltas', 'transferencias'].includes(adminRoute) && <AdminServicos />}
-          {adminRoute === 'utilizadores' && <AdminUtilizadores />}
         </div>
       </AdminLayout>
     );
@@ -119,13 +110,6 @@ const AppContent: React.FC = () => {
           {studentRoute === 'assiduidade' && <StudentAssiduidade />}
           {studentRoute === 'comunicados' && <StudentComunicados />}
           {studentRoute === 'perfil' && <StudentPerfil />}
-          {studentRoute === 'pedidos' && <StudentDeclaracoes />}
-          {studentRoute === 'cadernetas' && <StudentCadernetas />}
-          {studentRoute === 'certificados' && <StudentCertificados />}
-          {studentRoute === 'faltas' && <StudentFaltas />}
-          {studentRoute === 'transferencias' && <StudentTransferencias />}
-          {studentRoute === 'pagamentos' && <StudentPagamentos />}
-          {studentRoute === 'notificacoes' && <StudentNotificacoes />}
         </div>
       </StudentLayout>
     );

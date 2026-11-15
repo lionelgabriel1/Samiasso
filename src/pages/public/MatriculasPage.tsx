@@ -71,7 +71,7 @@ export const MatriculasPage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/campus-drone.jpg"
+            src="/images/campus-drone.webp"
             alt="Matrículas ITPSS"
             className="w-full h-full object-cover opacity-20"
           />

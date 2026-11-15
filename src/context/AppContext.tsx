@@ -312,7 +312,7 @@ const ADMIN_DEFAULT_USER: User = {
   name: 'Direção Geral ITPSS',
   email: 'admin@itpss.ao',
   role: 'admin',
-  avatar: '/images/Foto da escola feita com drone.jpg',
+  avatar: '/images/Foto da escola feita com drone.webp',
 };
 
 const SECRETARIA_DEFAULT_USER: User = {
@@ -320,7 +320,7 @@ const SECRETARIA_DEFAULT_USER: User = {
   name: 'Secretaria Geral Pedagógica',
   email: 'secretaria@itpss.ao',
   role: 'secretaria',
-  avatar: '/images/Foto da escola feita com drone.jpg',
+  avatar: '/images/Foto da escola feita com drone.webp',
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
