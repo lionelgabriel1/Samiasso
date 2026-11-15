@@ -12,7 +12,7 @@ export const CursosPage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/practical-banner.webp"
+            src="/images/Laboratório com camas com manequins.jpg"
             alt="Cursos técnicos de saúde"
             className="w-full h-full object-cover opacity-25"
           />

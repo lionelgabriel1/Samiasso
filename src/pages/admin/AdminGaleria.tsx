@@ -9,7 +9,7 @@ export const AdminGaleria: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<'Instalações' | 'Alunos' | 'Laboratórios' | 'Eventos'>('Instalações');
-  const [url, setUrl] = useState('/images/campus-drone.webp');
+  const [url, setUrl] = useState('/images/Foto da escola feita com drone.jpg');
   const [caption, setCaption] = useState('');
 
   const handleAdd = (e: React.FormEvent) => {
@@ -94,12 +94,12 @@ export const AdminGaleria: React.FC = () => {
                   onChange={(e) => setUrl(e.target.value)}
                   className="w-full px-3 py-2 border rounded-xl bg-white"
                 >
-                  <option value="/images/campus-drone.webp">Vista Aérea Drone do Edifício</option>
-                  <option value="/images/lab-students.webp">Laboratório com Alunos</option>
-                  <option value="/images/students-group-1.webp">Alunos Uniformizados no Pátio</option>
-                  <option value="/images/students-group-2.webp">Grupo de Alunos de Enfermagem</option>
-                  <option value="/images/practical-banner.webp">Demonstração Prática</option>
-                  <option value="/images/campus-detail-1.webp">Fachada e Entrada</option>
+                  <option value="/images/Foto da escola feita com drone.jpg">Vista Aérea Drone do Edifício</option>
+                  <option value="/images/Duas estudantes no laboratório.jpg">Laboratório com Alunos</option>
+                  <option value="/images/Foto com drone da escola com alunos nos corredores.jpg">Alunos Uniformizados no Pátio</option>
+                  <option value="/images/Duas estudantes no laboratório.jpg">Grupo de Alunos de Enfermagem</option>
+                  <option value="/images/Laboratório com camas com manequins.jpg">Demonstração Prática</option>
+                  <option value="/images/Foto da escola da vista de baixo pra cima.jpg">Fachada e Entrada</option>
                 </select>
               </div>
 
