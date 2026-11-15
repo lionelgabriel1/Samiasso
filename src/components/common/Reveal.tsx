@@ -29,7 +29,12 @@ export const Reveal: React.FC<RevealProps> = ({
       return;
     }
 
-    if (!('IntersectionObserver' in window)) {\n      setIsVisible(true);\n      return;\n    }\n\n    const observer = new IntersectionObserver(
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
