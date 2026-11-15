@@ -31,7 +31,7 @@ export const CursosPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Cursos</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Cursos
           </h1>
           <p className="text-base text-slate-200 max-w-xl">
@@ -43,7 +43,7 @@ export const CursosPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {/* 3 Main Course Cards */}
         <div>
-          <div className="max-w-2xl mb-10">
+          <div data-scroll-reveal="left" className="max-w-2xl mb-10">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#10385F] tracking-tight">
               Oferta Formativa Oficial
             </h2>
@@ -56,6 +56,8 @@ export const CursosPage: React.FC = () => {
             {courses.map((course) => (
               <div
                 key={course.id}
+                data-scroll-reveal="up"
+                style={{ ["--scroll-reveal-delay" as string]: `${Math.min(courses.indexOf(course), 2) * 110}ms` }}
                 className="bg-white rounded-3xl overflow-hidden shadow-xs img-card-interactive border border-slate-200/80 flex flex-col group"
               >
                 <div className="relative h-56 bg-slate-100 img-zoom-container">
@@ -133,7 +135,7 @@ export const CursosPage: React.FC = () => {
         </div>
 
         {/* Outros Pagamentos Section matching mockup */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#1456A0] block mb-1">
               Transparência de Custos
@@ -171,7 +173,7 @@ export const CursosPage: React.FC = () => {
         </div>
 
         {/* Dual Callout */}
-        <div className="bg-[#10385F] text-white p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+        <div data-scroll-reveal="scale" className="bg-[#10385F] text-white p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs text-[#F28C28] font-bold">
               <HelpCircle className="w-4 h-4" />
