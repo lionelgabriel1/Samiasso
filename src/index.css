@@ -204,6 +204,10 @@
 [data-scroll-reveal="right"] { transform: translate3d(28px, 0, 0); }
 [data-scroll-reveal="scale"] { transform: scale(.965); }
 [data-scroll-reveal="mask"] { clip-path: inset(0 0 12% 0); }
+[data-scroll-reveal]:nth-child(2) { --scroll-reveal-delay: 70ms; }
+[data-scroll-reveal]:nth-child(3) { --scroll-reveal-delay: 140ms; }
+[data-scroll-reveal]:nth-child(4) { --scroll-reveal-delay: 210ms; }
+[data-scroll-reveal]:nth-child(5) { --scroll-reveal-delay: 280ms; }
 [data-scroll-reveal].is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
