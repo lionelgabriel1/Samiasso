@@ -40,7 +40,7 @@ export const GaleriaPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Galeria</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Galeria
           </h1>
           <p className="text-base text-slate-200 max-w-xl">
@@ -105,7 +105,7 @@ export const GaleriaPage: React.FC = () => {
         </div>
 
         {/* Story Quote Section matching mockup */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
