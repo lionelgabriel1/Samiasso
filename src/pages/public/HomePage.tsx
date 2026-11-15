@@ -35,7 +35,7 @@ export const HomePage: React.FC = () => {
         {/* Drone Image Background with enhanced visibility and high-contrast readability */}
         <Reveal variant="image" className="absolute inset-0 z-0">
           <img
-            src="/images/Foto da escola feita com drone.webp"
+            src="/images/Foto da escola feita com drone.jpg"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
             className="w-full h-full object-cover object-center opacity-100 scale-100 contrast-[1.12] saturate-[1.08] brightness-[1.04] transition-transform duration-1000 ease-out"
           />
@@ -84,7 +84,7 @@ export const HomePage: React.FC = () => {
         {/* 4 Feature Items Pill Bar Below Hero */}
         <div className="relative z-10 border-t border-white/10 bg-[#0b2743]/90 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-semibold text-slate-200">
+            <Reveal variant="up" className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-semibold text-slate-200">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <GraduationCap className="w-5 h-5" />
@@ -112,7 +112,7 @@ export const HomePage: React.FC = () => {
                 </div>
                 <span>Compromisso com a excelência</span>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -124,7 +124,7 @@ export const HomePage: React.FC = () => {
             {/* Real Lab Students Image Frame */}
             <Reveal variant="image" className="relative rounded-2xl overflow-hidden shadow-xl premium-image-frame group">
               <img
-                src="/images/Duas estudantes no laboratório.webp"
+                src="/images/Duas estudantes no laboratório.jpg"
                 alt="Alunos do ITPSS em aula prática no laboratório"
                 className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -275,17 +275,17 @@ export const HomePage: React.FC = () => {
 
       {/* 4. APRENDIZAGEM PRÁTICA BANNER */}
       <section className="relative py-20 bg-[#10385F] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <Reveal variant="image" className="absolute inset-0 z-0">
           <img
-            src="/images/Laboratório com camas com manequins.webp"
+            src="/images/Laboratório com camas com manequins.jpg"
             alt="Aprendizagem prática no ITPSS"
             className="w-full h-full object-cover opacity-25"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#10385F] via-[#10385F]/85 to-transparent" />
-        </div>
+        </Reveal>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl">
+          <Reveal variant="left" className="max-w-xl">
             <span className="text-xs font-bold uppercase tracking-wider text-[#F28C28] block mb-2">
               Formação de Excelência
             </span>
@@ -302,7 +302,7 @@ export const HomePage: React.FC = () => {
               <span>Ver mais</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -331,14 +331,14 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Reveal variant="up" delay={120} className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div
               onClick={() =>
                 setLightboxPhoto({
                   id: 'life-1',
                   title: 'Alunos do ITPSS no Pátio Escolar',
                   category: 'Alunos',
-                  url: '/images/Foto com drone da escola com alunos nos corredores.webp',
+                  url: '/images/Foto com drone da escola com alunos nos corredores.jpg',
                   caption: 'Convivência saudável e formação cívica no campus do Luena.',
                   date: 'Ano Letivo 2026',
                 })
@@ -347,7 +347,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Foto com drone da escola com alunos nos corredores.webp"
+                  src="/images/Foto com drone da escola com alunos nos corredores.jpg"
                   alt="Estudantes do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -367,7 +367,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-2',
                   title: 'Turma em Uniforme Institucional',
                   category: 'Alunos',
-                  url: '/images/Mulher observando no microscópio .webp',
+                  url: '/images/Mulher observando no microscópio .jpg',
                   caption: 'Futuros profissionais de saúde com a bata oficial.',
                   date: 'Ano Letivo 2026',
                 })
@@ -376,7 +376,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Mulher observando no microscópio .webp"
+                  src="/images/Mulher observando no microscópio .jpg"
                   alt="Turma de saúde do ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -396,7 +396,7 @@ export const HomePage: React.FC = () => {
                   id: 'life-3',
                   title: 'Atividades Práticas de Saúde',
                   category: 'Laboratórios',
-                  url: '/images/Mulher_peganddo_um esqueleto humano.webp',
+                  url: '/images/Mulher_peganddo_um esqueleto humano.jpg',
                   caption: 'Simulações e procedimentos práticos em ambiente formativo.',
                   date: 'Ano Letivo 2026',
                 })
@@ -405,7 +405,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
-                  src="/images/Mulher_peganddo_um esqueleto humano.webp"
+                  src="/images/Mulher_peganddo_um esqueleto humano.jpg"
                   alt="Formação prática"
                   loading="lazy"
                   className="w-full h-full object-cover"
@@ -418,7 +418,7 @@ export const HomePage: React.FC = () => {
                 <p className="text-xs text-slate-500 mt-1">Ambientes preparados para o treino clínico</p>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 

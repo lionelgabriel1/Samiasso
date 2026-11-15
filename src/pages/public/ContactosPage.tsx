@@ -27,7 +27,7 @@ export const ContactosPage: React.FC = () => {
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/medical-staff.webp"
+            src="/images/Mulher numa sala cheia de microscópios .jpg"
             alt="Contactos ITPSS"
             className="w-full h-full object-cover opacity-20"
           />
@@ -143,7 +143,7 @@ export const ContactosPage: React.FC = () => {
             {/* School Campus Photo Frame */}
             <div className="rounded-3xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2">
               <img
-                src="/images/campus-drone.webp"
+                src="/images/Foto da escola feita com drone.jpg"
                 alt="Instalações no Bairro Social"
                 className="w-full h-44 object-cover rounded-2xl"
               />

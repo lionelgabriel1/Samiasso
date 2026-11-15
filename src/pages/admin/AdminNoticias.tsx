@@ -14,7 +14,7 @@ export const AdminNoticias: React.FC = () => {
   const [category, setCategory] = useState<'Académico' | 'Matrículas' | 'Institucional' | 'Eventos'>('Matrículas');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState('/images/hero-drone-source.webp');
+  const [image, setImage] = useState('/images/Foto da escola feita com drone.jpg');
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,10 +103,10 @@ export const AdminNoticias: React.FC = () => {
                     onChange={(e) => setImage(e.target.value)}
                     className="w-full px-3 py-2 border rounded-xl bg-white"
                   >
-                    <option value="/images/hero-drone-source.webp">Vista da Escola</option>
-                    <option value="/images/lab-students.webp">Laboratório de Saúde</option>
-                    <option value="/images/students-group-1.webp">Alunos no Campus</option>
-                    <option value="/images/practical-banner.webp">Formação Prática</option>
+                    <option value="/images/Foto da escola feita com drone.jpg">Vista da Escola</option>
+                    <option value="/images/Duas estudantes no laboratório.jpg">Laboratório de Saúde</option>
+                    <option value="/images/Foto com drone da escola com alunos nos corredores.jpg">Alunos no Campus</option>
+                    <option value="/images/Laboratório com camas com manequins.jpg">Formação Prática</option>
                   </select>
                 </div>
               </div>
