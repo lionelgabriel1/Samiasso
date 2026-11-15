@@ -57,7 +57,6 @@ export const CursosPage: React.FC = () => {
               <div
                 key={course.id}
                 data-scroll-reveal="up"
-                style={{ ["--scroll-reveal-delay" as string]: `${Math.min(courses.indexOf(course), 2) * 110}ms` }}
                 className="bg-white rounded-3xl overflow-hidden shadow-xs img-card-interactive border border-slate-200/80 flex flex-col group"
               >
                 <div className="relative h-56 bg-slate-100 img-zoom-container">
