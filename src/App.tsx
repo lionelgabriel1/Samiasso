@@ -84,7 +84,7 @@ const AppContent: React.FC = () => {
   if (activeSection === 'admin') {
     return (
       <AdminLayout>
-        <div key={adminRoute} className="animate-fade-in">
+        <div key={adminRoute} className="route-transition-enter">
           {adminRoute === 'dashboard' && <AdminDashboard />}
           {(adminRoute === 'pautas-gerais' || adminRoute === 'resultados') && (
             <AdminPautasGerais />
