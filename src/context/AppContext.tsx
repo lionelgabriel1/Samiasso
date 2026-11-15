@@ -323,11 +323,60 @@ const SECRETARIA_DEFAULT_USER: User = {
   avatar: '/images/Foto da escola feita com drone.jpg',
 };
 
+const PUBLIC_ROUTES: PublicRoute[] = ['home', 'sobre', 'cursos', 'matriculas', 'noticias', 'galeria', 'contactos'];
+const ADMIN_ROUTES: AdminRoute[] = ['dashboard', 'pautas-gerais', 'minipautas', 'resultados', 'assiduidade', 'comprovativos', 'declaracoes', 'cadernetas', 'certificados', 'faltas', 'transferencias', 'alunos', 'turmas', 'docentes', 'cursos', 'matriculas', 'utilizadores', 'noticias', 'galeria', 'configuracoes'];
+const STUDENT_ROUTES: StudentRoute[] = ['visao-geral', 'resultados', 'pedidos', 'cadernetas', 'certificados', 'faltas', 'transferencias', 'pagamentos', 'notificacoes', 'horario', 'assiduidade', 'comunicados', 'perfil'];
+
+const readNavigationFromHash = () => {
+  const [section, route] = window.location.hash.replace(/^#\\/?/, '').split('/');
+  if (section === 'admin' && ADMIN_ROUTES.includes(route as AdminRoute)) {
+    return { activeSection: 'admin' as const, publicRoute: 'home' as PublicRoute, adminRoute: route as AdminRoute, studentRoute: 'visao-geral' as StudentRoute };
+  }
+  if (section === 'student' && STUDENT_ROUTES.includes(route as StudentRoute)) {
+    return { activeSection: 'student' as const, publicRoute: 'home' as PublicRoute, adminRoute: 'dashboard' as AdminRoute, studentRoute: route as StudentRoute };
+  }
+  if (section === 'public' && PUBLIC_ROUTES.includes(route as PublicRoute)) {
+    return { activeSection: 'public' as const, publicRoute: route as PublicRoute, adminRoute: 'dashboard' as AdminRoute, studentRoute: 'visao-geral' as StudentRoute };
+  }
+  return { activeSection: 'public' as const, publicRoute: 'home' as PublicRoute, adminRoute: 'dashboard' as AdminRoute, studentRoute: 'visao-geral' as StudentRoute };
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [activeSection, setActiveSection] = useState<'public' | 'admin' | 'student'>('public');
-  const [publicRoute, setPublicRoute] = useState<PublicRoute>('home');
-  const [adminRoute, setAdminRoute] = useState<AdminRoute>('dashboard');
-  const [studentRoute, setStudentRoute] = useState<StudentRoute>('visao-geral');
+  const [initialNavigation] = useState(readNavigationFromHash);
+  const [activeSection, setActiveSection] = useState<'public' | 'admin' | 'student'>(initialNavigation.activeSection);
+  const [publicRoute, setPublicRoute] = useState<PublicRoute>(initialNavigation.publicRoute);
+  const [adminRoute, setAdminRoute] = useState<AdminRoute>(initialNavigation.adminRoute);
+  const [studentRoute, setStudentRoute] = useState<StudentRoute>(initialNavigation.studentRoute);
+
+  // Keep the visible page in the URL so refresh, direct links and browser history work.
+  useEffect(() => {
+    const syncFromUrl = () => {
+      const navigation = readNavigationFromHash();
+      setActiveSection(navigation.activeSection);
+      setPublicRoute(navigation.publicRoute);
+      setAdminRoute(navigation.adminRoute);
+      setStudentRoute(navigation.studentRoute);
+    };
+
+    window.addEventListener('popstate', syncFromUrl);
+    window.addEventListener('hashchange', syncFromUrl);
+    return () => {
+      window.removeEventListener('popstate', syncFromUrl);
+      window.removeEventListener('hashchange', syncFromUrl);
+    };
+  }, []);
+
+  useEffect(() => {
+    const route = activeSection === 'admin'
+      ? `admin/${adminRoute}`
+      : activeSection === 'student'
+        ? `student/${studentRoute}`
+        : `public/${publicRoute}`;
+    const nextHash = `#/${route}`;
+    if (window.location.hash !== nextHash) {
+      window.history.pushState(null, '', nextHash);
+    }
+  }, [activeSection, publicRoute, adminRoute, studentRoute]);
 
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
