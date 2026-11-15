@@ -114,7 +114,7 @@ const AppContent: React.FC = () => {
   if (activeSection === 'student') {
     return (
       <StudentLayout>
-        <div key={studentRoute} className="animate-fade-in">
+        <div key={studentRoute} className="route-transition-enter">
           {studentRoute === 'visao-geral' && <StudentDashboard />}
           {studentRoute === 'resultados' && <StudentResultados />}
           {studentRoute === 'pedidos' && <StudentDeclaracoes />}
@@ -137,7 +137,7 @@ const AppContent: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F]">
       <Header />
       <main className="flex-1">
-        <div key={publicRoute} className="animate-fade-in">
+        <div key={publicRoute} className="route-transition-enter">
           {publicRoute === 'home' && <HomePage />}
           {publicRoute === 'sobre' && <SobrePage />}
           {publicRoute === 'cursos' && <CursosPage />}
