@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
           <div className="max-w-2xl">
             {/* License Official Badge */}
             <Reveal delay={80} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#F28C28] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#F28C28]" />
               <span>Licença Oficial N.º {INSTITUTION_INFO.license}</span>
               <span className="text-white/40">•</span>
               <span className="text-slate-300">Luena, Moxico</span>
@@ -365,10 +365,10 @@ export const HomePage: React.FC = () => {
               onClick={() =>
                 setLightboxPhoto({
                   id: 'life-2',
-                  title: 'Turma em Uniforme Institucional',
-                  category: 'Alunos',
+                  title: 'Prática de Microscopia',
+                  category: 'Laboratórios',
                   url: '/images/Mulher observando no microscópio .jpg',
-                  caption: 'Futuros profissionais de saúde com a bata oficial.',
+                  caption: 'Acompanhamento de atividades laboratoriais com microscópios clínicos.',
                   date: 'Ano Letivo 2026',
                 })
               }
@@ -377,7 +377,7 @@ export const HomePage: React.FC = () => {
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
                   src="/images/Mulher observando no microscópio .jpg"
-                  alt="Turma de saúde do ITPSS"
+                  alt="Atividade de microscopia no ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
                 />
@@ -394,10 +394,10 @@ export const HomePage: React.FC = () => {
               onClick={() =>
                 setLightboxPhoto({
                   id: 'life-3',
-                  title: 'Atividades Práticas de Saúde',
+                  title: 'Aula Prática de Anatomia',
                   category: 'Laboratórios',
                   url: '/images/Mulher_peganddo_um esqueleto humano.jpg',
-                  caption: 'Simulações e procedimentos práticos em ambiente formativo.',
+                  caption: 'Estudo anatómico com apoio de modelos didáticos.',
                   date: 'Ano Letivo 2026',
                 })
               }
@@ -406,7 +406,7 @@ export const HomePage: React.FC = () => {
               <div className="h-60 img-zoom-container bg-slate-100">
                 <img
                   src="/images/Mulher_peganddo_um esqueleto humano.jpg"
-                  alt="Formação prática"
+                  alt="Estudo anatómico com modelo de esqueleto no ITPSS"
                   loading="lazy"
                   className="w-full h-full object-cover"
                 />
