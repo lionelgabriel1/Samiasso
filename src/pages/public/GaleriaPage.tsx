@@ -72,6 +72,7 @@ export const GaleriaPage: React.FC = () => {
           {filteredPhotos.map((photo) => (
             <div
               key={photo.id}
+              data-scroll-reveal="scale"
               onClick={() => setLightboxPhoto(photo)}
               className="group relative rounded-2xl overflow-hidden shadow-xs img-card-interactive gallery-card-premium bg-white border border-slate-200/80 cursor-pointer"
             >
