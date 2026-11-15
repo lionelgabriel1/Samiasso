@@ -29,14 +29,14 @@ export const Reveal: React.FC<RevealProps> = ({
       return;
     }
 
-    const observer = new IntersectionObserver(
+    if (!('IntersectionObserver' in window)) {\n      setIsVisible(true);\n      return;\n    }\n\n    const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' },
+      { threshold: 0.01, rootMargin: '0px 0px -4% 0px' },
     );
 
     observer.observe(element);
