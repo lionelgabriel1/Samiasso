@@ -90,7 +90,7 @@ export const MatriculasPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Matrículas</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Matrículas e Pré-Inscrições
           </h1>
           <p className="text-base text-slate-200 max-w-xl">
@@ -103,7 +103,7 @@ export const MatriculasPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Instructions and Clarification */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
+            <div data-scroll-reveal="left" className="bg-white rounded-3xl p-8 shadow-xs border border-slate-200/80 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-[#F28C28] text-xs font-bold">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>Ano Letivo 2026</span>
@@ -189,7 +189,7 @@ export const MatriculasPage: React.FC = () => {
 
           {/* Right Column: Pre-Enrollment Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-xs border border-slate-200/80">
+            <div data-scroll-reveal className="bg-white rounded-3xl p-8 sm:p-10 shadow-xs border border-slate-200/80">
               <div className="mb-8">
                 <span className="text-xs font-bold uppercase tracking-wider text-[#1456A0] block mb-1">
                   Formulário Oficial
@@ -203,7 +203,7 @@ export const MatriculasPage: React.FC = () => {
               </div>
 
               {submittedCode ? (
-                <div className="py-8 text-center space-y-4">
+                <div data-scroll-reveal="scale" className="py-8 text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
