@@ -137,19 +137,19 @@ export function createDataRepository(storage: StorageBackend = getBrowserStorage
     }
   }
 
-  function migrateImageField<T extends Record<string, unknown>>(
+  function migrateImageField<T extends object>(
     key: string,
     records: T[],
     field: 'image' | 'url',
   ): T[] {
     let changed = false;
     const migrated = records.map((record) => {
-      const current = record[field];
+      const current = (record as { image?: unknown; url?: unknown })[field];
       if (typeof current !== 'string') return record;
       const next = normalizeLegacyImagePath(current);
       if (next === current) return record;
       changed = true;
-      return { ...record, [field]: next };
+      return { ...record, [field]: next } as T;
     });
 
     if (changed) save(key, migrated);
