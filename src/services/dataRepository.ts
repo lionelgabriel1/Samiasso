@@ -82,6 +82,41 @@ function getBrowserStorage(): StorageBackend {
   };
 }
 
+
+/**
+ * Assets genéricos usados em versões anteriores. A chave é o nome-base,
+ * independentemente da extensão antiga (.jpg/.webp).
+ * Só estes caminhos conhecidos são migrados; imagens carregadas pela
+ * Secretaria e URLs personalizadas permanecem intactas.
+ */
+const LEGACY_IMAGE_REPLACEMENTS: Record<string, string> = {
+  'campus-aerial-sobre': '/images/Foto da escola feita com drone.jpg',
+  'campus-drone': '/images/Foto da escola feita com drone.jpg',
+  'hero-drone-source': '/images/Foto da escola feita com drone.jpg',
+  'gallery-drone': '/images/Foto da escola feita com drone.jpg',
+  'campus-detail-1': '/images/Foto da escola da vista de baixo pra cima.jpg',
+  'campus-detail-2': '/images/Foto do bloco de baixo da escola.jpg',
+  'gallery-building': '/images/Foto da escola da vista de baixo pra cima.jpg',
+  'gallery-class': '/images/Foto com drone da escola com alunos nos corredores.jpg',
+  'gallery-students-1': '/images/Foto com drone da escola com alunos nos corredores.jpg',
+  'students-group-1': '/images/Foto com drone da escola com alunos nos corredores.jpg',
+  'students-group-2': '/images/Duas estudantes no laboratório.jpg',
+  'students-group-3': '/images/Mulher observando no microscópio .jpg',
+  'lab-students': '/images/Duas estudantes no laboratório.jpg',
+  'gallery-lab-1': '/images/Duas estudantes no laboratório.jpg',
+  'gallery-lab-2': '/images/Laboratório com camas com manequins.jpg',
+  'practical-banner': '/images/Laboratório com camas com manequins.jpg',
+  'gallery-nurse': '/images/Mulher_peganddo_um esqueleto humano.jpg',
+  'medical-staff': '/images/Mulher numa sala cheia de microscópios .jpg',
+};
+
+function normalizeLegacyImagePath(value: string): string {
+  const pathname = value.split(/[?#]/, 1)[0];
+  const filename = pathname.split('/').pop() ?? pathname;
+  const basename = filename.replace(/\.(avif|webp|png|jpe?g)$/i, '');
+  return LEGACY_IMAGE_REPLACEMENTS[basename] ?? value;
+}
+
 export function createDataRepository(storage: StorageBackend = getBrowserStorage()) {
   function load<T>(key: string, fallback: T): T {
     try {
@@ -102,8 +137,27 @@ export function createDataRepository(storage: StorageBackend = getBrowserStorage
     }
   }
 
+  function migrateImageField<T extends Record<string, unknown>>(
+    key: string,
+    records: T[],
+    field: 'image' | 'url',
+  ): T[] {
+    let changed = false;
+    const migrated = records.map((record) => {
+      const current = record[field];
+      if (typeof current !== 'string') return record;
+      const next = normalizeLegacyImagePath(current);
+      if (next === current) return record;
+      changed = true;
+      return { ...record, [field]: next };
+    });
+
+    if (changed) save(key, migrated);
+    return migrated;
+  }
+
   return {
-    loadCourses: () => load<Course[]>(STORAGE_KEYS.courses, INITIAL_COURSES),
+    loadCourses: () => migrateImageField(STORAGE_KEYS.courses, load<Course[]>(STORAGE_KEYS.courses, INITIAL_COURSES), 'image'),
     saveCourses: (v: Course[]) => save(STORAGE_KEYS.courses, v),
 
     loadPayments: () => load<PaymentItem[]>(STORAGE_KEYS.payments, INITIAL_PAYMENTS),
@@ -118,10 +172,10 @@ export function createDataRepository(storage: StorageBackend = getBrowserStorage
     loadPreEnrollments: () => load<PreEnrollment[]>(STORAGE_KEYS.preEnrollments, INITIAL_PRE_ENROLLMENTS),
     savePreEnrollments: (v: PreEnrollment[]) => save(STORAGE_KEYS.preEnrollments, v),
 
-    loadNews: () => load<NewsItem[]>(STORAGE_KEYS.news, INITIAL_NEWS),
+    loadNews: () => migrateImageField(STORAGE_KEYS.news, load<NewsItem[]>(STORAGE_KEYS.news, INITIAL_NEWS), 'image'),
     saveNews: (v: NewsItem[]) => save(STORAGE_KEYS.news, v),
 
-    loadGallery: () => load<GalleryPhoto[]>(STORAGE_KEYS.gallery, INITIAL_GALLERY),
+    loadGallery: () => migrateImageField(STORAGE_KEYS.gallery, load<GalleryPhoto[]>(STORAGE_KEYS.gallery, INITIAL_GALLERY), 'url'),
     saveGallery: (v: GalleryPhoto[]) => save(STORAGE_KEYS.gallery, v),
 
     loadMinipautas: () => load<Minipauta[]>(STORAGE_KEYS.minipautas, INITIAL_MINIPAUTAS),
