@@ -328,7 +328,7 @@ const ADMIN_ROUTES: AdminRoute[] = ['dashboard', 'pautas-gerais', 'minipautas', 
 const STUDENT_ROUTES: StudentRoute[] = ['visao-geral', 'resultados', 'pedidos', 'cadernetas', 'certificados', 'faltas', 'transferencias', 'pagamentos', 'notificacoes', 'horario', 'assiduidade', 'comunicados', 'perfil'];
 
 const readNavigationFromHash = () => {
-  const [section, route] = window.location.hash.replace(/^#\\/?/, '').split('/');
+  const [section, route] = window.location.hash.replace(/^#\/?/, '').split('/');
   if (section === 'admin' && ADMIN_ROUTES.includes(route as AdminRoute)) {
     return { activeSection: 'admin' as const, publicRoute: 'home' as PublicRoute, adminRoute: route as AdminRoute, studentRoute: 'visao-geral' as StudentRoute };
   }
