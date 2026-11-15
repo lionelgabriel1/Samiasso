@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import { Newspaper, Plus, Trash2, Edit2, CheckCircle2, Calendar, Eye, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 import { NewsItem } from '../../types/index.ts';
@@ -163,7 +164,7 @@ export const AdminNoticias: React.FC = () => {
             className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           >
             <div className="flex items-start gap-4">
-              <img
+              <ResponsiveImage
                 src={item.image}
                 alt={item.title}
                 className="w-20 h-16 rounded-xl object-cover shrink-0"

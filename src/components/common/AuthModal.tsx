@@ -107,11 +107,11 @@ export const AuthModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="auth-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto lightbox-enter"
       onClick={() => setIsAuthModalOpen(false)}
     >
       <div
-        className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 my-8"
+        className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 my-8 lightbox-panel-enter"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}

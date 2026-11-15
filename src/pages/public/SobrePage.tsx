@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import { Shield, MapPin, Award, ArrowRight, Sparkles, Building, Compass, Eye, HeartHandshake } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -16,7 +17,7 @@ export const SobrePage: React.FC = () => {
       {/* Page Hero Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Mulher numa sala cheia de microscópios .jpg"
             alt="Profissionais de saúde Samiasso"
             className="w-full h-full object-cover opacity-20"
@@ -36,10 +37,10 @@ export const SobrePage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Sobre</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Sobre o ITPSS
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Compromisso com a formação de profissionais de saúde.
           </p>
         </div>
@@ -47,9 +48,9 @@ export const SobrePage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {/* Quem Somos */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6" data-scroll-reveal="left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#1456A0] text-xs font-bold">
                 <Sparkles className="w-3.5 h-3.5 text-[#F28C28]" />
                 <span>Identidade Institucional</span>
@@ -68,7 +69,7 @@ export const SobrePage: React.FC = () => {
               </p>
 
               {/* Badges Bar */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4" data-scroll-reveal="stagger">
                 <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#F4F6F9] border border-slate-200/80">
                   <div className="p-2 rounded-xl bg-blue-100 text-[#1456A0] shrink-0">
                     <Shield className="w-5 h-5" />
@@ -114,7 +115,7 @@ export const SobrePage: React.FC = () => {
             </div>
 
             {/* Aerial Campus Image */}
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5" data-scroll-reveal="mask">
               <div
                 onClick={() =>
                   setLightboxPhoto({
@@ -126,9 +127,9 @@ export const SobrePage: React.FC = () => {
                     date: '2026',
                   })
                 }
-                className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 img-card-interactive img-zoom-container group cursor-pointer"
+                className="relative rounded-xl overflow-hidden border border-slate-200 img-card-interactive img-zoom-container group cursor-pointer" data-scroll-reveal="mask"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto da escola num andar de cima.jpg"
                   alt="Campus escolar ITPSS no Luena"
                   loading="lazy"
@@ -145,9 +146,9 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Estrutura e Instalações */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal="up" className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 space-y-5">
+            <div className="lg:col-span-5 space-y-5" data-scroll-reveal="left">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
                 <Building className="w-4 h-4 text-[#F28C28]" />
                 <span>Espaço de Aprendizagem</span>
@@ -173,7 +174,7 @@ export const SobrePage: React.FC = () => {
             </div>
 
             {/* Grid of 3 Campus Photos */}
-            <div className="lg:col-span-7 grid grid-cols-2 gap-4">
+            <div className="lg:col-span-7 grid grid-cols-2 gap-4" data-scroll-reveal="stagger">
               <div
                 onClick={() =>
                   setLightboxPhoto({
@@ -187,7 +188,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto da escola da vista de baixo pra cima.jpg"
                   alt="Instalações ITPSS"
                   loading="lazy"
@@ -208,7 +209,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Duas estudantes no laboratório.jpg"
                   alt="Laboratórios ITPSS"
                   loading="lazy"
@@ -229,7 +230,7 @@ export const SobrePage: React.FC = () => {
                 }
                 className="col-span-2 rounded-2xl overflow-hidden shadow-xs img-card-interactive img-zoom-container group cursor-pointer border border-slate-100"
               >
-                <img
+                <ResponsiveImage
                   src="/images/Foto do bloco de baixo da escola.jpg"
                   alt="Estrutura e bloco ITPSS"
                   loading="lazy"
@@ -241,7 +242,7 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Institutional Pillars - Explicitly 'Em construção' matching mockup & instructions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
           <div className="bg-white p-8 rounded-2xl border border-slate-200/80 text-center shadow-xs">
             <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#1456A0] mx-auto flex items-center justify-center mb-4">
               <Compass className="w-6 h-6" />

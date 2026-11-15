@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext.tsx';
 import { Header } from './components/common/Header.tsx';
 import { Footer } from './components/common/Footer.tsx';
@@ -63,10 +63,50 @@ import {
 const AppContent: React.FC = () => {
   const { activeSection, publicRoute, adminRoute, studentRoute } = useApp();
 
+  useEffect(() => {
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-scroll-reveal]')
+    );
+
+    if (targets.length === 0) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      targets.forEach((target) => {
+        target.dataset.revealed = 'true';
+      });
+      return;
+    }
+
+    targets.forEach((target) => {
+      delete target.dataset.revealed;
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).dataset.revealed = 'true';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    document.documentElement.dataset.scrollRevealReady = 'true';
+
+    return () => {
+      observer.disconnect();
+      delete document.documentElement.dataset.scrollRevealReady;
+    };
+  }, [activeSection, publicRoute, adminRoute, studentRoute]);
+
   if (activeSection === 'admin') {
     return (
       <AdminLayout>
-        <div key={adminRoute} className="animate-fade-in">
+        <div key={adminRoute} className="route-transition-enter">
           {adminRoute === 'dashboard' && <AdminDashboard />}
           {(adminRoute === 'pautas-gerais' || adminRoute === 'resultados') && (
             <AdminPautasGerais />
@@ -96,7 +136,7 @@ const AppContent: React.FC = () => {
   if (activeSection === 'student') {
     return (
       <StudentLayout>
-        <div key={studentRoute} className="animate-fade-in">
+        <div key={studentRoute} className="route-transition-enter">
           {studentRoute === 'visao-geral' && <StudentDashboard />}
           {studentRoute === 'resultados' && <StudentResultados />}
           {studentRoute === 'horario' && <StudentHorario />}
@@ -119,7 +159,7 @@ const AppContent: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-[#F4F6F9] text-[#10385F]">
       <Header />
       <main className="flex-1">
-        <div key={publicRoute} className="animate-fade-in">
+        <div key={publicRoute} className="route-transition-enter">
           {publicRoute === 'home' && <HomePage />}
           {publicRoute === 'sobre' && <SobrePage />}
           {publicRoute === 'cursos' && <CursosPage />}

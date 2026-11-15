@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React, { useState } from 'react';
 import { Calendar, Clock, ArrowRight, Tag, Search, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -25,7 +26,7 @@ export const NoticiasPage: React.FC = () => {
       {/* Header */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/hero-drone-source.jpg"
             alt="Notícias ITPSS"
             className="w-full h-full object-cover opacity-20"
@@ -45,10 +46,10 @@ export const NoticiasPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Notícias</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Notícias e Comunicados
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Acompanhe as atualizações institucionais, avisos e atividades escolares do ITPSS.
           </p>
         </div>
@@ -93,18 +94,18 @@ export const NoticiasPage: React.FC = () => {
             Nenhuma notícia encontrada para esta pesquisa.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {filteredNews.map((item) => (
               <article
                 key={item.id}
                 onClick={() => setSelectedNewsArticle(item)}
                 className="bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-slate-200/80 flex flex-col group cursor-pointer"
               >
-                <div className="relative h-48 bg-slate-100 overflow-hidden">
-                  <img
+                <div className="relative h-48 bg-slate-100 overflow-hidden img-zoom-container">
+                  <ResponsiveImage
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-3 left-3 bg-[#10385F]/85 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
                     {item.category}
@@ -150,15 +151,15 @@ export const NoticiasPage: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto lightbox-enter"
           onClick={() => setSelectedNewsArticle(null)}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 my-8 max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 my-8 max-h-[90vh] flex flex-col lightbox-panel-enter"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 bg-slate-100 shrink-0">
-              <img
+              <ResponsiveImage
                 src={selectedNewsArticle.image}
                 alt={selectedNewsArticle.title}
                 className="w-full h-full object-cover"

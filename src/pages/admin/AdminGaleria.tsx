@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import { Image as ImageIcon, Plus, Trash2, X, Check } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 import { GalleryPhoto } from '../../types/index.ts';
@@ -142,10 +143,10 @@ export const AdminGaleria: React.FC = () => {
             className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-2xs group relative"
           >
             <div className="h-36 overflow-hidden bg-slate-100">
-              <img
+              <ResponsiveImage
                 src={photo.url}
                 alt={photo.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
 

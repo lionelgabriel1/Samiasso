@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import {
   GraduationCap,
@@ -33,32 +34,33 @@ export const HomePage: React.FC = () => {
       <section className="relative bg-[#10385F] text-white overflow-hidden">
         {/* Drone Image Background with enhanced visibility and high-contrast readability */}
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Foto da escola feita com drone.jpg"
+            priority
+            sizes="100vw"
             alt="Fotografia aérea do Instituto Técnico Privado de Saúde Samiasso"
-            className="w-full h-full object-cover object-center opacity-100 scale-100 contrast-[1.12] saturate-[1.08] brightness-[1.04] transition-transform duration-1000 ease-out"
+            className="w-full h-full object-cover object-center opacity-100 contrast-[1.08] saturate-[1.04] brightness-[1.02] hero-image-reveal"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#10385F]/78 via-[#10385F]/48 to-[#10385F]/22" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/90 via-transparent to-black/10" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 hero-copy">
           <div className="max-w-2xl">
             {/* License Official Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6 animate-fade-in">
-              <span className="w-2 h-2 rounded-full bg-[#F28C28] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#F28C28]" aria-hidden="true" />
               <span>Licença Oficial N.º {INSTITUTION_INFO.license}</span>
               <span className="text-white/40">•</span>
               <span className="text-slate-300">Luena, Moxico</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-in-up font-heading">
-              Formamos profissionais de saúde para um{' '}
-              <span className="text-[#F28C28]">futuro melhor</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 animate-fade-in-left font-heading">
+              Formação técnica para <span className="text-[#F28C28]">cuidar de vidas.</span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-200 leading-relaxed mb-8 max-w-xl font-normal animate-fade-in-up stagger-1">
-              No Instituto Técnico Privado de Saúde Samiasso (ITPSS), preparamos jovens para construírem carreiras sólidas na área da saúde, com formação técnica, prática e de qualidade.
+              Conheça os cursos técnicos de saúde do Instituto Técnico Privado de Saúde Samiasso e saiba como fazer a sua pré-inscrição no Luena.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 animate-fade-in-up stagger-2">
@@ -66,7 +68,7 @@ export const HomePage: React.FC = () => {
                 onClick={() => goTo('matriculas')}
                 className="px-6 py-3.5 bg-[#F28C28] hover:bg-[#e07b16] text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-orange-500/25 btn-tactile cursor-pointer flex items-center gap-2"
               >
-                <span>Inscrições Abertas</span>
+                <span>Fazer pré-inscrição</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
 
@@ -74,7 +76,7 @@ export const HomePage: React.FC = () => {
                 onClick={() => goTo('cursos')}
                 className="px-6 py-3.5 bg-[#1456A0] hover:bg-[#0f427c] text-white font-semibold text-sm rounded-xl border border-white/20 btn-tactile cursor-pointer flex items-center gap-2"
               >
-                <span>Conheça os Cursos</span>
+                <span>Conhecer os cursos</span>
               </button>
             </div>
           </div>
@@ -88,28 +90,28 @@ export const HomePage: React.FC = () => {
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <GraduationCap className="w-5 h-5" />
                 </div>
-                <span>Formação técnica e especializada</span>
+                <span>{courses.length} cursos técnicos</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <Users className="w-5 h-5" />
                 </div>
-                <span>Corpo docente qualificado</span>
+                <span>10.ª e 11.ª classes</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <Building2 className="w-5 h-5" />
                 </div>
-                <span>Infraestrutura moderna</span>
+                <span>Luena, Moxico</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-[#1456A0] flex items-center justify-center shrink-0 text-[#F28C28]">
                   <Award className="w-5 h-5" />
                 </div>
-                <span>Compromisso com a excelência</span>
+                <span>Licença n.º {INSTITUTION_INFO.license}</span>
               </div>
             </div>
           </div>
@@ -117,15 +119,15 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 2. O ITPSS SECTION */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-scroll-reveal>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Real Lab Students Image Frame */}
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-100 group">
-              <img
+            <div className="relative rounded-xl overflow-hidden border border-slate-200 img-card-interactive img-zoom-container group" data-scroll-reveal="mask">
+              <ResponsiveImage
                 src="/images/Duas estudantes no laboratório.jpg"
                 alt="Alunos do ITPSS em aula prática no laboratório"
-                className="w-full h-[360px] object-cover group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-[360px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#10385F]/60 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white text-xs bg-black/40 backdrop-blur-md p-3 rounded-xl border border-white/10">
@@ -134,7 +136,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Institution Description & Stats */}
-            <div className="space-y-6">
+            <div className="space-y-6" data-scroll-reveal="right">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1456A0]">
                 <Sparkles className="w-4 h-4 text-[#F28C28]" />
                 <span>Sobre o Instituto</span>
@@ -149,7 +151,7 @@ export const HomePage: React.FC = () => {
               </p>
 
               {/* 3 Metrics Badge Bar */}
-              <div className="grid grid-cols-3 gap-4 pt-2">
+              <div className="grid grid-cols-3 gap-4 pt-2" data-scroll-reveal="stagger">
                 <div className="p-4 rounded-xl bg-[#F4F6F9] border border-slate-200/80 text-center">
                   <div className="flex items-center justify-center text-[#1456A0] mb-1">
                     <BookOpen className="w-5 h-5" />
@@ -190,7 +192,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 3. NOSSOS CURSOS SECTION */}
-      <section className="py-20 bg-[#F4F6F9]">
+      <section className="py-20 bg-[#F4F6F9]" data-scroll-reveal>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl font-extrabold text-[#10385F] tracking-tight mb-3">
@@ -201,7 +203,7 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {courses.map((course) => (
               <div
                 key={course.id}
@@ -210,8 +212,7 @@ export const HomePage: React.FC = () => {
               >
                 {/* Course Image */}
                 <div className="relative h-48 img-zoom-container bg-slate-100">
-                  <img
-                    src={course.image}
+                  <ResponsiveImage src={course.image} sizes="(min-width: 1024px) 33vw, 100vw"
                     alt={course.name}
                     loading="lazy"
                     className="w-full h-full object-cover"
@@ -272,9 +273,9 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 4. APRENDIZAGEM PRÁTICA BANNER */}
-      <section className="relative py-20 bg-[#10385F] text-white overflow-hidden">
+      <section className="relative py-20 bg-[#10385F] text-white overflow-hidden" data-scroll-reveal>
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/Laboratório com camas com manequins.jpg"
             alt="Aprendizagem prática no ITPSS"
             className="w-full h-full object-cover opacity-25"
@@ -283,7 +284,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl">
+          <div className="max-w-xl" data-scroll-reveal="left">
             <span className="text-xs font-bold uppercase tracking-wider text-[#F28C28] block mb-2">
               Formação de Excelência
             </span>
@@ -305,7 +306,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 5. VIDA ACADÉMICA SECTION */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" data-scroll-reveal>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -329,7 +330,7 @@ export const HomePage: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             <div
               onClick={() =>
                 setLightboxPhoto({
@@ -344,7 +345,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Foto com drone da escola com alunos nos corredores.jpg"
                   alt="Estudantes do ITPSS"
                   loading="lazy"
@@ -373,7 +374,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Mulher observando no microscópio .jpg"
                   alt="Turma de saúde do ITPSS"
                   loading="lazy"
@@ -402,7 +403,7 @@ export const HomePage: React.FC = () => {
               className="rounded-2xl overflow-hidden shadow-xs img-card-interactive group cursor-pointer border border-slate-100 bg-white"
             >
               <div className="h-60 img-zoom-container bg-slate-100">
-                <img
+                <ResponsiveImage
                   src="/images/Mulher_peganddo_um esqueleto humano.jpg"
                   alt="Formação prática"
                   loading="lazy"
@@ -421,7 +422,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 6. CALLOUT DUAL BANNER: ENROLLMENT + CONTACTS */}
-      <section className="py-14 bg-[#F4F6F9]">
+      <section className="py-14 bg-[#F4F6F9]" data-scroll-reveal>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             {/* Orange Enrollment Card */}

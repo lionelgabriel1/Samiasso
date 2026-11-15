@@ -72,7 +72,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       role="dialog"
       aria-modal="true"
       aria-label="Menu principal de navegação"
-      className="fixed inset-0 z-50 flex flex-col bg-[#10385F] text-white overflow-y-auto animate-in fade-in duration-200 lg:hidden"
+      className="fixed inset-0 z-50 flex flex-col bg-[#10385F] text-white overflow-y-auto mobile-menu-enter lg:hidden"
     >
       {/* Header Inside Mobile Drawer */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 shrink-0">

@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { ResponsiveImage } from './ResponsiveImage.tsx';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
 
 export const Lightbox: React.FC = () => {
   const { lightboxPhoto, setLightboxPhoto, gallery } = useApp();
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -20,8 +22,10 @@ export const Lightbox: React.FC = () => {
   if (!lightboxPhoto) return null;
 
   const currentIndex = gallery.findIndex((p) => p.id === lightboxPhoto.id);
+  const canNavigateGallery = currentIndex >= 0 && gallery.length > 1;
 
   const handleNext = () => {
+    if (!canNavigateGallery) return;
     if (currentIndex < gallery.length - 1) {
       setLightboxPhoto(gallery[currentIndex + 1]);
     } else {
@@ -30,6 +34,7 @@ export const Lightbox: React.FC = () => {
   };
 
   const handlePrev = () => {
+    if (!canNavigateGallery) return;
     if (currentIndex > 0) {
       setLightboxPhoto(gallery[currentIndex - 1]);
     } else {
@@ -42,11 +47,11 @@ export const Lightbox: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-label="Visualizador de imagem ampliada"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 lightbox-enter"
       onClick={() => setLightboxPhoto(null)}
     >
       <div
-        className="relative max-w-4xl w-full bg-[#10385F] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+        className="relative max-w-4xl w-full bg-[#10385F] rounded-xl overflow-hidden shadow-2xl border border-white/10 lightbox-panel-enter"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
@@ -67,11 +72,26 @@ export const Lightbox: React.FC = () => {
         </div>
 
         {/* Image Frame */}
-        <div className="relative bg-black flex items-center justify-center min-h-[360px] max-h-[70vh]">
-          <img
+        <div
+          className="relative bg-black flex items-center justify-center min-h-[240px] sm:min-h-[360px] max-h-[70vh] touch-pan-y"
+          onTouchStart={(event) => { touchStartX.current = event.changedTouches[0]?.clientX ?? null; }}
+          onTouchEnd={(event) => {
+            const start = touchStartX.current;
+            const end = event.changedTouches[0]?.clientX;
+            touchStartX.current = null;
+            if (start === null || end === undefined) return;
+            const distance = end - start;
+            if (Math.abs(distance) < 48) return;
+            if (distance < 0) handleNext();
+            else handlePrev();
+          }}
+        >
+          <ResponsiveImage
             src={lightboxPhoto.url}
             alt={lightboxPhoto.title}
-            className="max-h-[70vh] w-auto max-w-full object-contain mx-auto"
+            priority
+            sizes="(min-width: 1024px) 70vw, 100vw"
+            className="max-h-[70vh] w-auto max-w-full object-contain mx-auto lightbox-image-enter"
           />
 
           {/* Navigation Arrows */}
@@ -79,6 +99,7 @@ export const Lightbox: React.FC = () => {
             onClick={handlePrev}
             className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Imagem anterior"
+            disabled={!canNavigateGallery}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -86,6 +107,7 @@ export const Lightbox: React.FC = () => {
             onClick={handleNext}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur transition-transform active:scale-95 cursor-pointer"
             aria-label="Próxima imagem"
+            disabled={!canNavigateGallery}
           >
             <ChevronRight className="w-6 h-6" />
           </button>

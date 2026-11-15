@@ -69,13 +69,13 @@ export const StudentDashboard: React.FC = () => {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* 1. STUDENT INSTITUTIONAL ID CARD (All 7 required items) */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs relative overflow-hidden">
+      <div data-scroll-reveal="subtle" className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-xs relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50/50 rounded-full blur-3xl -z-0 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
               <span>Estado da Matrícula: {currentStudent.enrollmentStatus || 'Ativa'}</span>
               <span className="text-emerald-300">•</span>
               <span>Ano Letivo: {currentStudent.academicYear}</span>
@@ -172,7 +172,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1456A0] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1456A0] flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <Award className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -194,7 +194,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#F28C28] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#F28C28] flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <FileText className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -216,7 +216,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <BookOpen className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -238,7 +238,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <FileCheck2 className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -260,7 +260,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <CalendarX className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -282,7 +282,7 @@ export const StudentDashboard: React.FC = () => {
             className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:border-[#1456A0] hover:shadow-md transition-all text-left group cursor-pointer flex flex-col justify-between"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                 <ArrowRightLeft className="w-5 h-5" />
               </div>
               <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">
@@ -305,7 +305,7 @@ export const StudentDashboard: React.FC = () => {
           >
             <div className="flex items-start justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#F28C28] flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#F28C28] flex items-center justify-center mb-3 group-hover:scale-[1.02] transition-transform">
                   <Receipt className="w-5 h-5" />
                 </div>
                 <h4 className="font-extrabold text-sm text-[#10385F] group-hover:text-[#1456A0] transition-colors">

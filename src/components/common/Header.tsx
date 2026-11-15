@@ -103,6 +103,7 @@ export const Header: React.FC = () => {
                 return (
                   <button
                     key={link.route}
+                    aria-current={isActive ? "page" : undefined}
                     onClick={() => handleNavClick(link.route)}
                     className={`px-3.5 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer relative ${
                       isActive
@@ -136,7 +137,7 @@ export const Header: React.FC = () => {
                 </button>
 
                 {isAccessDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50 dropdown-enter">
                     <div className="px-4 py-2 border-b border-slate-100">
                       <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                         Acesso aos Portais

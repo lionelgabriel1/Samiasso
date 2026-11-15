@@ -1,3 +1,4 @@
+import { ResponsiveImage } from '../../components/common/ResponsiveImage.tsx';
 import React from 'react';
 import { ArrowRight, CheckCircle2, ShieldCheck, HelpCircle, FileText, CreditCard, Shirt } from 'lucide-react';
 import { useApp } from '../../context/AppContext.tsx';
@@ -11,7 +12,7 @@ export const CursosPage: React.FC = () => {
       {/* Header Banner */}
       <div className="relative bg-[#10385F] text-white py-16 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <ResponsiveImage
             src="/images/practical-banner.jpg"
             alt="Cursos técnicos de saúde"
             className="w-full h-full object-cover opacity-25"
@@ -31,10 +32,10 @@ export const CursosPage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Cursos</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3 page-title-enter">
             Cursos
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p className="text-base text-slate-200 max-w-xl page-subtitle-enter">
             Formação técnica e especializada na área da saúde.
           </p>
         </div>
@@ -48,19 +49,18 @@ export const CursosPage: React.FC = () => {
               Oferta Formativa Oficial
             </h2>
             <p className="text-slate-600 text-sm mt-1">
-              Matrículas abertas para a 10.ª e 11.ª classes com certificação técnica média oficial.
+              Cursos disponíveis para a 10.ª e 11.ª classes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" data-scroll-reveal="stagger">
             {courses.map((course) => (
               <div
                 key={course.id}
-                className="bg-white rounded-3xl overflow-hidden shadow-xs img-card-interactive border border-slate-200/80 flex flex-col group"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 flex flex-col group img-card-interactive"
               >
                 <div className="relative h-56 bg-slate-100 img-zoom-container">
-                  <img
-                    src={course.image}
+                  <ResponsiveImage src={course.image} sizes="(min-width: 1024px) 33vw, 100vw"
                     alt={course.name}
                     loading="lazy"
                     className="w-full h-full object-cover"
@@ -106,7 +106,7 @@ export const CursosPage: React.FC = () => {
                   <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] uppercase font-bold text-slate-400 block">
-                        Mensalidade Oficial
+                        Mensalidade
                       </span>
                       <span className="text-2xl font-black text-[#1456A0]">
                         {formatKwanza(course.monthlyFee)}
@@ -133,7 +133,7 @@ export const CursosPage: React.FC = () => {
         </div>
 
         {/* Outros Pagamentos Section matching mockup */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80">
           <div className="max-w-2xl mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-[#1456A0] block mb-1">
               Transparência de Custos

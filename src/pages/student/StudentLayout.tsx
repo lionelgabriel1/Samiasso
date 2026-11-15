@@ -261,9 +261,9 @@ export const StudentLayout: React.FC<StudentLayoutProps> = ({ children }) => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-black/75 flex lg:hidden animate-in fade-in"
+          className="fixed inset-0 z-50 bg-black/75 flex lg:hidden mobile-backdrop-enter"
         >
-          <div className="w-72 bg-[#10385F] text-white h-full flex flex-col p-4 shadow-2xl">
+          <div className="w-72 bg-[#10385F] text-white h-full flex flex-col p-4 shadow-2xl mobile-drawer-enter">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <Logo size="sm" light={true} />
               <button
@@ -347,7 +347,7 @@ export const StudentLayout: React.FC<StudentLayoutProps> = ({ children }) => {
         {/* Top Header */}
         <header className="h-16 bg-white border-b border-slate-200/80 px-6 flex items-center justify-between shrink-0 shadow-2xs">
           <div className="flex items-center gap-3">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <span className="text-xs font-extrabold text-[#10385F] uppercase tracking-wider font-heading">
               Portal do Estudante • ITPSS
             </span>

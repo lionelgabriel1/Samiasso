@@ -11,7 +11,7 @@ export const Toast: React.FC = () => {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-xl border backdrop-blur-md transition-all duration-300 animate-in slide-in-from-bottom-5 text-sm font-medium"
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-xl shadow-xl border backdrop-blur-md transition-all duration-200 toast-enter text-sm font-medium"
       style={{
         backgroundColor:
           toast.type === 'success'

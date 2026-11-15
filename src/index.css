@@ -118,12 +118,10 @@
 /* Reusable Fast Animation Utility Classes */
 .animate-fade-in {
   animation: fadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity;
 }
 
 .animate-fade-in-up {
   animation: fadeInUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity, transform;
 }
 
 .animate-fade-in-down {
@@ -138,7 +136,6 @@
 
 .animate-float {
   animation: subtleFloat 4s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-pulse-glow {
@@ -158,12 +155,11 @@
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.2s ease;
-  will-change: transform, box-shadow;
 }
 
 .img-card-interactive:hover {
-  transform: translate3d(0, -4px, 0);
-  box-shadow: 0 16px 32px -8px rgba(16, 56, 95, 0.12), 0 6px 12px -4px rgba(16, 56, 95, 0.06);
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 24px -14px rgba(16, 56, 95, 0.22);
 }
 
 .img-zoom-container {
@@ -172,13 +168,134 @@
 }
 
 .img-zoom-container img {
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
-  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .img-zoom-container:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
+
+/* Scroll reveals are opt-in: content remains visible if JavaScript or IntersectionObserver is unavailable. */
+[data-scroll-reveal] {
+  transition:
+    opacity 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[data-scroll-reveal="subtle"] {
+  transition-duration: 320ms;
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal]:not([data-revealed="true"]) {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="subtle"]:not([data-revealed="true"]) {
+  transform: translate3d(0, 7px, 0);
+}
+
+/* Editorial motion system: variants are opt-in and reveal once through IntersectionObserver. */
+@keyframes heroImageReveal {
+  from { opacity: .72; transform: scale(1.025); clip-path: inset(0 0 0 8%); }
+  to { opacity: 1; transform: scale(1); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes revealLeft {
+  from { opacity: 0; transform: translate3d(-18px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes revealMask {
+  from { clip-path: inset(0 0 0 12%); opacity: .72; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+.hero-image-reveal {
+  animation: heroImageReveal 1.15s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.animate-fade-in-left {
+  animation: revealLeft .72s cubic-bezier(.2,.7,.2,1) both;
+}
+
+[data-scroll-reveal] {
+  opacity: 1;
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal]:not([data-revealed="true"]) {
+  opacity: 0;
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="left"]:not([data-revealed="true"]) {
+  transform: translate3d(-22px, 0, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="right"]:not([data-revealed="true"]) {
+  transform: translate3d(22px, 0, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="up"]:not([data-revealed="true"]) {
+  transform: translate3d(0, 16px, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="mask"]:not([data-revealed="true"]) {
+  clip-path: inset(0 0 0 12%);
+  transform: translate3d(8px, 0, 0);
+}
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="stagger"]:not([data-revealed="true"]) > * {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+}
+
+[data-scroll-reveal="stagger"][data-revealed="true"] > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 460ms cubic-bezier(.2,.7,.2,1), transform 460ms cubic-bezier(.2,.7,.2,1);
+}
+
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(1) { transition-delay: 0ms; }
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(2) { transition-delay: 90ms; }
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(3) { transition-delay: 180ms; }
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(4) { transition-delay: 270ms; }
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(5) { transition-delay: 360ms; }
+[data-scroll-reveal="stagger"][data-revealed="true"] > *:nth-child(6) { transition-delay: 450ms; }
+
+html[data-scroll-reveal-ready="true"] [data-scroll-reveal="stagger"]:not([data-revealed="true"]) > * {
+  transition: opacity 460ms cubic-bezier(.2,.7,.2,1), transform 460ms cubic-bezier(.2,.7,.2,1);
+}
+
+.hero-copy .animate-fade-in-up { animation-delay: 180ms; }
+.hero-copy .animate-fade-in-up.stagger-1 { animation-delay: 360ms; }
+.hero-copy .animate-fade-in-up.stagger-2 { animation-delay: 520ms; }
+
+.img-card-interactive {
+  transition: transform 240ms cubic-bezier(.2,.7,.2,1), box-shadow 240ms ease, border-color 200ms ease;
+}
+
+.img-card-interactive:hover {
+  border-color: rgba(20, 86, 160, .28);
+}
+
+.img-zoom-container img {
+  transition: transform 420ms cubic-bezier(.2,.7,.2,1);
+}
+
+.img-zoom-container:hover img { transform: scale(1.025); }
+
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #1456A0;
+  outline-offset: 3px;
+}
+
+.lightbox-enter { animation: fadeIn .18s ease-out both; }
+.lightbox-panel-enter { animation: fadeInScale .22s cubic-bezier(.2,.7,.2,1) both; }
+.lightbox-image-enter { animation: fadeInScale .28s cubic-bezier(.2,.7,.2,1) both; }
 
 /* Button tactile press effect */
 .btn-tactile {
@@ -191,6 +308,52 @@
 
 .btn-tactile:active {
   transform: scale(0.98);
+}
+
+picture { display: block; }
+
+@keyframes pageTitleEnter {
+  from { opacity: 0; transform: translate3d(-16px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes pageSubtitleEnter {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.page-title-enter { animation: pageTitleEnter 560ms cubic-bezier(.2,.7,.2,1) both; }
+.page-subtitle-enter { animation: pageSubtitleEnter 520ms 110ms cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes toastEnter {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes routeEnter {
+  from { opacity: 0; transform: translate3d(0, 5px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes mobileMenuEnter {
+  from { opacity: .82; transform: translate3d(14px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.dropdown-enter { animation: fadeInScale 150ms cubic-bezier(.2,.7,.2,1) both; }
+.toast-enter { animation: toastEnter 220ms cubic-bezier(.2,.7,.2,1) both; }
+.mobile-backdrop-enter { animation: fadeIn 160ms ease-out both; }
+.mobile-drawer-enter { animation: mobileMenuEnter 220ms cubic-bezier(.2,.7,.2,1) both; }
+
+button:disabled, [role="button"][aria-disabled="true"] { cursor: not-allowed; opacity: .56; }
+input:disabled, select:disabled, textarea:disabled { cursor: not-allowed; background-color: #f1f5f9; }
+
+.route-transition-enter {
+  animation: routeEnter 180ms ease-out both;
+}
+
+.mobile-menu-enter {
+  animation: mobileMenuEnter 220ms cubic-bezier(.2,.7,.2,1) both;
 }
 
 /* Smooth transitions respecting user preferences */
