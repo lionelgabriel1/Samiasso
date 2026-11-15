@@ -36,10 +36,10 @@ export const SobrePage: React.FC = () => {
             <span className="text-[#F28C28] font-semibold">Sobre</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
+          <h1 data-scroll-reveal="left" className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-3">
             Sobre o ITPSS
           </h1>
-          <p className="text-base text-slate-200 max-w-xl">
+          <p data-scroll-reveal className="text-base text-slate-200 max-w-xl">
             Compromisso com a formação de profissionais de saúde.
           </p>
         </div>
@@ -47,7 +47,7 @@ export const SobrePage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {/* Quem Somos */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
+        <div data-scroll-reveal className="bg-white rounded-3xl p-8 sm:p-12 shadow-xs border border-slate-200/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#1456A0] text-xs font-bold">
@@ -241,7 +241,7 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Institutional Pillars - Explicitly 'Em construção' matching mockup & instructions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div data-scroll-reveal className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-8 rounded-2xl border border-slate-200/80 text-center shadow-xs">
             <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#1456A0] mx-auto flex items-center justify-center mb-4">
               <Compass className="w-6 h-6" />
@@ -268,7 +268,7 @@ export const SobrePage: React.FC = () => {
         </div>
 
         {/* Bottom Banner */}
-        <div className="bg-[#10385F] text-white p-8 sm:p-12 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+        <div data-scroll-reveal="scale" className="bg-[#10385F] text-white p-8 sm:p-12 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div>
             <h3 className="text-2xl font-extrabold mb-2">Juntos construímos um futuro na saúde</h3>
             <p className="text-slate-300 text-sm max-w-lg">
