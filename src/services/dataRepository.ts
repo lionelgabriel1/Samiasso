@@ -156,8 +156,34 @@ export function createDataRepository(storage: StorageBackend = getBrowserStorage
     return migrated;
   }
 
+  function migrateCourseImages(records: Course[]): Course[] {
+    let changed = false;
+    const migrated = records.map((course) => {
+      if (
+        course.id === 'analises-clinicas' &&
+        course.image === '/images/Duas estudantes no laboratório.jpg'
+      ) {
+        changed = true;
+        return { ...course, image: '/images/Mulher numa sala cheia de microscópios .jpg' };
+      }
+      if (
+        course.id === 'cardiopneumologia' &&
+        course.image === '/images/Mulher numa sala cheia de microscópios .jpg'
+      ) {
+        changed = true;
+        return { ...course, image: '/images/Duas estudantes no laboratório.jpg' };
+      }
+      return course;
+    });
+
+    if (changed) save(STORAGE_KEYS.courses, migrated);
+    return migrated;
+  }
+
   return {
-    loadCourses: () => migrateImageField(STORAGE_KEYS.courses, load<Course[]>(STORAGE_KEYS.courses, INITIAL_COURSES), 'image'),
+    loadCourses: () => migrateCourseImages(
+      migrateImageField(STORAGE_KEYS.courses, load<Course[]>(STORAGE_KEYS.courses, INITIAL_COURSES), 'image')
+    ),
     saveCourses: (v: Course[]) => save(STORAGE_KEYS.courses, v),
 
     loadPayments: () => load<PaymentItem[]>(STORAGE_KEYS.payments, INITIAL_PAYMENTS),
