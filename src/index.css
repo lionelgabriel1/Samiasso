@@ -166,7 +166,7 @@
 .reveal-left { --reveal-distance: 28px; transform: translate3d(calc(var(--reveal-distance) * -1), 0, 0); }
 .reveal-right { --reveal-distance: 28px; transform: translate3d(var(--reveal-distance), 0, 0); }
 .reveal-scale { transform: scale(0.97); }
-.reveal-image { opacity: 1; transform: none; overflow: hidden; position: relative; }
+.reveal-image { opacity: 1; transform: none; overflow: hidden; }
 .reveal-image::after {
   content: '';
   position: absolute;
