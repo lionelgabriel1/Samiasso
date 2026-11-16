@@ -57,7 +57,7 @@ export const INITIAL_COURSES: Course[] = [
     name: 'Análises Clínicas',
     description: 'Capacita para a realização de exames laboratoriais e apoio no diagnóstico clínico.',
     monthlyFee: 25000,
-    image: '/images/Duas estudantes no laboratório.jpg',
+    image: '/images/Mulher numa sala cheia de microscópios .jpg',
     classes: ['10ª Classe', '11ª Classe'],
     careerOpportunities: [
       'Laboratórios de Análises Clínicas',
@@ -72,7 +72,7 @@ export const INITIAL_COURSES: Course[] = [
     name: 'Cardiopneumologia',
     description: 'Prepara para o acompanhamento de pacientes com doenças do coração e do sistema respiratório.',
     monthlyFee: 27500,
-    image: '/images/Mulher numa sala cheia de microscópios .jpg',
+    image: '/images/Duas estudantes no laboratório.jpg',
     classes: ['10ª Classe', '11ª Classe'],
     careerOpportunities: [
       'Unidades de Cardiologia e Pneumologia',
